@@ -5,7 +5,9 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 def main(request):
@@ -15,6 +17,11 @@ def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
+            user_form = form.save(commit=False)
+            if request.POST.get('job') == '2':
+                user_form.is_staff = True
+            elif request.POST.get('job') == '1':
+                user_form.is_user = True
             form.save()
             return redirect('accounts:main')
     else:
