@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from gc import get_objects
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Restaurant
 from .forms import RestaurantForm, CommentForm
 from django.core.paginator import Paginator
@@ -117,3 +118,18 @@ def delete_comment(request, pk, comment_pk):
     comment = Comment.objects.get(pk=comment_pk)
     comment.delete()
     return redirect("articles:detail", pk)
+
+
+def likes(request, pk):
+    
+    if request.user.is_authenticated:
+        restaurant = get_object_or_404(Restaurant, id=pk)
+
+        if restaurant.like_users.filter(pk=request.user.pk).exists():
+            restaurant.like_users.remove(request.user)
+
+        else:
+            restaurant.like_users.add(request.user)
+        return redirect('articles:detail', pk)
+    return redirect('articles:detail', pk)
+

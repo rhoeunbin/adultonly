@@ -21,11 +21,21 @@
           <i class="fa fa-comment" aria-hidden="true"></i>
           {{ total_comments }}</p>
       </div>
-      {% if restaurant.image %}
-        <img src="{{ restaurant.image.url }}" alt="{{ restaurant.image }}" width="100%" height="300">
-      {% endif %}
+      <img src="{{ restaurant.image.url }}" alt="{{ restaurant.img_path }}" class="card-img d-block user-select-none" width="100%" height="200" viewbox="0 0 318 180">
       <div class="card-body" style="min-height: 250px">
         <p class="card-text text-wrap">{{ restaurant.content|striptags }}</p>
+        <form action="{% url 'articles:likes' restaurant.pk %}" method='POST'>
+          {% csrf_token %}
+          {% if user in restaurant.like_users.all %}
+            <button class="btn btn-link text-danger">
+              <i class="fa-solid fa-heart fa-lg">좋아요 취소</i>
+            </button>
+          {% else %}
+            <button class="btn btn-link text-black">
+              <i class="fa-regular fa-heart fa-lg">좋아요</i>
+            </button>
+          {% endif %}
+        </form>
       </div>
     </div>
     <!--게시글 아래 버튼 묶음-->
