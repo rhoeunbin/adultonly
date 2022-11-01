@@ -1,12 +1,16 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 class Restaurant(models.Model):
     title = models.CharField(max_length=80)
-    content = models.TextField()
-    image = models.ImageField(upload_to="image/", blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    address = models.TextField()
+    image = models.ImageField(upload_to='articles/', blank=True)
+    # img_path = models.URLField()
+    food_type = models.CharField(max_length=80)
+    opening_hours = models.TextField()
+    grade = models.FloatField()
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_restaurant')
     # user, 좋아요 추가하기
 
 
