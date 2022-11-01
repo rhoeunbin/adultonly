@@ -52,9 +52,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # apps
     "accounts",
     "articles",
+    # pkg
     "django_bootstrap5",
+    "django_extensions",
+    "star_ratings",
+    # default
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
