@@ -7,7 +7,11 @@
     <form action="" method='POST'>
       {% csrf_token %}
       {% bootstrap_form form %}
-      <input class="btn btn-primary" type="button" value="제출">
+      <input name="job" required="required" type="checkbox" value="1" onclick="doOpenCheck(this);">일반인
+      <br/>
+      <input name="job" required="required" type="checkbox" value="2" onclick="doOpenCheck(this);">사장님
+      <br/>
+      <button class="btn btn-primary" type="submit">제출</button>
     </form>
   </div>
 {% endblock content %}
