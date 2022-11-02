@@ -28,7 +28,7 @@
           <tr class="table-active">
             <th scope="row">{{ forloop.revcounter }}</th>
             <td class="d-flex justify-content-between">
-              <a href="{% url 'communities:detail' pk %}">{{ post.title }}</a>
+              <a href="{% url 'communities:detail' post.pk %}">{{ post.title }}</a>
               <span>
                 <i class="fa-solid fa-comment"></i>{{ post.comment_set.all|length }}</span>
             </td>

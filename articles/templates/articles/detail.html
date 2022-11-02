@@ -23,11 +23,11 @@
         <p class="card-subtitle text-muted">{{ restaurant.created_at }}</p>
         <p class="card-subtitle text-muted">
           <i class="fa fa-comment" aria-hidden="true"></i>
-          {{ total_comments }}</p>
+          {{ restaurant.comment_set.all|length }}</p>
       </div>
       <img src="{{ restaurant.image.url }}" alt="{{ restaurant.img_path }}" class="card-img d-block user-select-none" width="100%" height="200" viewbox="0 0 318 180">
       <div class="card-body" style="min-height: 250px">
-        <p class="card-text text-wrap">{{ restaurant.content|striptags }}</p>
+        <p class="card-text text-wrap">{{ restaurant.content }}</p>
         <form action="{% url 'articles:likes' restaurant.pk %}" method='POST'>
           {% csrf_token %}
           {% if user in restaurant.like_users.all %}
@@ -79,7 +79,7 @@
     <div class="card my-5">
       <div class="card-header">
         <i class="fa-regular fa-comment-smile"></i>리뷰
-        {{ total_comments }}개</h6>
+        {{ restaurant.comment_set.all|length }}개</h6>
     </div>
     <div class="card-body">
       <ul class="list-group list-group-flush">
@@ -113,9 +113,9 @@
 {% block js %}
 
 <script type="text/javascript">
+
   var lon = {{ longitude }}
   var lat = {{ latitude }}
-
   var map = new naver
     .maps
     .Map('map', {

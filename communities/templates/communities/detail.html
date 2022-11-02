@@ -32,7 +32,7 @@
       <a href="{% url 'communities:board' %}" type="button" class="card-link btn btn-secondary">
         <i class="fas fa-stream mx-1"></i>목록</a>
       <div>
-        <a href="{% url 'communities:update' restaurant.pk %}" type="button" class="card-link btn btn-secondary">수정</a>
+        <a href="{% url 'communities:update' post.pk %}" type="button" class="card-link btn btn-secondary">수정</a>
         <button type="button" class="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
           삭제
         </button>
@@ -49,7 +49,7 @@
             </button>
           </div>
           <div class="modal-footer">
-            <form action="{% url 'communities:delete' restaurant.pk %}" method="POST">
+            <form action="{% url 'communities:delete' post.pk %}" method="POST">
               {% csrf_token %}
               <input type="submit" class="btn btn-danger" value="삭제">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -75,7 +75,7 @@
             <p>{{ comment.content }}</p>
             <div>
               <a href="#" type="button" class="btn btn-primary btn-sm">수정</a>
-              <a href="{% url 'communities:delete_comment' article.pk comment.pk %}" method="post">삭제
+              <a href="{% url 'communities:delete_comment' post.pk comment.pk %}" method="post">삭제
               </a>
             </div>
           </li>
@@ -85,7 +85,7 @@
       </ul>
     </div>
     <div class="card-footer">
-      <form action="{% url 'communities:create_comment' restaurant.pk %}" method="post">
+      <form action="{% url 'communities:create_comment' post.pk %}" method="post">
         {% csrf_token %}
         {% bootstrap_form comment_form %}
         <button type="submit" class="btn btn-primary btn-sm">등록</button>

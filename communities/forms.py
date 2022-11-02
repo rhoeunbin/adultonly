@@ -21,7 +21,7 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = [
-            "user" "content",
+            "content",
             "image",
         ]
         labels = {

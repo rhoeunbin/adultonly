@@ -55,7 +55,7 @@ def detail(request, pk):
         "restaurant": restaurant,
         "comments": restaurant.comment_set.all(),
         "comment_form": comment_form,
-        "total_comments": restaurant.comment_set.count(),
+        # "total_comments": restaurant.comment_set.count(),
         "latitude": lat,
         "longitude": lon,
     }
