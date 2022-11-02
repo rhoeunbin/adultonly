@@ -103,3 +103,15 @@ def delete(request):
     request.user.delete()
     auth_logout(request)
     return redirect('articles:index')
+
+@login_required
+def follow(request, pk):
+    user = get_user_model().objects.get(pk=pk)
+
+    if request.user == user:
+        return redirect('accounts:profile', pk)
+    if request.user in user.followers.all():
+        user.followings.remove(request.user)
+    else:
+        user.followings.add(request.user)
+    return redirect('accounts:profile',pk)
