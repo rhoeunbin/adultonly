@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Restaurant
 from .forms import RestaurantForm, CommentForm
 from django.core.paginator import Paginator
+from .utils import get_latitude_longitude
 
 # from django.contrib.auth.decorators import login_required
 
@@ -44,14 +45,18 @@ def board(request):
 #         "total_comments": restaurant.comment_set.count(),
 #     }
 #     return render(request, "articles/detail.html", context)
+
 def detail(request, pk):
     restaurant = Restaurant.objects.get(pk=pk)
+    lat, lon = get_latitude_longitude(restaurant.address)
     comment_form = CommentForm()
     context = {
         "restaurant": restaurant,
         "comments": restaurant.comment_set.all(),
         "comment_form": comment_form,
         "total_comments": restaurant.comment_set.count(),
+        "latitude" : lat,
+        "longitude" : lon,
     }
 
     return render(request, "articles/detail.html", context)

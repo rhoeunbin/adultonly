@@ -8,6 +8,7 @@ class Restaurant(models.Model):
     title = models.CharField(max_length=80)
     content = models.TextField()
     address = models.TextField()
+    address_detail = models.TextField()
     image = models.ImageField(upload_to='articles/', blank=True)
     # img_path = models.URLField()
     food_type = models.CharField(max_length=80)
