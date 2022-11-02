@@ -3,7 +3,7 @@
 {% load static %}
 {% load django_bootstrap5 %}
 
-{% block title %}{{ restaurant.title }}
+{% block title %} {{ restaurant.title }}
 {% endblock title %}
 
 {% block content %}
@@ -12,7 +12,6 @@
 
   <section class="container-lg">
     <!--게시글 디테일-->
-    <div id="map" style="width:25%; height:25vh;"></div>
     <div style="height: 235px"></div>
     <div class="card mb-3">
       <div class="card-header">
@@ -100,15 +99,18 @@
       </ul>
     </div>
     <div class="card-footer">
-      <form action="{% url 'articles:create_comment' restaurant.pk %}" method="post">
+      <form action="{% url 'articles:create_comment' article.pk %}" method="post">
         {% csrf_token %}
-        {% bootstrap_form comment_form %}
+        {% bootstrap_form form %}
         <button type="submit" class="btn btn-primary btn-sm">등록</button>
       </form>
     </div>
   </div>
 </section>
-// Naver Map
+{% endblock content %}
+
+{% block js %}
+
 <script type="text/javascript">
   var lon = {{ longitude }}
   var lat = {{ latitude }}
@@ -131,5 +133,6 @@
     });
   // Naver Map
 </script>
-{% endblock content %}
-{% block js %}{% endblock js %}
+
+{% endblock js %}
+
