@@ -6,13 +6,9 @@
 {% block title %}{{ restaurant.title }}
 {% endblock title %}
 
-{% block main %}
-<!-- Naver Map -->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7t25gt1gch"></script>
-
+{% block content %}
   <section class="container-lg">
     <!--게시글 디테일-->
-    <div id="map" style="width:25%; height:25vh;"></div>
     <div style="height: 235px"></div>
     <div class="card mb-3">
       <div class="card-header">
@@ -100,36 +96,13 @@
       </ul>
     </div>
     <div class="card-footer">
-      <form action="{% url 'articles:create_comment' restaurant.pk %}" method="post">
+      <form action="{% url 'articles:create_comment' article.pk %}" method="post">
         {% csrf_token %}
-        {% bootstrap_form comment_form %}
+        {% bootstrap_form form %}
         <button type="submit" class="btn btn-primary btn-sm">등록</button>
       </form>
     </div>
   </div>
 </section>
-// Naver Map
-<script type="text/javascript">
-  var lon = {{ longitude }}
-  var lat = {{ latitude }}
-  
-  var map = new naver
-    .maps
-    .Map('map', {
-      center: new naver
-        .maps
-        .LatLng(lat, lon), 
-      zoom: 20
-    });
-  var marker = new naver
-    .maps
-    .Marker({
-      position: new naver
-        .maps
-        .LatLng(lat, lon),
-      map: map
-    });
-  // Naver Map
-</script>
-{% endblock main %}
+{% endblock content %}
 {% block js %}{% endblock js %}
