@@ -3,16 +3,17 @@
 {% load static %}
 {% load django_bootstrap5 %}
 
-{% block title %} {{ restaurant.title }}
+{% block title %}
+  {{ restaurant.title }}
 {% endblock title %}
 
 {% block content %}
-<!-- Naver Map -->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8mgf46z68o"></script>
+  <!-- Naver Map -->
+  <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8mgf46z68o"></script>
 
   <section class="container-lg">
     <!--게시글 디테일-->
-    <div style="height: 235px"></div>
+    <div id="map" style="height: 235px"></div>
     <div class="card mb-3">
       <div class="card-header">
         <h3>{{ restaurant.title }}</h3>
@@ -22,11 +23,11 @@
         <p class="card-subtitle text-muted">{{ restaurant.created_at }}</p>
         <p class="card-subtitle text-muted">
           <i class="fa fa-comment" aria-hidden="true"></i>
-          {{ total_comments }}</p>
+          {{ restaurant.comment_set.all|length }}</p>
       </div>
       <img src="{{ restaurant.image.url }}" alt="{{ restaurant.img_path }}" class="card-img d-block user-select-none" width="100%" height="200" viewbox="0 0 318 180">
       <div class="card-body" style="min-height: 250px">
-        <p class="card-text text-wrap">{{ restaurant.content|striptags }}</p>
+        <p class="card-text text-wrap">{{ restaurant.content }}</p>
         <form action="{% url 'articles:likes' restaurant.pk %}" method='POST'>
           {% csrf_token %}
           {% if user in restaurant.like_users.all %}
@@ -78,7 +79,7 @@
     <div class="card my-5">
       <div class="card-header">
         <i class="fa-regular fa-comment-smile"></i>리뷰
-        {{ total_comments }}개</h6>
+        {{ restaurant.comment_set.all|length }}개</h6>
     </div>
     <div class="card-body">
       <ul class="list-group list-group-flush">
@@ -89,7 +90,7 @@
             <p>{{ comment.content }}</p>
             <div>
               <a href="#" type="button" class="btn btn-primary btn-sm">수정</a>
-              <a href="{% url 'articles:delete_comment' article.pk comment.pk %}" method="post">삭제
+              <a href="{% url 'articles:delete_comment' restaurant.pk comment.pk %}" method="post">삭제
               </a>
             </div>
           </li>
@@ -99,9 +100,9 @@
       </ul>
     </div>
     <div class="card-footer">
-      <form action="{% url 'articles:create_comment' article.pk %}" method="post">
+      <form action="{% url 'articles:create_comment' restaurant.pk %}" method="post">
         {% csrf_token %}
-        {% bootstrap_form form %}
+        {% bootstrap_form comment_form %}
         <button type="submit" class="btn btn-primary btn-sm">등록</button>
       </form>
     </div>
@@ -112,15 +113,23 @@
 {% block js %}
 
 <script type="text/javascript">
-  var lon = {{ longitude }}
-  var lat = {{ latitude }}
-  
+  var lon = {
+    {
+      longitude
+    }
+  }
+  var lat = {
+    {
+      latitude
+    }
+  }
+
   var map = new naver
     .maps
     .Map('map', {
       center: new naver
         .maps
-        .LatLng(lat, lon), 
+        .LatLng(lat, lon),
       zoom: 20
     });
   var marker = new naver
@@ -135,4 +144,3 @@
 </script>
 
 {% endblock js %}
-

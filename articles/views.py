@@ -1,6 +1,6 @@
 from gc import get_objects
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Restaurant
+from .models import Restaurant, Comment
 from .forms import RestaurantForm, CommentForm
 from django.core.paginator import Paginator
 from .utils import get_latitude_longitude
@@ -55,7 +55,7 @@ def detail(request, pk):
         "restaurant": restaurant,
         "comments": restaurant.comment_set.all(),
         "comment_form": comment_form,
-        "total_comments": restaurant.comment_set.count(),
+        # "total_comments": restaurant.comment_set.count(),
         "latitude": lat,
         "longitude": lon,
     }

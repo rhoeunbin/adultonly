@@ -28,7 +28,7 @@ def detail(request, pk):
         "comment_form": comment_form,
         "total_comments": post.comment_set.count(),
     }
-    return render(request, "articles/detail.html", context)
+    return render(request, "communities/detail.html", context)
 
 
 @login_required
@@ -98,7 +98,7 @@ def create_comment(request, pk):
         comment.user = request.user
         comment.save()
         context = {"content": comment.content, "username": comment.user.username}
-    return redirect("articles:detail", post.pk)
+    return redirect("communities:detail", post.pk)
 
 
 @login_required
@@ -107,7 +107,7 @@ def delete_comment(request, pk, comment_pk):
     if request.user == comment.user:
         comment.delete()
         messages.success(request, "댓글이 삭제되었습니다.")
-        return redirect("articles:detail", pk)
+        return redirect("communities:detail", pk)
     else:
         messages.warning(request, "작성자만 삭제할 수 있습니다.")
         return redirect("cummunities:detail", pk)

@@ -11,7 +11,7 @@
   <section class="container-lg">
     <form action="" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
-      {% bootstrap_form form %}
+      {% bootstrap_form post_form %}
       <div class="form-group my-3">
         <button type="submit" class="btn btn-primary">등록</button>
         <a href="{% url 'communities:board' %}" class="btn btn-default mx-3">취소</a>
