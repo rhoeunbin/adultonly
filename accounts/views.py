@@ -49,7 +49,7 @@ def login(request):
         }
         return render(request, 'accounts/login.html', context)
     else:
-        return redirect('accounts:main')
+        return redirect('accounts:index')
 
 def logout(request):
     auth_logout(request)
@@ -60,7 +60,7 @@ def index(request):
     context = {
         'users': users,
     }
-    return render(request, 'accounts:index.html', context)
+    return render(request, 'accounts/index.html', context)
 
 def profile(request, pk):
     user = get_user_model().objects.get(pk=pk)
@@ -102,4 +102,4 @@ def change_password(request):
 def delete(request):
     request.user.delete()
     auth_logout(request)
-    return redirect('index')
+    return redirect('articles:index')
