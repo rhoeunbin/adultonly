@@ -1,0 +1,42 @@
+html {
+    height: 100%;
+}
+body {
+    image-rendering: pixelated;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    height: 100%;
+}
+/* body::before {
+    opacity: 0.5;
+
+} */
+.card_makes {
+    width: 40rem;
+    height: auto;
+    border-radius: 2rem;
+    box-shadow: 5px 5px 5px 5px rgb(0, 0, 0);
+    color: white;
+    padding-bottom: 1rem;
+}
+.main_img {
+    display: flex;
+    justify-content: center;
+}
+
+.main_mark {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btn {
+    margin-top: 1rem;
+}
+
+.main_content {
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
