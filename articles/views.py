@@ -23,7 +23,7 @@ def home(request):
 def board(request):
     page = request.GET.get("page", "1")
     restaurants = Restaurant.objects.order_by("-pk")
-    paginator = Paginator(restaurants, 10)
+    paginator = Paginator(restaurants, 6)
     page_obj = paginator.get_page(page)
     context = {
         "restaurants": page_obj,
@@ -46,6 +46,7 @@ def board(request):
 #     }
 #     return render(request, "articles/detail.html", context)
 
+
 def detail(request, pk):
     restaurant = Restaurant.objects.get(pk=pk)
     lat, lon = get_latitude_longitude(restaurant.address)
@@ -55,8 +56,8 @@ def detail(request, pk):
         "comments": restaurant.comment_set.all(),
         "comment_form": comment_form,
         "total_comments": restaurant.comment_set.count(),
-        "latitude" : lat,
-        "longitude" : lon,
+        "latitude": lat,
+        "longitude": lon,
     }
 
     return render(request, "articles/detail.html", context)
@@ -126,7 +127,7 @@ def delete_comment(request, pk, comment_pk):
 
 
 def likes(request, pk):
-    
+
     if request.user.is_authenticated:
         restaurant = get_object_or_404(Restaurant, id=pk)
 
@@ -135,6 +136,5 @@ def likes(request, pk):
 
         else:
             restaurant.like_users.add(request.user)
-        return redirect('articles:detail', pk)
-    return redirect('articles:detail', pk)
-
+        return redirect("articles:detail", pk)
+    return redirect("articles:detail", pk)

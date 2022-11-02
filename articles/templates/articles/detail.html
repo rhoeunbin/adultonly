@@ -3,10 +3,10 @@
 {% load static %}
 {% load django_bootstrap5 %}
 
-{% block title %}{{ restaurant.title }}
+{% block title %} {{ restaurant.title }}
 {% endblock title %}
 
-{% block main %}
+{% block content %}
 <!-- Naver Map -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7t25gt1gch"></script>
 
@@ -108,6 +108,8 @@
     </div>
   </div>
 </section>
+{% endblock content %}
+{% block js %}
 // Naver Map
 <script type="text/javascript">
   var lon = {{ longitude }}
@@ -131,5 +133,4 @@
     });
   // Naver Map
 </script>
-{% endblock main %}
-{% block js %}{% endblock js %}
+{% endblock js %}
