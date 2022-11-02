@@ -32,4 +32,3 @@ class CommentForm(forms.ModelForm):
             "content": "후기",
             "image": "사진",
         }
-

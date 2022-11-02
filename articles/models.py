@@ -6,7 +6,7 @@ from django.conf import settings
 # Create your models here.
 class Restaurant(models.Model):
     title = models.CharField(max_length=80)
-    # content = models.TextField()
+    content = models.TextField()
     address = models.TextField()
     image = models.ImageField(upload_to='articles/', blank=True)
     # img_path = models.URLField()
