@@ -113,17 +113,9 @@
 {% block js %}
 
 <script type="text/javascript">
-  var lon = {
-    {
-      longitude
-    }
-  }
-  var lat = {
-    {
-      latitude
-    }
-  }
 
+  var lon = {{ longitude }}
+  var lat = {{ latitude }}
   var map = new naver
     .maps
     .Map('map', {
