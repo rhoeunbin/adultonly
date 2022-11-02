@@ -3,10 +3,14 @@
 {% load static %}
 {% load django_bootstrap5 %}
 
-{% block title %}{{ restaurant.title }}
+{% block title %} {{ restaurant.title }}
 {% endblock title %}
 
 {% block content %}
+
+<!-- Naver Map -->
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7t25gt1gch"></script>
+
   <section class="container-lg">
     <!--게시글 디테일-->
     <div style="height: 235px"></div>
@@ -105,4 +109,29 @@
   </div>
 </section>
 {% endblock content %}
-{% block js %}{% endblock js %}
+
+{% block js %}
+// Naver Map
+<script type="text/javascript">
+  var lon = {{ longitude }}
+  var lat = {{ latitude }}
+  
+  var map = new naver
+    .maps
+    .Map('map', {
+      center: new naver
+        .maps
+        .LatLng(lat, lon), 
+      zoom: 20
+    });
+  var marker = new naver
+    .maps
+    .Marker({
+      position: new naver
+        .maps
+        .LatLng(lat, lon),
+      map: map
+    });
+  // Naver Map
+</script>
+{% endblock js %}
