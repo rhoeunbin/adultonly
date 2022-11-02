@@ -7,9 +7,8 @@
 {% endblock title %}
 
 {% block content %}
-
 <!-- Naver Map -->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7t25gt1gch"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8mgf46z68o"></script>
 
   <section class="container-lg">
     <!--게시글 디테일-->
@@ -111,7 +110,7 @@
 {% endblock content %}
 
 {% block js %}
-// Naver Map
+
 <script type="text/javascript">
   var lon = {{ longitude }}
   var lat = {{ latitude }}
@@ -134,4 +133,6 @@
     });
   // Naver Map
 </script>
+
 {% endblock js %}
+
