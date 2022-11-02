@@ -2,15 +2,39 @@
 {% load static %}
 {% load django_bootstrap5 %}
 
-
 {% block title %}
   맛집
 {% endblock title %}
 
-
 {% block content %}
+  <div class="select_tag">
+    <div class="tag_list">
+      <img src="{% static 'images/board/fire.png' %}" style="weight:24px; height:24px;" alt="">
+      <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Hot</p>
+    </div>
+    <div class="tag_list">
+      <img src="{% static 'images/board/near.png' %}" style="weight:24px; height:24px;" alt="">
+      <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Near</p>
+    </div>
+    <div class="tag_list">
+      <img src="{% static 'images/board/like.png' %}" style="weight:24px; height:24px;" alt="">
+      <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Like</p>
+    </div>
+    <div class="tag_list">
+      <img src="{% static 'images/board/beer.png' %}" style="weight:24px; height:24px;" alt="">
+      <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Beer</p>
+    </div>
+    <div class="tag_list">
+      <img src="{% static 'images/board/wine.png' %}" style="weight:24px; height:24px;" alt="">
+      <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Wine</p>
+    </div>
+    <div class="tag_list">
+      <img src="{% static 'images/board/desserts.png' %}" style="weight:24px; height:24px;" alt="">
+      <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Desserts</p>
+    </div>
+  </div>
   <section class="container-lg">
-    <h1 class="my-5 text-center">
+    <h1 class="text-center">
       맛집 리스트
     </h1>
     <a href="{% url 'articles:create' %}" type="button" class="btn btn-primary mb-4">맛집 등록</a>

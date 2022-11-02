@@ -57,7 +57,7 @@ table {
 .slidebox .slidelist {
     position:relative;
     white-space:nowrap;
-    overflow:hidden;
+    /* overflow:hidden; */
 }
 
 .slidebox .slidelist .slideitem {
@@ -65,7 +65,8 @@ table {
     position:relative;
     display:inline-block;
     vertical-align:middle;
-    background-color: rgb(228, 228, 225);
+    /* background-color:linear-gradient(rgba(0, 0, 0, 0.7), rgba(125,125,125,0.7)); */
+    background-color: white;
     width:100%;
     transition:all 1s;
 }
@@ -105,3 +106,33 @@ table {
 #slide02:checked ~ .slide-control .control02 {display:block;}
 #slide03:checked ~ .slide-control .control03 {display:block;}
 #slide04:checked ~ .slide-control .control04 {display:block;}
+
+.main_back {
+    background: linear-gradient(rgba(125,125,125,0.9), rgba(125,125,125,0.9)), url(../images/home/back_1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.select_tag {
+    width: 90%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+.select_tag div[class="tag_list"] {
+    border: 1px solid rgb(255, 255, 255);
+    background-color: white;
+    border-radius: 1rem;
+    width: 7vw;
+    height: 8vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;   
+}
+
+.select_tag div[class="tag_list"]:hover {
+    cursor: pointer;
+}
