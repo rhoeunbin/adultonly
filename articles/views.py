@@ -1,6 +1,6 @@
 from gc import get_objects
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Restaurant
+from .models import Restaurant, Comment
 from .forms import RestaurantForm, CommentForm
 from django.core.paginator import Paginator
 from .utils import get_latitude_longitude

@@ -21,7 +21,7 @@ class Restaurant(models.Model):
 
 
 class Comment(models.Model):
-    article = models.ForeignKey("Restaurant", on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     title = models.CharField(max_length=80)
     rating = models.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(5)]

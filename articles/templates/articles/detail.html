@@ -3,16 +3,17 @@
 {% load static %}
 {% load django_bootstrap5 %}
 
-{% block title %} {{ restaurant.title }}
+{% block title %}
+  {{ restaurant.title }}
 {% endblock title %}
 
 {% block content %}
-<!-- Naver Map -->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8mgf46z68o"></script>
+  <!-- Naver Map -->
+  <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7t25gt1gch"></script>
 
   <section class="container-lg">
     <!--게시글 디테일-->
-    <div style="height: 235px"></div>
+    <div id="map" style="height: 235px"></div>
     <div class="card mb-3">
       <div class="card-header">
         <h3>{{ restaurant.title }}</h3>
@@ -89,7 +90,7 @@
             <p>{{ comment.content }}</p>
             <div>
               <a href="#" type="button" class="btn btn-primary btn-sm">수정</a>
-              <a href="{% url 'articles:delete_comment' article.pk comment.pk %}" method="post">삭제
+              <a href="{% url 'articles:delete_comment' restaurant.pk comment.pk %}" method="post">삭제
               </a>
             </div>
           </li>
@@ -99,9 +100,9 @@
       </ul>
     </div>
     <div class="card-footer">
-      <form action="{% url 'articles:create_comment' article.pk %}" method="post">
+      <form action="{% url 'articles:create_comment' restaurant.pk %}" method="post">
         {% csrf_token %}
-        {% bootstrap_form form %}
+        {% bootstrap_form comment_form %}
         <button type="submit" class="btn btn-primary btn-sm">등록</button>
       </form>
     </div>
@@ -114,13 +115,13 @@
 <script type="text/javascript">
   var lon = {{ longitude }}
   var lat = {{ latitude }}
-  
+
   var map = new naver
     .maps
     .Map('map', {
       center: new naver
         .maps
-        .LatLng(lat, lon), 
+        .LatLng(lat, lon),
       zoom: 20
     });
   var marker = new naver
@@ -135,4 +136,3 @@
 </script>
 
 {% endblock js %}
-
