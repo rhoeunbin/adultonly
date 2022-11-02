@@ -3,18 +3,12 @@
 {% load static %}
 {% load django_bootstrap5 %}
 
-{% block title %}
-  자유게시판
-{% endblock title %}
-
 {% block content %}
-  <section class="container-lg">
-    <h1 class="my-5 text-center">
-      자유게시판
-    </h1>
+  <section class="container-lg py-5">
+    <h1 class="text-center">자유게시판</h1>
     <a href="{% url 'communities:create' %}" type="button" class="btn btn-primary mb-4">글쓰기</a>
     <!-- 게시글 목록 -->
-    <table class="table table-hover">
+    <table class="table table-hover" style="border-radius: 1rem; box-shadow: 5px 5px 5px 5px black; margin-bottom: 3rem;">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -27,16 +21,20 @@
         {% for post in posts %}
           <tr class="table-active">
             <th scope="row">{{ forloop.revcounter }}</th>
-            <td class="d-flex justify-content-between">
-              <a href="{% url 'communities:detail' post.pk %}">{{ post.title }}</a>
-              <span>
-                <i class="fa-solid fa-comment"></i>{{ post.comment_set.all|length }}</span>
+            <td style="background-color: linear-gradient(rgba(125,125,125,0.9), rgba(125,125,125,0.9));">
+              <div class="d-flex justify-content-between">
+                <a href="{% url 'communities:detail' post.pk %}">{{ post.title }}</a>
+                <span>
+                  <i class="fa-solid fa-comment"></i>{{ post.comment_set.all|length }}</span>
+              </div>
             </td>
-            <td>
-              <span class="thumb_profile">
+            <td style="background-color: linear-gradient(rgba(125,125,125,0.9), rgba(125,125,125,0.9));">
+              <div class="thumb_profile">
                 <img src="{% static 'img/anonymous.png' %}" class="img_profile" alt="프로필사진">
-              </span>{{ post.user }}</td>
-            <td>{{ post.created_at }}</td>
+              </div>
+              {{ post.user }}
+            </td>
+            <td style="background-color: linear-gradient(rgba(125,125,125,0.9), rgba(125,125,125,0.9));">{{ post.created_at }}</td>
           </tr>
         {% endfor %}
       </tbody>
