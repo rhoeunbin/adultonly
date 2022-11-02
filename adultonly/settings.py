@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     # apps
     "accounts",
     "articles",
+    "communities",
     # pkg
     "django_bootstrap5",
     "django_extensions",
@@ -159,4 +160,4 @@ MEDIA_URL = "/media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = "accounts.User"
