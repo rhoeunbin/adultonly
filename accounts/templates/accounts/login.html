@@ -4,7 +4,7 @@
 {% block content %}
   <div class="container mb-5">
     <h1 class="text-center my-5">login</h1>
-    <form action="" method='POST'>
+    <form action="{% url 'accounts:login' %}" method='POST'>
       {% csrf_token %}
       {% bootstrap_form form %}
       <input class="btn btn-primary" type="submit" value="제출">
