@@ -16,6 +16,7 @@ body {
     height: auto;
     border-radius: 2rem;
     box-shadow: 5px 5px 5px 5px rgb(0, 0, 0);
+    background-color: rgba(0,0,0,.4);
     color: white;
     padding-bottom: 1rem;
 }
