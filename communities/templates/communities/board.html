@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+  자유게시판
+{% endblock title %}
+
+{% block content %}
+  <section class="container-lg">
+    <h1 class="my-5 text-center">
+      자유게시판
+    </h1>
+    <a href="{% url 'communities:create' %}" type="button" class="btn btn-primary mb-4">글쓰기</a>
+    <!-- 게시글 목록 -->
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">제목</th>
+          <th scope="col">작성자</th>
+          <th scope="col">등록일</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+          <tr class="table-active">
+            <th scope="row">{{ forloop.revcounter }}</th>
+            <td class="d-flex justify-content-between">
+              <a href="{% url 'communities:detail' pk %}">{{ post.title }}</a>
+              <span>
+                <i class="fa-solid fa-comment"></i>{{ post.comment_set.all|length }}</span>
+            </td>
+            <td>
+              <span class="thumb_profile">
+                <img src="{% static 'img/anonymous.png' %}" class="img_profile" alt="프로필사진">
+              </span>{{ post.user }}</td>
+            <td>{{ post.created_at }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <!-- 페이징처리 시작 -->
+    <ul class="pagination justify-content-center">
+      <!-- 이전페이지 -->
+      {% if posts.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ posts.previous_page_number }}">이전</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+        </li>
+      {% endif %}
+      <!-- 페이지리스트 -->
+      {% for page_number in posts.paginator.page_range %}
+        {% if page_number == posts.number %}
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+          </li>
+        {% else %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+      <!-- 다음페이지 -->
+      {% if posts.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ posts.next_page_number }}">다음</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+        </li>
+      {% endif %}
+    </ul>
+    <!-- 페이징처리 끝 -->
+  </section>
+{% endblock content %}
+{% block js %}{% endblock js %}
