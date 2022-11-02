@@ -1,18 +1,22 @@
 {% extends 'base.html' %}
+
 {% load static %}
 {% load django_bootstrap5 %}
+
+{% block title %}
+  {{ restaurant.title }}
+{% endblock title %}
+
 {% block content %}
   <section class="container-lg">
-    <h1 class="my-5 text-center">
-      맛집 등록
-    </h1>
     <form action="" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
-      {% bootstrap_form restaurant_form %}
+      {% bootstrap_form post_form %}
       <div class="form-group my-3">
         <button type="submit" class="btn btn-primary">등록</button>
-        <a href="{% url 'articles:board' %}" class="btn btn-default mx-3">취소</a>
+        <a href="{% url 'communities:board' %}" class="btn btn-default mx-3">취소</a>
       </div>
     </form>
   </section>
 {% endblock content %}
+{% block js %}{% endblock js %}

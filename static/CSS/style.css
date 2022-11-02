@@ -18,6 +18,19 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
+
+.thumb_profile {
+    display: inline-block;
+    overflow: hidden;
+    line-height: 1;
+    vertical-align: middle;
+    flex-shrink: 0;
+    border-radius: 50% ; 
+    height: 32px;
+    width: 32px;
+}
+
 body {
 	line-height: 1;
 }
