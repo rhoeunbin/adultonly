@@ -191,4 +191,6 @@ table {
 }
 
 /* login css */
-
+.submitbtn {
+    color: #666666;
+}
