@@ -4,79 +4,77 @@
 {% load django_bootstrap5 %}
 
 {% block content %}
-  <div class="main_back">
-    <section class="container-lg py-5">
-      <h1 class="text-center">자유게시판</h1>
-      <a href="{% url 'communities:create' %}" type="button" class="btn btn-primary mb-4">글쓰기</a>
-      <!-- 게시글 목록 -->
-      <table class="table table-hover" style="border-radius: 1rem; box-shadow: 5px 5px 5px 5px black; margin-bottom: 3rem;">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">제목</th>
-            <th scope="col">작성자</th>
-            <th scope="col">등록일</th>
+  <section class="container-lg py-5">
+    <h1 class="text-center">자유게시판</h1>
+    <a href="{% url 'communities:create' %}" type="button" class="btn btn-primary mb-4">글쓰기</a>
+    <!-- 게시글 목록 -->
+    <table class="table table-hover" style="border-radius: 1rem; box-shadow: 5px 5px 5px 5px black; margin-bottom: 3rem;">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">제목</th>
+          <th scope="col">작성자</th>
+          <th scope="col">등록일</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+          <tr class="table-active">
+            <th scope="row">{{ forloop.revcounter }}</th>
+            <td style="background-color: linear-gradient(rgba(125,125,125,0.9), rgba(125,125,125,0.9));">
+              <div class="d-flex justify-content-between">
+                <a href="{% url 'communities:detail' post.pk %}">{{ post.title }}</a>
+                <span>
+                  <i class="fa-solid fa-comment"></i>{{ post.comment_set.all|length }}</span>
+              </div>
+            </td>
+            <td style="background-color: linear-gradient(rgba(125,125,125,0.9), rgba(125,125,125,0.9));">
+              <div class="thumb_profile">
+                <img src="{% static 'img/anonymous.png' %}" class="img_profile" alt="프로필사진">
+              </div>
+              {{ post.user }}
+            </td>
+            <td style="background-color: linear-gradient(rgba(125,125,125,0.9), rgba(125,125,125,0.9));">{{ post.created_at }}</td>
           </tr>
-        </thead>
-        <tbody>
-          {% for post in posts %}
-            <tr class="table-active">
-              <th scope="row">{{ forloop.revcounter }}</th>
-              <td style="background-color: linear-gradient(rgba(125,125,125,0.9), rgba(125,125,125,0.9));">
-                <div class="d-flex justify-content-between">
-                  <a href="{% url 'communities:detail' post.pk %}">{{ post.title }}</a>
-                  <span>
-                    <i class="fa-solid fa-comment"></i>{{ post.comment_set.all|length }}</span>
-                </div>
-              </td>
-              <td style="background-color: linear-gradient(rgba(125,125,125,0.9), rgba(125,125,125,0.9));">
-                <div class="thumb_profile">
-                  <img src="{% static 'img/anonymous.png' %}" class="img_profile" alt="프로필사진">
-                </div>
-                {{ post.user }}
-              </td>
-              <td style="background-color: linear-gradient(rgba(125,125,125,0.9), rgba(125,125,125,0.9));">{{ post.created_at }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <!-- 페이징처리 시작 -->
-      <ul class="pagination justify-content-center">
-        <!-- 이전페이지 -->
-        {% if posts.has_previous %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{ posts.previous_page_number }}">이전</a>
-          </li>
-        {% else %}
-          <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
-          </li>
-        {% endif %}
-        <!-- 페이지리스트 -->
-        {% for page_number in posts.paginator.page_range %}
-          {% if page_number == posts.number %}
-            <li class="page-item active" aria-current="page">
-              <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-            </li>
-          {% else %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-            </li>
-          {% endif %}
         {% endfor %}
-        <!-- 다음페이지 -->
-        {% if posts.has_next %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{ posts.next_page_number }}">다음</a>
+      </tbody>
+    </table>
+    <!-- 페이징처리 시작 -->
+    <ul class="pagination justify-content-center">
+      <!-- 이전페이지 -->
+      {% if posts.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ posts.previous_page_number }}">이전</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+        </li>
+      {% endif %}
+      <!-- 페이지리스트 -->
+      {% for page_number in posts.paginator.page_range %}
+        {% if page_number == posts.number %}
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
           </li>
         {% else %}
-          <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
           </li>
         {% endif %}
-      </ul>
-      <!-- 페이징처리 끝 -->
-    </section>
-  </div>
+      {% endfor %}
+      <!-- 다음페이지 -->
+      {% if posts.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ posts.next_page_number }}">다음</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+        </li>
+      {% endif %}
+    </ul>
+    <!-- 페이징처리 끝 -->
+  </section>
 {% endblock content %}
 {% block js %}{% endblock js %}
