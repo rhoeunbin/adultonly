@@ -266,7 +266,7 @@
       $.ajax({
         type : 'POST',
         url: url,
-        entype: 'multipart.form-data',
+        enctype: 'multipart.form-data',
         data: fd,
         success: function(response){
           console.log(response)
@@ -335,8 +335,77 @@
     })
 
   })
+  
 
 </script>
+<script>
+  const searchUrl = window.location.href
+  const searchForm = document.getElementById('search-form')
+  const searchInput = document.getElementById('search-input')
+  const resultsBox = document.getElementById('results-box')
+  const searchCsrf = document.getElementsByName('csrfmiddlewaretoken')[0].value
+  console.log(searchUrl)
+  const searchValue = (restaurant) =>{
+    $.ajax({
+      type: 'POST',
+      url: '{% url "articles:search" %}',
+      data: {
+        'csrfmiddlewaretoken': searchCsrf,
+        'restaurant' : restaurant,
+      },
+      success: (res)=>{
+        console.log(res.restaurant)
+        const data = res.restaurant
+        if (Array.isArray(data)) {
+          resultsBox.innerHTML = ""
+          let detailUrl = searchUrl.replace('/'+{{ restaurant.pk }}, '');
+          data.forEach(restaurant => {
+            resultsBox.innerHTML +=
+            `
+            <a href="${detailUrl}${restaurant.pk}">
+            <div class="d-flex text-muted pt-3">
+            <img src="${restaurant.image}" alt="" class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
+              <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+                <div class="d-flex justify-content-between">
+            <strong class="text-gray-dark">${restaurant.title}</strong>
+            <div>
+              <small class="d-block"> ${restaurant.address} </small>
+              <small> ${restaurant.grade} </small>
+            </div>
+            
+            <a href="#">Follow</a>
+          </div>
+        </div>
+        </div>
+      </a>
+            `
+          })
+        } else {
+            if (searchInput.value.length > 0){
+              resultsBox.innerHTML = `<b>${data}</b>`
+          }else {
+            resultsBox.classList.add('d-none')
+          }
+        }
+
+      },
+      error: (err)=> {
+        console.log(err)
+      }
+      
+    })
+  }
+
+  searchInput.addEventListener('keyup', e=>{
+
+    if (resultsBox.classList.contains('d-none')){
+      resultsBox.classList.remove('d-none')
+    }
+    searchValue(e.target.value)
+  })
+
+</script>
+
 
 {% endblock js %}
 {% endblock content %}

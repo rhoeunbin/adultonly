@@ -28,11 +28,14 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- 검색 -->
         <div class="collapse navbar-collapse d-flex flex-column" id="navbarSupportedContent">
-          <form action="https://www.google.com/search" class="d-flex w-50 mb-3" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+          <form class="d-flex w-50 mb-3" id="search-form" autocomplete="off">
+            {% csrf_token %}
+            <input type="search" id="search-input" class="form-control form-control-dark text-bg-light" placeholder="Search..." aria-label="Search">
           </form>
+          <div class="p-3 bg-body rounded shadow-sm d-none w-50" id="results-box"></div> 
+        <!-- 검색 -->
           <ul class="d-flex justify-content-around w-50">
             <li>
               <a href="{% url 'articles:board' %}">맛집리스트</a>
