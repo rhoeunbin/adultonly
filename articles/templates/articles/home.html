@@ -8,7 +8,7 @@
   <div class="main_back">
     <div class="container">
       <div>
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+        <div id="carouselExampleIndicators" class="carousel slide" st="st" data-bs-ride="true">
           <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -16,13 +16,13 @@
           </div>
           <div class="carousel-inner" style="border-radius: 2rem;">
             <div class="carousel-item active">
-              <img src="{% static 'images/home/main_1.jpg' %}" class="d-block w-100" style="height: 500px;" alt="...">
+              <img src="{% static 'images/home/main_1.jpg' %}" class="d-block w-100" style="height: 500px; opacity: 70%;" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/home/main_2.jpg' %}" class="d-block w-100" style="height: 500px;" alt="...">
+              <img src="{% static 'images/home/main_2.jpg' %}" class="d-block w-100" style="height: 500px; opacity: 70%;" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="{% static 'images/home/main_3.jpg' %}" class="d-block w-100" style="height: 500px;" alt="...">
+              <img src="{% static 'images/home/main_3.jpg' %}" class="d-block w-100" style="height: 500px; opacity: 70%;" alt="...">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -35,8 +35,9 @@
           </button>
         </div>
       </div>
-
-      <div class="slidebox">
+    </div>
+    <div style="background-color: rgba(242, 242, 242, .5);">
+      <div class="container slidebox">
         <input type="radio" name="slide" id="slide01" checked="checked">
         <input type="radio" name="slide" id="slide02">
         <input type="radio" name="slide" id="slide03">
@@ -49,7 +50,7 @@
                   <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   </div>
                 </div>
               </div>
@@ -58,7 +59,7 @@
                   <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   </div>
                 </div>
               </div>
@@ -67,38 +68,7 @@
                   <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="slideitem">
-            <div class="row row-cols-1 row-cols-md-4 g-4 d-flex justify-content-around">
-              <div class="col">
-                <div class="card">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <img src="..." class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
                   </div>
                 </div>
               </div>
@@ -111,7 +81,7 @@
                   <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   </div>
                 </div>
               </div>
@@ -120,7 +90,7 @@
                   <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
                   </div>
                 </div>
               </div>
@@ -129,7 +99,7 @@
                   <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   </div>
                 </div>
               </div>
@@ -142,7 +112,7 @@
                   <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   </div>
                 </div>
               </div>
@@ -151,7 +121,7 @@
                   <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                   </div>
                 </div>
               </div>
@@ -160,7 +130,38 @@
                   <img src="..." class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="slideitem">
+            <div class="row row-cols-1 row-cols-md-4 g-4 d-flex justify-content-around">
+              <div class="col">
+                <div class="card">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card">
+                  <img src="..." class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
                   </div>
                 </div>
               </div>
@@ -188,34 +189,38 @@
       </div>
     </div>
   </div>
-<img src="" alt="">
+  <img src="" alt="">
 
-<script>
-  const url = window.location.href
-  console.log("hello world")
-  console.log(url)
-  const searchForm = document.getElementById('search-form')
-  const searchInput = document.getElementById('search-input')
-  const resultsBox = document.getElementById('results-box')
-  const csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value
-  
-  const searchValue = (restaurant) =>{
-    $.ajax({
-      type: 'POST',
-      url: '{% url "articles:search" %}',
-      data: {
-        'csrfmiddlewaretoken': csrf,
-        'restaurant' : restaurant,
-      },
-      success: (res)=>{
-        console.log(res.restaurant)
-        const data = res.restaurant
-        if (Array.isArray(data)) {
-          resultsBox.innerHTML = ""
-          let detailUrl = url.replace('home', '');
-          data.forEach(restaurant => {
-            resultsBox.innerHTML +=
-            `
+  <script>
+    const url = window
+      .location
+      .href
+      console
+      .log("hello world")
+    console.log(url)
+    const searchForm = document.getElementById('search-form')
+    const searchInput = document.getElementById('search-input')
+    const resultsBox = document.getElementById('results-box')
+    const csrf = document
+      .getElementsByName('csrfmiddlewaretoken')[0]
+      .value
+
+    const searchValue = (restaurant) => {
+      $.ajax({
+        type: 'POST',
+        url: '{% url "articles:search" %}',
+        data: {
+          'csrfmiddlewaretoken': csrf,
+          'restaurant': restaurant
+        },
+        success: (res) => {
+          console.log(res.restaurant)
+          const data = res.restaurant
+          if (Array.isArray(data)) {
+            resultsBox.innerHTML = ""
+            let detailUrl = url.replace('home', '');
+            data.forEach(restaurant => {
+              resultsBox.innerHTML += `
             <a href="${detailUrl}${restaurant.pk}">
             <div class="d-flex text-muted pt-3">
             <img src="${restaurant.image}" alt="" class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
@@ -233,31 +238,34 @@
         </div>
       </a>
             `
-          })
-        } else {
-            if (searchInput.value.length > 0){
+            })
+          } else {
+            if (searchInput.value.length > 0) {
               resultsBox.innerHTML = `<b>${data}</b>`
-          }else {
-            resultsBox.classList.add('d-none')
+            } else {
+              resultsBox
+                .classList
+                .add('d-none')
+            }
           }
+
+        },
+        error: (err) => {
+          console.log(err)
         }
 
-      },
-      error: (err)=> {
-        console.log(err)
-      }
-      
-    })
-  }
-
-  searchInput.addEventListener('keyup', e=>{
-
-    if (resultsBox.classList.contains('d-none')){
-      resultsBox.classList.remove('d-none')
+      })
     }
-    searchValue(e.target.value)
-  })
 
-</script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    searchInput.addEventListener('keyup', e => {
+
+      if (resultsBox.classList.contains('d-none')) {
+        resultsBox
+          .classList
+          .remove('d-none')
+      }
+      searchValue(e.target.value)
+    })
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {% endblock content %}
