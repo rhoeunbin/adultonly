@@ -22,14 +22,28 @@
       </div>
       <div class="card-body d-flex justify-content-between">
         <p class="card-subtitle text-muted">{{ restaurant.created_at }}</p>
-        <p class="card-subtitle text-muted">
-          <i class="fa fa-comment" aria-hidden="true"></i>
-          {{ restaurant.comment_set.all|length }}</p>
       </div>
       <img src="{{ restaurant.image.url }}" alt="{{ restaurant.img_path }}" class="card-img d-block user-select-none" width="100%" height="200" viewbox="0 0 318 180">
       <div class="card-body" style="min-height: 250px">
         <p class="card-text text-wrap">{{ restaurant.content }}</p>
-        <form action="{% url 'articles:likes' restaurant.pk %}" method='POST'>
+        <div>
+          {% if user in restaurant.like_users.all %}
+        <div id="like-area">
+          <button id="like-btn" name="{{ restaurant.pk }}" class="btn btn-dark">
+            <i class="fa-regular fa-heart fa-lg">좋아요 취소</i>
+          </button>
+        </div>
+        {% else %}
+        <div id="like-area">
+          <button id="like-btn" name="{{ restaurant.pk }}" class="btn btn-danger">
+            <i class="fa-regular fa-heart fa-lg">좋아요</i>
+          </button>
+        </div> 
+          {% endif %}
+        </div>
+        
+        <!-- 좋아요 -->
+        <!-- <form action="{% url 'articles:likes' %}" method='POST'>
           {% csrf_token %}
           {% if user in restaurant.like_users.all %}
             <button class="btn btn-link text-danger">
@@ -39,8 +53,9 @@
             <button class="btn btn-link text-black">
               <i class="fa-regular fa-heart fa-lg">좋아요</i>
             </button>
-          {% endif %}
+          {% endif %} -->
         </form>
+        <!---->
       </div>
     </div>
     <!--게시글 아래 버튼 묶음-->
@@ -81,7 +96,7 @@
       <div class="card-header" >
         <div id="comments-count">
           <i class="fa-regular fa-comment-smile"></i>리뷰
-          {{ restaurant.comment_set.all|length }}개
+          {{ restaurant.articlecomment_set.all|length }}개
         </div>
         
     </div>
@@ -178,7 +193,7 @@
 
   </div>
 </section>
-{% endblock content %}
+
 
 {% block js %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -237,13 +252,15 @@
       var pk = $(this).attr('name')
       const fd = new FormData()
     
-
       fd.append('pk', pk)
       fd.append('csrfmiddlewaretoken', csrf[0].value)
       fd.append('title', title.value)
       fd.append('rating', rating.value)
       fd.append('content', content.value)
-      fd.append('image', image.files[0])
+      
+      fd.append('image',  image.files[0])
+      
+      console.log(image)
       console.log(fd)
       console.log(pk)
       $.ajax({
@@ -277,6 +294,49 @@
       })
 
     })
+  // like
+  const likeBtn = document.querySelector('#like-btn')
+  
+  likeBtn.addEventListener('click', e => {
+    const restaurantPk = {{ restaurant.pk }}
+    $.ajax({
+      type : 'POST',
+      url: "{% url 'articles:likes' %}",
+      data : {
+        'pk' : restaurantPk,
+        'csrfmiddlewaretoken' : csrf[0].value,
+      },
+      dataType : "json",
+      success: function(response){
+        console.log(response.is_liked)
+        const likeArea = document.querySelector('#like-area')
+        if(response.is_liked){
+          likeArea.innerHTML = 
+          `  
+          <div id="like-area">
+            <button id="like-btn" name="{{ restaurant.pk }}" class="btn btn-dark">
+              <i class="fa-regular fa-heart fa-lg">좋아요 취소</i>
+            </button>
+          </div>
+          `
+        }else{
+          likeArea.innerHTML = 
+          `  
+          <div id="like-area">
+            <button id="like-btn" name="{{ restaurant.pk }}" class="btn btn-danger">
+              <i class="fa-regular fa-heart fa-lg">좋아요</i>
+            </button>
+          </div>
+          `
+        }
+        
+      }
+
+    })
+
+  })
+
 </script>
 
 {% endblock js %}
+{% endblock content %}
