@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
-
 {% load static %}
 {% load django_bootstrap5 %}
-
 {% block title %}{{ restaurant.title }}
 {% endblock title %}
 
@@ -37,6 +35,7 @@
           </button>
         </div>
       </div>
+
       <div class="slidebox">
         <input type="radio" name="slide" id="slide01" checked="checked">
         <input type="radio" name="slide" id="slide02">
@@ -189,5 +188,76 @@
       </div>
     </div>
   </div>
+<img src="" alt="">
+
+<script>
+  const url = window.location.href
+  console.log("hello world")
+  console.log(url)
+  const searchForm = document.getElementById('search-form')
+  const searchInput = document.getElementById('search-input')
+  const resultsBox = document.getElementById('results-box')
+  const csrf = document.getElementsByName('csrfmiddlewaretoken')[0].value
+  
+  const searchValue = (restaurant) =>{
+    $.ajax({
+      type: 'POST',
+      url: '{% url "articles:search" %}',
+      data: {
+        'csrfmiddlewaretoken': csrf,
+        'restaurant' : restaurant,
+      },
+      success: (res)=>{
+        console.log(res.restaurant)
+        const data = res.restaurant
+        if (Array.isArray(data)) {
+          resultsBox.innerHTML = ""
+          let detailUrl = url.replace('home', '');
+          data.forEach(restaurant => {
+            resultsBox.innerHTML +=
+            `
+            <a href="${detailUrl}${restaurant.pk}">
+            <div class="d-flex text-muted pt-3">
+            <img src="${restaurant.image}" alt="" class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
+              <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+                <div class="d-flex justify-content-between">
+            <strong class="text-gray-dark">${restaurant.title}</strong>
+            <div>
+              <small class="d-block"> ${restaurant.address} </small>
+              <small> ${restaurant.grade} </small>
+            </div>
+            
+            <a href="#">Follow</a>
+          </div>
+        </div>
+        </div>
+      </a>
+            `
+          })
+        } else {
+            if (searchInput.value.length > 0){
+              resultsBox.innerHTML = `<b>${data}</b>`
+          }else {
+            resultsBox.classList.add('d-none')
+          }
+        }
+
+      },
+      error: (err)=> {
+        console.log(err)
+      }
+      
+    })
+  }
+
+  searchInput.addEventListener('keyup', e=>{
+
+    if (resultsBox.classList.contains('d-none')){
+      resultsBox.classList.remove('d-none')
+    }
+    searchValue(e.target.value)
+  })
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {% endblock content %}
-{% block js %}{% endblock js %}
