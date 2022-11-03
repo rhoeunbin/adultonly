@@ -21,18 +21,21 @@
   </head>
 
   <body>
-    <header class="sticky-top">
+    {% comment %} <header class="sticky-top"> {% endcomment %}
       <!-- place navbar here -->
-      <nav class="navbar navbar-expand-lg" style="background-color: rgba(125,.7);">
+      <nav class="navbar navbar-expand-lg" style="background-color: rgba(125,125,125,0.9);">
         <a class="navbar-brand" href="{% url 'articles:index' %}"><img src="{% static 'images/base/logo.png' %}" alt="임시로고" style="height:50px; margin-left: 1rem;"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- 검색 -->
         <div class="collapse navbar-collapse d-flex flex-column" id="navbarSupportedContent">
-          <form action="https://www.google.com/search" class="d-flex w-50 mb-3" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+          <form class="d-flex w-50 mb-3" id="search-form" autocomplete="off">
+            {% csrf_token %}
+            <input type="search" id="search-input" class="form-control form-control-dark text-bg-light" placeholder="Search..." aria-label="Search">
           </form>
+          <div class="p-3 bg-body rounded shadow-sm d-none w-50" id="results-box"></div> 
+        <!-- 검색 -->
           <ul class="d-flex justify-content-around w-50">
             <li>
               <a href="{% url 'articles:board' %}">맛집리스트</a>
@@ -46,7 +49,10 @@
         </div>
         <ul class="navbar-nav me-auto">
           {% if request.user.is_authenticated %}
-            <li class="nav-item dropdown">
+            <div class="title_profile">
+              <img src="{% static 'img/anonymous.png' %}" class="img_profile" alt="프로필사진">
+            </div>
+            <li class="nav-item dropdown" style="margin: auto 0;">
               <a class="nav-link dropdown-toggle decor" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                 <a href="{% url 'accounts:profile' user.pk %}"><em class="text-info mx-2">{{ user.username }}</em>님</a></a>
               <div class="dropdown-menu">
@@ -71,10 +77,8 @@
       </div>
     </div>
   </nav>
-</header>
-<div class="main_back">
+{% comment %} </header> {% endcomment %}
   {% block content %}{% endblock content %}
-</div>
 <footer>
   <!-- place footer here -->
 </footer>

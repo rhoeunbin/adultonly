@@ -131,7 +131,6 @@ def delete_comment(request, pk, comment_pk):
 
 
 def likes(request):
-
     if request.user.is_authenticated:
         restaurant = get_object_or_404(Restaurant, pk=request.POST.get('pk'))
 
@@ -147,4 +146,24 @@ def likes(request):
             'likeCount' : restaurant.like_users.count()
         }
         return JsonResponse(context)
-       
+
+def search_results(request):
+    if request.is_ajax():
+        res = None
+        restaurant = request.POST.get('restaurant')
+        kw = Restaurant.objects.filter(title__icontains=restaurant)
+        if len(kw) > 0 and len(restaurant) > 0:
+            data = []
+            for k in kw:
+                item = {
+                    'pk' : k.pk,
+                    'title' : k.title,
+                    'address' : k.address,
+                    'image' : str(k.image.url)
+                }
+                data.append(item)
+            res = data
+        else:
+            res = "검색결과가 없습니다."
+        return JsonResponse({"restaurant" : res,})
+    return JsonResponse({})

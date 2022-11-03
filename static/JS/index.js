@@ -1,6 +1,6 @@
 var i = 0;
 var images = [];
-var slideTime = 3000; // 3 seconds
+var slideTime = 2000; // 2 seconds
 
 images[0] = '../../../static/images/index/1.jpg';
 images[1] = '../../../static/images/index/2.jpg';
