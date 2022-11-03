@@ -7,100 +7,103 @@
 {% endblock title %}
 
 {% block content %}
-  <div class="select_tag">
-    <div class="tag_list">
-      <img src="{% static 'images/board/fire.png' %}" style="weight:24px; height:24px;" alt="">
-      <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Hot</p>
+  <div class="main_back">
+    <div class="select_tag">
+      <div class="tag_list">
+        <img src="{% static 'images/board/fire.png' %}" style="weight:40px; height:40px;" alt="">
+        <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Hot</p>
+      </div>
+      <div class="tag_list">
+        <img src="{% static 'images/board/near.gif' %}" style="weight:40px; height:40px;" alt="">
+        <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Near</p>
+      </div>
+      <div class="tag_list">
+        <img src="{% static 'images/board/like.png' %}" style="weight:40px; height:40px;" alt="">
+        <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Like</p>
+      </div>
+      <div class="tag_list">
+        <img src="{% static 'images/board/beer.png' %}" style="weight:40px; height:40px;" alt="">
+        <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Beer</p>
+      </div>
+      <div class="tag_list">
+        <img src="{% static 'images/board/wine.png' %}" style="weight:40px; height:40px;" alt="">
+        <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Wine</p>
+      </div>
+      <div class="tag_list">
+        <img src="{% static 'images/board/desserts.png' %}" style="weight:40px; height:40px;" alt="">
+        <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Desserts</p>
+      </div>
     </div>
-    <div class="tag_list">
-      <img src="{% static 'images/board/near.png' %}" style="weight:24px; height:24px;" alt="">
-      <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Near</p>
-    </div>
-    <div class="tag_list">
-      <img src="{% static 'images/board/like.png' %}" style="weight:24px; height:24px;" alt="">
-      <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Like</p>
-    </div>
-    <div class="tag_list">
-      <img src="{% static 'images/board/beer.png' %}" style="weight:24px; height:24px;" alt="">
-      <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Beer</p>
-    </div>
-    <div class="tag_list">
-      <img src="{% static 'images/board/wine.png' %}" style="weight:24px; height:24px;" alt="">
-      <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Wine</p>
-    </div>
-    <div class="tag_list">
-      <img src="{% static 'images/board/desserts.png' %}" style="weight:24px; height:24px;" alt="">
-      <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Desserts</p>
-    </div>
-  </div>
-  <section class="container-lg">
-    <h1 class="text-center">
-      맛집 리스트
-    </h1>
-    <a href="{% url 'articles:create' %}" type="button" class="btn btn-primary mb-4">맛집 등록</a>
-    <!-- 카드리스트 -->
-    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-      {% for restaurant in restaurants %}
-        <div class="col">
-          <div class="card_back card mb-3">
-            <a href="{% url 'articles:detail' restaurant.pk %}" class="card-link text-decoration-none">
-              <h5 class="card-header">{{ restaurant.title }}</h5>
-            </a>
-            <div class="card-body d-flex justify-content-between">
-              <h6 class="card-title text-muted">{{ restaurant.address }}</h6>
-            </div>
-            {% if restaurant.image.url %}
+    <section class="container-lg">
+      <h1 class="text-center">
+        맛집 리스트
+      </h1>
+      <a href="{% url 'articles:create' %}" type="button" class="btn btn-primary mb-4">맛집 등록</a>
+      <!-- 카드리스트 -->
+      <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+        {% for restaurant in restaurants %}
+          <div class="col">
+            <div class="card_back card mb-3">
+              <a href="{% url 'articles:detail' restaurant.pk %}" class="card-link text-decoration-none">
+                <h5 class="card-header">{{ restaurant.title }}</h5>
+              </a>
+              <div class="card-body d-flex justify-content-between">
+                <h6 class="card-title text-muted">{{ restaurant.address }}</h6>
+              </div>
+              {% if restaurant.image.url %}
 
-              <img src="{{ restaurant.image.url }}" alt="{{ restaurant.img_path }}" class="card-img d-block user-select-none" width="100%" height="200" viewbox="0 0 318 180">
-            {% else %}
+                <img src="{{ restaurant.image.url }}" alt="{{ restaurant.img_path }}" class="card-img d-block user-select-none" width="100%" height="200" viewbox="0 0 318 180">
+              {% else %}
 
-            {% endif %}
+              {% endif %}
+
 
             <div class="card-body">
               <p class="card-text summary">{{ restaurant.food_type }}</p>
               <p class="card-text summary">{{ restaurant.opening_hours }}</p>
               <p class="card-text summary">평점:{{ restaurant.grade }}</p>
               <p class="card-text summary">좋아요:{{ restaurant.like_users.all|length}}</p>
+
             </div>
           </div>
-        </div>
-      {% endfor %}
-    </div>
-    <!-- 페이징처리 시작 -->
-    <ul class="pagination justify-content-center">
-      <!-- 이전페이지 -->
-      {% if restaurants.has_previous %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{ restaurants.previous_page_number }}">이전</a>
-        </li>
-      {% else %}
-        <li class="page-item disabled">
-          <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
-        </li>
-      {% endif %}
-      <!-- 페이지리스트 -->
-      {% for page_number in restaurants.paginator.page_range %}
-        {% if page_number == restaurants.number %}
-          <li class="page-item active" aria-current="page">
-            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+        {% endfor %}
+      </div>
+      <!-- 페이징처리 시작 -->
+      <ul class="pagination justify-content-center">
+        <!-- 이전페이지 -->
+        {% if restaurants.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ restaurants.previous_page_number }}">이전</a>
           </li>
         {% else %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+          <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
           </li>
         {% endif %}
-      {% endfor %}
-      <!-- 다음페이지 -->
-      {% if restaurants.has_next %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{ restaurants.next_page_number }}">다음</a>
-        </li>
-      {% else %}
-        <li class="page-item disabled">
-          <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
-        </li>
-      {% endif %}
-    </ul>
-    <!-- 페이징처리 끝 -->
-  </section>
+        <!-- 페이지리스트 -->
+        {% for page_number in restaurants.paginator.page_range %}
+          {% if page_number == restaurants.number %}
+            <li class="page-item active" aria-current="page">
+              <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+          {% else %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+        <!-- 다음페이지 -->
+        {% if restaurants.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ restaurants.next_page_number }}">다음</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+          </li>
+        {% endif %}
+      </ul>
+      <!-- 페이징처리 끝 -->
+    </section>
+  </div>
 {% endblock content %}
