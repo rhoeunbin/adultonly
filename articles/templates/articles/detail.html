@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load django_bootstrap5 %}
+{% load widget_tweaks %}
 
 {% block title %}
   {{ restaurant.title }}
@@ -9,7 +10,7 @@
 
 {% block content %}
   <!-- Naver Map -->
-  <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8mgf46z68o"></script>
+  <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=7t25gt1gch"></script>
 
   <section class="container-lg">
     <!--게시글 디테일-->
@@ -77,45 +78,113 @@
     </div>
     <!--댓글-->
     <div class="card my-5">
-      <div class="card-header">
-        <i class="fa-regular fa-comment-smile"></i>리뷰
-        {{ restaurant.comment_set.all|length }}개</h6>
+      <div class="card-header" >
+        <div id="comments-count">
+          <i class="fa-regular fa-comment-smile"></i>리뷰
+          {{ restaurant.comment_set.all|length }}개
+        </div>
+        
     </div>
-    <div class="card-body">
-      <ul class="list-group list-group-flush">
-        {% for comment in comments %}
-          <li class="list-group-item mb-3">
-            <p>{{ comment.title }}</p>
-            <p>{{ comment.rating }}</p>
-            <p>{{ comment.content }}</p>
-            <div>
-              <a href="#" type="button" class="btn btn-primary btn-sm">수정</a>
-              <a href="{% url 'articles:delete_comment' restaurant.pk comment.pk %}" method="post">삭제
-              </a>
+    <!--test-->
+    <!-- <form id="comment-form" autocomplete="off">
+      {% csrf_token %}
+      {% bootstrap_form comment_form %}
+      <button class="btn btn-primary" type="submit" name="{{restaurant.pk}}"></button>
+    </form> -->
+    <!-- 댓글 폼-->
+    <form id="comment-form" autocomplete="off" class="comment-form">
+      {% csrf_token %}
+      <div class="container-fluid my-2 py-2 text-dark">
+        <div class="row d-flex">
+          <div class="col-12">
+            <!-- alret -->
+            <div id="alert-box"></div>
+            <div class="d-flex flex-start mb-4">
+              <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65" height="65"/>
+              <div class="card w-100">
+                <div class="card-body p-4">
+                  <div class="">
+                    <div class="d-flex align-items-center">
+                      <!-- title -->
+                      {% render_field comment_form.title class="form-control w-100" placeholder="제목"%}
+                      <!-- rating -->
+                      {% render_field comment_form.rating class="form-control w-100" placeholder="평가"%}
+                    </div>
+                    <p>
+                      <!-- content -->
+                      {% render_field comment_form.content class="form-control w-100" placeholder="내용"%}
+                    </p>
+                    <!-- image -->
+                    <label for="id_image">
+                      <!-- 이미지 첨부 아이콘 -->
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-image-fill" viewbox="0 0 16 16">
+                        <path d="M4 0h8a2 2 0 0 1 2 2v8.293l-2.73-2.73a1 1 0 0 0-1.52.127l-1.889 2.644-1.769-1.062a1 1 0 0 0-1.222.15L2 12.292V2a2 2 0 0 1 2-2zm4.002 5.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"/>
+                        <path d="M10.564 8.27 14 11.708V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-.293l3.578-3.577 2.56 1.536 2.426-3.395z"/>
+                      </svg>
+                    </label>
+                    {% render_field comment_form.image class="form-control w-100 d-none" placeholder="이미지"%}
+                    <div id="image-section"></div>
+                  </div>
+                </div>
+                <!-- submit -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary btn-sm" name="{{restaurant.pk}}">등록</button>
+                </div>
+              </div>
             </div>
-          </li>
-          {% empty %}
-          <li class="list-group-item my-5">작성된 댓글이 없습니다.</li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div class="card-footer">
-      <form action="{% url 'articles:create_comment' restaurant.pk %}" method="post">
-        {% csrf_token %}
-        {% bootstrap_form comment_form %}
-        <button type="submit" class="btn btn-primary btn-sm">등록</button>
-      </form>
-    </div>
+          </div>
+        </div>
+      </div>
+    </form>     
+    <!-- 댓글 리스트 -->
+    {% for comment in comments %}
+      <div class="container-fluid my-2 py-2 text-dark" id="comments-area">
+        <div class="row d-flex">
+          <div class="col-12">
+            <div class="d-flex flex-start mb-4">
+              <img class="rounded-circle shadow-1-strong me-3"
+                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65"
+                height="65" />
+              <div class="card w-100">
+                <div class="card-body p-4">
+                  <div class="">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="d-flex align-items-center">
+                        <h5>{{ comment.title }}</h5>
+                      </div>
+                      <div>
+                        <a href="#!" class="link-muted"><i class="fas fa-reply me-1"></i> 수정</a>
+                        <a href="{% url 'articles:delete_comment' restaurant.pk comment.pk %}" class="link-muted" method="post">삭제</a>
+                      </div>
+                    </div>
+                    <p class="small mb-3">{{ comment.created_at }}</p>
+                    <p>
+                      {{ comment.content }}
+                    </p>
+                    <div>
+                      {% if comment.image %}
+                        <img src="{{ comment.image.url }}" alt="">
+                      {% else %}
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>        
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
   </div>
 </section>
 {% endblock content %}
 
 {% block js %}
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-
-  var lon = {{ longitude }}
-  var lat = {{ latitude }}
+  var lon = {{longitude}}
+  var lat = {{latitude}}
   var map = new naver
     .maps
     .Map('map', {
@@ -132,7 +201,82 @@
         .LatLng(lat, lon),
       map: map
     });
-  // Naver Map
+  // Comment
+  const alertBox = document.getElementById('alert-box')
+  const image_section = document.getElementById('image-section')
+  const form = document.getElementById('comment-form')
+
+  const title = document.getElementById('id_title')
+  const rating = document.getElementById('id_rating')
+  const content = document.getElementById('id_content')
+  const image = document.getElementById('id_image')
+
+  const csrf = document.getElementsByName('csrfmiddlewaretoken')
+  const url = ""
+  
+  const handleAlerts = (type, text) =>{
+      alertBox.innerHTML = `<div class="alert alert-${type}" role="alert">
+                              ${text}
+                            </div>`
+    }
+
+  function reloadDivArea() {
+    $('#comments-area').load(location.href+' #comments-area');
+    $('#comments-count').load(location.href+' #comments-count');
+  }
+
+  image.addEventListener('change', () => {
+    const img_data = image.files[0]
+    const url = URL.createObjectURL(img_data)
+    image_section.innerHTML += `<img src="${url}" width=500px>`
+  })
+
+  form.addEventListener('submit', e => {
+      e.preventDefault()
+      
+      var pk = $(this).attr('name')
+      const fd = new FormData()
+    
+
+      fd.append('pk', pk)
+      fd.append('csrfmiddlewaretoken', csrf[0].value)
+      fd.append('title', title.value)
+      fd.append('rating', rating.value)
+      fd.append('content', content.value)
+      fd.append('image', image.files[0])
+      console.log(fd)
+      console.log(pk)
+      $.ajax({
+        type : 'POST',
+        url: url,
+        entype: 'multipart.form-data',
+        data: fd,
+        success: function(response){
+          console.log(response)
+          console.log(location.href)
+          const sText = `${response.title} 댓글 작성이 완료되었습니다.`
+          handleAlerts('success', sText)
+          setTimeout(()=>{
+            alertBox.innerHTML = ""
+            image_section.innerHTML = ""
+            title.value = ""
+            rating.value = ""
+            content.value = ""
+            image.value = ""
+            
+          }, 2000)
+          reloadDivArea()
+        },
+        error: function(error){
+          console.log(error)
+          handleAlerts('danger', 'error')
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+      })
+
+    })
 </script>
 
 {% endblock js %}

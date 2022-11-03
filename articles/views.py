@@ -4,6 +4,7 @@ from .models import Restaurant, Comment
 from .forms import RestaurantForm, CommentForm
 from django.core.paginator import Paginator
 from .utils import get_latitude_longitude
+from django.http import JsonResponse
 
 # from django.contrib.auth.decorators import login_required
 
@@ -50,11 +51,25 @@ def board(request):
 def detail(request, pk):
     restaurant = Restaurant.objects.get(pk=pk)
     lat, lon = get_latitude_longitude(restaurant.address)
-    comment_form = CommentForm()
+    # comment_form = CommentForm()
+    form = CommentForm(request.POST or None, request.FILES or None)
+    data = {}
+    if request.is_ajax():
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.restaurant = restaurant
+            comment.save()
+            data['title'] = comment.title
+            data['image'] = comment.image.url
+            # comment 객체는 cleande_data 속성이 없음
+            # data['title'] = comment.cleaned_data.get['title']
+            data['status'] = 'ok'
+            print(data)
+            return JsonResponse(data)
     context = {
         "restaurant": restaurant,
-        "comments": restaurant.comment_set.all(),
-        "comment_form": comment_form,
+        "comments": restaurant.comment_set.all().order_by('-created_at'),
+        "comment_form": form,
         # "total_comments": restaurant.comment_set.count(),
         "latitude": lat,
         "longitude": lon,
@@ -106,18 +121,6 @@ def delete(request, pk):
         "restaurant": restaurant,
     }
     return redirect("articles:detail", context)
-
-
-# 댓글 중복 댓글 금지 추가하기 bcuz 평점
-# @login_required
-def create_comment(request, pk):
-    restaurant = Restaurant.objects.get(pk=pk)
-    comment_form = CommentForm(request.POST, request.FILES)
-    if comment_form.is_valid():
-        comment = comment_form.save(commit=False)
-        comment.restaurant = restaurant
-        comment.save()
-    return redirect("articles:detail", restaurant.pk)
 
 
 def delete_comment(request, pk, comment_pk):
