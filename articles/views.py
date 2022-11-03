@@ -1,6 +1,6 @@
 from gc import get_objects
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Restaurant, Comment
+from .models import Restaurant, ArticleComment as Comment
 from .forms import RestaurantForm, CommentForm
 from django.core.paginator import Paginator
 from .utils import get_latitude_longitude
@@ -58,9 +58,10 @@ def detail(request, pk):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.restaurant = restaurant
+            comment.user = request.user
             comment.save()
             data['title'] = comment.title
-            data['image'] = comment.image.url
+            
             # comment 객체는 cleande_data 속성이 없음
             # data['title'] = comment.cleaned_data.get['title']
             data['status'] = 'ok'
@@ -68,7 +69,7 @@ def detail(request, pk):
             return JsonResponse(data)
     context = {
         "restaurant": restaurant,
-        "comments": restaurant.comment_set.all().order_by('-created_at'),
+        "comments": restaurant.articlecomment_set.all().order_by('-created_at'),
         "comment_form": form,
         # "total_comments": restaurant.comment_set.count(),
         "latitude": lat,
@@ -129,15 +130,21 @@ def delete_comment(request, pk, comment_pk):
     return redirect("articles:detail", pk)
 
 
-def likes(request, pk):
+def likes(request):
 
     if request.user.is_authenticated:
-        restaurant = get_object_or_404(Restaurant, id=pk)
+        restaurant = get_object_or_404(Restaurant, pk=request.POST.get('pk'))
 
         if restaurant.like_users.filter(pk=request.user.pk).exists():
             restaurant.like_users.remove(request.user)
+            is_liked = False
 
         else:
             restaurant.like_users.add(request.user)
-        return redirect("articles:detail", pk)
-    return redirect("articles:detail", pk)
+            is_liked = True
+        context = {
+            'is_liked' : is_liked,
+            'likeCount' : restaurant.like_users.count()
+        }
+        return JsonResponse(context)
+       

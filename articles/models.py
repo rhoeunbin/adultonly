@@ -22,7 +22,8 @@ class Restaurant(models.Model):
     # user, 좋아요 추가하기
 
 
-class Comment(models.Model):
+class ArticleComment(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     title = models.CharField(max_length=80)
     rating = models.IntegerField(

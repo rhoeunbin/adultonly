@@ -1,4 +1,4 @@
-from .models import Restaurant, Comment
+from .models import Restaurant, ArticleComment as Comment
 from django import forms
 
 
