@@ -1,3 +1,14 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Pretendard-Regular';
+}
+
 html, body, div, span, applet, object, iframe,
 p, blockquote, pre, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -20,6 +31,7 @@ time, mark, audio, video {
 
 a {
     text-decoration: none;
+    color: #333;
     margin: 0;
 	padding: 0;
 	border: 0;
@@ -65,14 +77,16 @@ table {
 .slidebox .slidelist {
     position:relative;
     white-space:nowrap;
-    /* overflow:hidden; */
+    font-size: 0;
+    overflow:hidden;
 }
 
 .slidebox .slidelist .slideitem {
     border-radius: 2rem;
     position:relative;
-    display:inline-block;
     vertical-align:middle;
+    display:inline-block;
+    font-size: 1rem;
     /* background-color:linear-gradient(rgba(0, 0, 0, 0.7), rgba(125,125,125,0.7)); */
     background-color: white;
     width:100%;
@@ -148,7 +162,7 @@ table {
 
 .card_back {
     border-radius: 1rem;
-    height: 50vh;
+    height: 40vh;
     background-color: rgba(225,225,225,.9);
     box-shadow: 5px 5px 5px 2px black;
 }
@@ -162,3 +176,19 @@ table {
     height: 100%;
     object-fit: cover;
 }
+
+.title_profile {
+    border-radius: 70%;
+    overflow: hidden;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.title_profile img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* login css */
+
