@@ -5,7 +5,11 @@ from .forms import RestaurantForm, CommentForm
 from django.core.paginator import Paginator
 from .utils import get_latitude_longitude
 from django.http import JsonResponse
+import os
+import dotenv
 
+dotenv_file = dotenv.find_dotenv()
+dotenv.load_dotenv(dotenv_file)
 # from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -53,6 +57,7 @@ def detail(request, pk):
     lat, lon = get_latitude_longitude(restaurant.address)
     # comment_form = CommentForm()
     form = CommentForm(request.POST or None, request.FILES or None)
+    client_id = os.environ["id"]
     data = {}
     if request.is_ajax():
         if form.is_valid():
@@ -61,7 +66,6 @@ def detail(request, pk):
             comment.user = request.user
             comment.save()
             data['title'] = comment.title
-            
             # comment 객체는 cleande_data 속성이 없음
             # data['title'] = comment.cleaned_data.get['title']
             data['status'] = 'ok'
@@ -74,6 +78,7 @@ def detail(request, pk):
         # "total_comments": restaurant.comment_set.count(),
         "latitude": lat,
         "longitude": lon,
+        "client_id" : client_id,
     }
 
     return render(request, "articles/detail.html", context)

@@ -10,7 +10,7 @@
 
 {% block content %}
   <!-- Naver Map -->
-  <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8mgf46z68o"></script>
+  <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId={{client_id}}"></script>
 
   <section class="container-lg">
     <!--게시글 디테일-->
@@ -41,21 +41,6 @@
         </div> 
           {% endif %}
         </div>
-        
-        <!-- 좋아요 -->
-        <!-- <form action="{% url 'articles:likes' %}" method='POST'>
-          {% csrf_token %}
-          {% if user in restaurant.like_users.all %}
-            <button class="btn btn-link text-danger">
-              <i class="fa-solid fa-heart fa-lg">좋아요 취소</i>
-            </button>
-          {% else %}
-            <button class="btn btn-link text-black">
-              <i class="fa-regular fa-heart fa-lg">좋아요</i>
-            </button>
-          {% endif %} -->
-        </form>
-        <!---->
       </div>
     </div>
     <!--게시글 아래 버튼 묶음-->
@@ -92,8 +77,8 @@
       </div>
     </div>
     <!--댓글-->
-    <div class="card my-5">
-      <div class="card-header">
+    <div class="card my-5" >
+      <div class="card-header" id="comments-area">
         <div id="comments-count">
           <i class="fa-regular fa-comment-smile"></i>리뷰
           {{ restaurant.articlecomment_set.all|length }}개
@@ -192,16 +177,8 @@
 {% block js %}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript">
-    var lon = {
-      {
-        longitude
-      }
-    }
-    var lat = {
-      {
-        latitude
-      }
-    }
+    var lon = {{longitude}}
+    var lat = {{latitude}}
     var map = new naver
       .maps
       .Map('map', {
@@ -238,8 +215,8 @@
     }
 
     function reloadDivArea() {
-      $('#comments-area').load(location.href + ' #comments-area');
       $('#comments-count').load(location.href + ' #comments-count');
+      $('#comments-area').load(location.href + ' #comments-area');
     }
 
     image.addEventListener('change', () => {
@@ -262,9 +239,6 @@
       
       fd.append('image',  image.files[0])
       
-      console.log(image)
-      console.log(fd)
-      console.log(pk)
       $.ajax({
         type: 'POST',
         url: url,
@@ -282,14 +256,15 @@
             rating.value = ""
             content.value = ""
             image.value = ""
-
+            reloadDivArea()
           }, 2000)
-          reloadDivArea()
+
         },
         error: function (error) {
           console.log(error)
           handleAlerts('danger', 'error')
         },
+        
         cache: false,
         contentType: false,
         processData: false

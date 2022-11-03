@@ -2,6 +2,7 @@
 {% load static %}
 {% load django_bootstrap5 %}
 {% block content %}
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <section class="container-lg">
     <h1 class="my-5 text-center">
       맛집 등록
@@ -15,4 +16,16 @@
       </div>
     </form>
   </section>
+  <script>
+    window.onload = function(){
+        document.getElementById("address_kakao").addEventListener("click", function(){ 
+            new daum.Postcode({
+                oncomplete: function(data) { 
+                    document.getElementById("address_kakao").value = data.address; 
+                    document.querySelector("input[name=address_detail]").focus(); 
+                }
+            }).open();
+        });
+    }
+    </script>
 {% endblock content %}

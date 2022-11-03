@@ -13,13 +13,11 @@ class Restaurant(models.Model):
     # img_path = models.URLField()
     food_type = models.CharField(max_length=80)
     opening_hours = models.TextField()
-    grade = models.FloatField()
     like_users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="like_restaurant"
     )
     # created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True)
-    # user, 좋아요 추가하기
 
 
 class ArticleComment(models.Model):
