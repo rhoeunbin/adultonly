@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "django_bootstrap5",
     "django_extensions",
     "star_ratings",
+    'widget_tweaks',
     # default
     "django.contrib.admin",
     "django.contrib.auth",
