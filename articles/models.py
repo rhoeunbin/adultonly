@@ -10,7 +10,7 @@ class Restaurant(models.Model):
     address = models.TextField()
     address_detail = models.TextField()
     image = models.ImageField(upload_to="articles/", blank=True)
-    # img_path = models.URLField()
+    grade = models.FloatField()
     food_type = models.CharField(max_length=80)
     opening_hours = models.TextField()
     like_users = models.ManyToManyField(

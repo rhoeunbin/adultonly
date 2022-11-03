@@ -289,22 +289,18 @@
         console.log(response.is_liked)
         const likeArea = document.querySelector('#like-area')
         if(response.is_liked){
-          likeArea.innerHTML = 
-          `  
-          <div id="like-area">
-            <button id="like-btn" name="{{ restaurant.pk }}" class="btn btn-dark">
-              <i class="fa-regular fa-heart fa-lg">좋아요 취소</i>
-            </button>
-          </div>
+          likeBtn.classList.add('btn-danger')
+          likeBtn.classList.remove('btn-dark')
+          likeBtn.innerHTML = 
+          `
+          <i class="fa-regular fa-heart fa-lg">좋아요</i>
           `
         }else{
-          likeArea.innerHTML = 
-          `  
-          <div id="like-area">
-            <button id="like-btn" name="{{ restaurant.pk }}" class="btn btn-danger">
-              <i class="fa-regular fa-heart fa-lg">좋아요</i>
-            </button>
-          </div>
+          likeBtn.classList.add('btn-dark')
+          likeBtn.classList.remove('btn-danger')
+          likeBtn.innerHTML = 
+          `
+          <i class="fa-regular fa-heart fa-lg">좋아요 취소</i>
           `
         }
         
