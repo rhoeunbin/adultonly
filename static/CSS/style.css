@@ -1,24 +1,9 @@
 /* Color Theme Swatches in Hex */
-.Riksrevisjonen-Rapport-1-hex { color: #F22771; }
-.Riksrevisjonen-Rapport-2-hex { color: #F28DB2; }
-.Riksrevisjonen-Rapport-3-hex { color: #F2AEC7; }
-.Riksrevisjonen-Rapport-4-hex { color: #F2F2F2; }
-.Riksrevisjonen-Rapport-5-hex { color: #0D0D0D; }
-
-/* Color Theme Swatches in RGBA */
-.Riksrevisjonen-Rapport-1-rgba { color: rgba(242, 39, 113, 1); }
-.Riksrevisjonen-Rapport-2-rgba { color: rgba(242, 141, 178, 1); }
-.Riksrevisjonen-Rapport-3-rgba { color: rgba(242, 174, 199, 1); }
-.Riksrevisjonen-Rapport-4-rgba { color: rgba(242, 242, 242, 1); }
-.Riksrevisjonen-Rapport-5-rgba { color: rgba(13, 13, 13, 1); }
-
-/* Color Theme Swatches in HSLA */
-.Riksrevisjonen-Rapport-1-hsla { color: hsla(338, 88, 55, 1); }
-.Riksrevisjonen-Rapport-2-hsla { color: hsla(338, 79, 75, 1); }
-.Riksrevisjonen-Rapport-3-hsla { color: hsla(337, 72, 81, 1); }
-.Riksrevisjonen-Rapport-4-hsla { color: hsla(0, 0, 94, 1); }
-.Riksrevisjonen-Rapport-5-hsla { color: hsla(0, 0, 5, 1); }
-
+.Perhapy-|-UX,UI-Design-application-mobile-1-hex { color: #D9ADCD; }
+.Perhapy-|-UX,UI-Design-application-mobile-2-hex { color: #9E95BF; }
+.Perhapy-|-UX,UI-Design-application-mobile-3-hex { color: #34268C; }
+.Perhapy-|-UX,UI-Design-application-mobile-4-hex { color: #8372F2; }
+.Perhapy-|-UX,UI-Design-application-mobile-5-hex { color: #8477D9; }
 
 /* Color Theme Swatches in Hex */
 .Archive-Your-Dream-1-hex { color: #292759; }
@@ -26,20 +11,6 @@
 .Archive-Your-Dream-3-hex { color: #3B3F8C; }
 .Archive-Your-Dream-4-hex { color: #1F2440; }
 .Archive-Your-Dream-5-hex { color: #F2CF8D; }
-
-/* Color Theme Swatches in RGBA */
-.Archive-Your-Dream-1-rgba { color: rgba(41, 39, 89, 1); }
-.Archive-Your-Dream-2-rgba { color: rgba(70, 74, 166, 1); }
-.Archive-Your-Dream-3-rgba { color: rgba(59, 63, 140, 1); }
-.Archive-Your-Dream-4-rgba { color: rgba(31, 36, 64, 1); }
-.Archive-Your-Dream-5-rgba { color: rgba(242, 207, 141, 1); }
-
-/* Color Theme Swatches in HSLA */
-.Archive-Your-Dream-1-hsla { color: hsla(242, 39, 25, 1); }
-.Archive-Your-Dream-2-hsla { color: hsla(237, 40, 46, 1); }
-.Archive-Your-Dream-3-hsla { color: hsla(237, 40, 39, 1); }
-.Archive-Your-Dream-4-hsla { color: hsla(230, 34, 18, 1); }
-.Archive-Your-Dream-5-hsla { color: hsla(39, 79, 75, 1); }
 
 @font-face {
     font-family: 'Pretendard-Regular';
@@ -301,4 +272,29 @@ ul[class="pagination"] > li[class="page-item"] > a {
     to{
     box-shadow: 0 0 5px 5px rgba(242, 141, 178, 1);;
   }
+}
+
+.page_card {
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+}
+
+/* 로그인 */
+.loginbg {
+    background-color: #292759;
+    height: 100%;
+    margin: 0;
+    padding: 10rem 4rem;
+}
+
+.glassmorphism-card {
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    background-color: rgba(255, 255, 255, 0.53);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+    padding: 2rem;
 }

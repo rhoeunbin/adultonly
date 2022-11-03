@@ -35,7 +35,7 @@
             <input type="search" id="search-input" class="form-control form-control-dark text-bg-light" placeholder="Search..." aria-label="Search">
           </form>
           <div class="p-3 bg-body rounded shadow-sm d-none w-50" id="results-box"></div> 
-        <!-- 검색 -->
+        <!-- 검색바 아래 게시판 -->
           <ul class="d-flex justify-content-around w-50">
             <li>
               <a href="{% url 'articles:board' %}">맛집리스트</a>
@@ -43,37 +43,38 @@
             <li>
               <a href="{% url 'communities:board' %}">자유게시판</a>
             </li>
-            <li>항목1</li>
-            <li>항목1</li>
+            <li>about us</li>
           </ul>
         </div>
-        <ul class="navbar-nav me-auto">
           {% if request.user.is_authenticated %}
-            <div class="title_profile">
-              <img src="{% static 'img/anonymous.png' %}" class="img_profile" alt="프로필사진">
+          <div class="nav-item">
+            <a href="{% url 'accounts:profile' user.pk %}" class="nav-link title_profile">
+                <img src="{% static 'img/anonymous.png' %}" class="img_profile" alt="프로필사진">
+            </a>
+          </div>
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa-solid fa-circle-caret-down"></i>왜안돼
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'accounts:profile' user.pk %}">My Page</a>
+              <a class="dropdown-item" href="{% url 'accounts:update' user.pk %}">정보 수정</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item text-warning" href="{% url 'accounts:logout' %}">로그아웃</a>
             </div>
-            <li class="nav-item dropdown" style="margin: auto 0;">
-              <a class="nav-link dropdown-toggle decor" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <a href="{% url 'accounts:profile' user.pk %}"><em class="text-info mx-2">{{ user.username }}</em>님</a></a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="{% url 'accounts:profile' user.pk %}">My Page</a>
-                <a class="dropdown-item" href="{% url 'accounts:logout' %}">Log Out</a>
-              </div>
-            </li>
+          </div>
           {% else %}
-            <li class="nav-item">
+            <div class="nav-item d-flex flex-row mx-3">
               <a class="nav-link" href="{% url 'accounts:login' %}">
                 <u>Log In</u>
               </a>
-            </li>
-            <li class="nav-item mt-2">/</li>
-            <li class="nav-item">
+              <p class="nav-item mx-3 disabled">/</p>
               <a class="nav-link" href="{% url 'accounts:signup' %}">
                 <u>Sign Up</u>
               </a>
-            </li>
+            </div>
           {% endif %}
-        </ul>
+        </div>
       </div>
     </div>
   </nav>
