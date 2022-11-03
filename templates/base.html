@@ -54,7 +54,7 @@
             </div>
             <li class="nav-item dropdown" style="margin: auto 0;">
               <a class="nav-link dropdown-toggle decor" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <em class="text-info mx-2">{{ user.username }}</em>님</a>
+                <a href="{% url 'accounts:profile' user.pk %}"><em class="text-info mx-2">{{ user.username }}</em>님</a></a>
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="{% url 'accounts:profile' user.pk %}">My Page</a>
                 <a class="dropdown-item" href="{% url 'accounts:logout' %}">Log Out</a>
