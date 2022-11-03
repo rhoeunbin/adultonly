@@ -57,12 +57,13 @@
 
               {% endif %}
 
-              <div class="card-body">
-                <p class="card-text summary">{{ restaurant.food_type }}</p>
-                <p class="card-text summary">{{ restaurant.opening_hours }}</p>
-                <p class="card-text summary">평점:{{ restaurant.grade }}</p>
-                <p class="card-text summary">좋아요:{{ restaurant.like_users_set.all|length }}</p>
-              </div>
+
+            <div class="card-body">
+              <p class="card-text summary">{{ restaurant.food_type }}</p>
+              <p class="card-text summary">{{ restaurant.opening_hours }}</p>
+              <p class="card-text summary">평점:{{ restaurant.grade }}</p>
+              <p class="card-text summary">좋아요:{{ restaurant.like_users.all|length}}</p>
+
             </div>
           </div>
         {% endfor %}
