@@ -2,13 +2,15 @@
 {% load django_bootstrap5 %}
 {% load static %}
 {% block content %}
-<div class="container my-5">
+<div class="main row text-center mt-5 py-5">
+  <div class="acmain py-5 col-6">
   <h1>프로필 업데이트</h1>
     <form action="" method="POST">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <input class="btn btn-primary my-2" type="button" style="background-color: rgba(59, 63, 140, 1)" value="제출">
+        <input class="btn my-2" type="button" style="background-color: rgba(59, 63, 140, 1); color:#fff; " value="제출">
     </form>
-    <a class="btn btn-primary my-2" href="{% url 'accounts:change_password' %}">비번변경</a>
+    <a class="btn my-2" href="{% url 'accounts:change_password' %}" style="background-color: rgba(242, 141, 178, 1);">비번변경</a>
   </div>
+</div>
 {% endblock content %}
