@@ -2,9 +2,7 @@
 {% load static %}
 {% load django_bootstrap5 %}
 
-{% block title %}
-  맛집
-{% endblock title %}
+{% block title %} | 맛집{% endblock title %}
 
 {% block content %}
   <div class="main_back">
@@ -103,7 +101,6 @@
           <!-- 다음페이지 -->
           {% if restaurants.has_next %}
             <li class="page-item">
-              <a class="page-link" href="?page={{ restaurants.next_page_number }}">다음</a>
             </li>
           {% else %}
             <li class="page-item disabled">

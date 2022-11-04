@@ -54,6 +54,10 @@ a {
 	vertical-align: baseline;
 }
 
+.btn {
+    cursor:pointer;
+}
+
 .thumb_profile {
     display: inline-block;
     overflow: hidden;
@@ -82,6 +86,15 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+.boxbg {
+    backdrop-filter: blur(15px) saturate(200%);
+    -webkit-backdrop-filter: blur(15px) saturate(200%);
+    background-color: rgba(255, 255, 255, 0.55);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+    margin-top: .9375rem;
 }
 
 .slidebox {
@@ -143,7 +156,7 @@ table {
 #slide04:checked ~ .slide-control .control04 {display:block;}
 
 .main_back {
-    background:linear-gradient(rgba(242, 141, 178, .5),rgba(59, 63, 140, .5));
+    background:linear-gradient(#f28db280,#3b3f8c80);
     position: relative;
 
 }
@@ -334,4 +347,34 @@ ul[class="pagination"] > li[class="page-item"] > a {
 
 .page-item {
     border-radius: 50%;
+
+/* articles/aboutus */
+.aboutusbg {
+    background-image: url('https://cdn.pixabay.com/photo/2016/11/29/05/45/astronomy-1867616_960_720.jpg');
+    background-position: center;
+    background-size: cover;
+    padding: 10rem;
+    height: 100vh;
+    width: 100%;
+}
+
+.aboutus {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+    width: 30rem;
+    position:absolute;
+    left:50%;
+    top:30%;
+    margin-left:-150px;
+    margin-top:-150px;
+}
+
+/* articles/detail */
+.resimg {
+    height: 31.25rem;
+    width: auto;
+    object-fit: contain;
 }

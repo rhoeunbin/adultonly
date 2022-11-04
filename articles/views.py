@@ -44,7 +44,7 @@ def board(request):
         page_obj = paginator.page(page)
 
     context = {
-        "restaurants" : page_obj,
+        "restaurants": page_obj,
     }
 
     return render(request, "articles/board.html", context)
@@ -88,7 +88,6 @@ def detail(request, pk):
         "restaurant": restaurant,
         "comments": restaurant.articlecomment_set.all().order_by("-created_at"),
         "comment_form": form,
-        # "total_comments": restaurant.comment_set.count(),
         "latitude": lat,
         "longitude": lon,
         "client_id": client_id,
@@ -97,12 +96,15 @@ def detail(request, pk):
     return render(request, "articles/detail.html", context)
 
 
-# @login_required
+@login_required
 def create(request):
     if request.method == "POST":
         restaurant_form = RestaurantForm(request.POST, request.FILES)
         if restaurant_form.is_valid():
-            restaurant_form.save()
+            restaurant = restaurant_form.save(commit=False)
+            restaurant.user = request.user
+            restaurant.save()
+            messages.success(request, "맛집으로 등록되었습니다.")
             return redirect("articles:board")
     else:
         restaurant_form = RestaurantForm()
@@ -114,16 +116,18 @@ def create(request):
 
 # @login_required
 def update(request, pk):
-    restaurant = Restaurant.objects.get(pk=pk)
-    if request.method == "POST":
-        restaurant_form = RestaurantForm(
-            request.POST, request.FILES, instance=restaurant
-        )
-        if restaurant_form.is_valid():
-            restaurant_form.save()
-            return redirect("articles:detail", pk)
-    else:
-        restaurant_form = RestaurantForm(instance=restaurant)
+    restaurant = get_object_or_404(Restaurant, pk=pk)
+    if request.user == restaurant.user:
+        if request.method == "POST":
+            restaurant_form = RestaurantForm(
+                request.POST, request.FILES, instance=restaurant
+            )
+            if restaurant_form.is_valid():
+                restaurant_form.save()
+                messages.success(request, "맛집 정보가 수정되었습니다.")
+                return redirect("articles:detail", pk)
+        else:
+            restaurant_form = RestaurantForm(instance=restaurant)
     context = {
         "restaurant_form": restaurant_form,
         "restaurant_pk": restaurant.pk,
@@ -187,3 +191,7 @@ def search_results(request):
             }
         )
     return JsonResponse({})
+
+
+def aboutus(request):
+    return render(request, "articles/aboutus.html")
