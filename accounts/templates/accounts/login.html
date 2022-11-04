@@ -14,6 +14,17 @@
               {% render_field form.password class="form-control w-70 my-5" placeholder="비밀번호를 입력하세요" %}
               <input class="form-control btn btn-primary" type="submit" value="로그인">
             </form>
+            {% load socialaccount %}
+            <div class="d-grid mt-3 mb-2">
+              <a href="{% provider_login_url 'naver' %}" class="btn btn-info">
+                <i class="fa fa-twitter mx-3"></i>네이버로 시작하기</a>
+            </div>
+
+            <div class="d-grid mb-3">
+              <a href="{% provider_login_url 'google' %}" class="btn btn-danger">
+                <i class="fa fa-google mx-3"></i>구글로 시작하기</a>
+            </div>
+
             <!--아이디저장, 찾기 묶음-->
             <div class="box d-flex flex-row justify-content-between mt-5">
               <span class="input-wrap">

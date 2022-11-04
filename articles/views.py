@@ -28,7 +28,6 @@ def home(request):
     }
     return render(request, "articles/home.html", context)
 
-
 def board(request):
     restaurants = Restaurant.objects.order_by("-pk")
     page = request.GET.get("page")
@@ -42,7 +41,7 @@ def board(request):
     except EmptyPage:
         page = paginator.num_pages
         page_obj = paginator.page(page)
-
+    print(page_obj)
     context = {
         "restaurants": page_obj,
     }
