@@ -42,7 +42,7 @@
       <h1 class="text-center" id="mat">
         맛집 리스트
       </h1>
-      {% if user.is_authenticated %}
+      {% if user.is_authenticated and user.is_staff == 1 %}
         <a href="{% url 'articles:create' %}" type="button" class="btn btn-primary mb-4">맛집 등록</a>
       {% endif %}
       <!-- 카드리스트 -->
