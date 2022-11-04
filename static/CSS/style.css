@@ -385,3 +385,21 @@ ul[class="pagination"] > li[class="page-item"] > a {
     width: auto;
     object-fit: contain;
 }
+
+.likecxlbtn {
+    background-color: #292759;
+    color: white;
+}
+
+.likebtn {
+    background-color:  #db8fc6;
+    color:white;
+}
+
+.detailbg {
+    backdrop-filter: blur(15px) saturate(200%);
+    -webkit-backdrop-filter: blur(15px) saturate(200%);
+    background-color: rgba(255, 255, 255, 0.55);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+}
