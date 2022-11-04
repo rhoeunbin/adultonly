@@ -9,16 +9,18 @@ class Restaurant(models.Model):
     content = models.TextField()
     address = models.TextField()
     address_detail = models.TextField()
-    image = models.ImageField(upload_to="articles/", blank=True)
-    grade = models.FloatField()
-    food_type = models.CharField(max_length=80)
-    opening_hours = models.TextField()
+    image = models.ImageField(upload_to="articles/", blank=True, max_length=500)
+    phone_number = models.CharField(max_length=30, null=True)
+    longitude = models.FloatField()
+    latitude = models.FloatField()
+    cusine_code = models.IntegerField()
+    subcusine_code = models.IntegerField()
     like_users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="like_restaurant"
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # created_at = models.DateTimeField(auto_now_add=True)
+    # updated_at = models.DateTimeField(auto_now=True) 
+    # user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
 
 
 class ArticleComment(models.Model):

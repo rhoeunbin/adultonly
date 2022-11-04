@@ -68,7 +68,21 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # allauth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account', # 가입한 계정 관리
+    'allauth.socialaccount', # 소셜 계정으로 가입한 계정 관리
+    'allauth.socialaccount.providers.naver',
+    'allauth.socialaccount.providers.google',
 ]
+## allauth
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+## allauth
+SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -93,6 +107,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request",
             ],
         },
     },
