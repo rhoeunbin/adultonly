@@ -12,170 +12,189 @@
 {% block content %}
   <!-- Naver Map -->
   <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId={{client_id}}"></script>
-
-  <section class="container-lg">
-    <!--게시글 디테일-->
-    <div id="map" style="height: 235px"></div>
-    <div class="card mb-3">
-      <div class="card-header">
-        <h3>{{ restaurant.title }}</h3>
-        <h5 class="card-title">{{ restaurant.name }}</h5>
-      </div>
-      <div class="card-body d-flex justify-content-between">
-        <p class="card-subtitle text-muted">{{ restaurant.created_at }}</p>
-      </div>
-      <img src="{{ restaurant.image.url }}" alt="{{ restaurant.img_path }}" class="card-img resimg d-block user-select-none" viewbox="0 0 318 180">
-      <div class="card-body" style="min-height: 250px">
-        <p class="card-text text-wrap">{{ restaurant.content }}</p>
-          {% if user in restaurant.like_users.all %}
+  <main class="main_back">
+    <section class="container-lg py-5">
+      <!--게시글 내용카드-->
+      <div class="card detailbg">
+        <div class="card-header d-flex flex-row justify-content-between">
+          <h3 class="card-title">{{ restaurant.title }}</h3>
+          <!--좋아요버튼-->
+          <div>
+            {% if user in restaurant.like_users.all %}
             <div id="like-area">
-              <button id="like-btn" name="{{ restaurant.pk }}" class="btn btn-dark">
+              <button id="like-btn" name="{{ restaurant.pk }}" class="btn likebtn">
                 <i class="fa-regular fa-heart fa-lg">좋아요 취소</i>
               </button>
             </div>
           {% else %}
             <div id="like-area">
-              <button id="like-btn" name="{{ restaurant.pk }}" class="btn btn-danger">
+              <button id="like-btn" name="{{ restaurant.pk }}" class="btn likecxlbtn">
                 <i class="fa-regular fa-heart fa-lg">좋아요</i>
               </button>
             </div>
           {% endif %}
+          </div>
+        </div>
+        <!--카드헤드끝-->
+        <div class="card-body d-flex justify-content-between">
+          <p class="card-subtitle text-muted">{{ restaurant.created_at }}</p>
+        </div>
+        <img src="{{ restaurant.image.url }}" alt="{{ restaurant.img_path }}" class="card-img resimg d-block user-select-none" viewbox="0 0 318 180">
+        <!--사진 아래 맛집 디테일-->
+        <div class="card-body row" style="min-height: 250px">
+          <div class="detailbox col p-3">
+            <h5>평가 및 리뷰</h5>
+            <p class="card-text text-wrap my-2 fw-bold">{{ restaurant.grade }}</p>
+            <div id="comments-count">
+              <a href="#comments-area"><i class="fa-regular fa-comment-smile"></i>
+              {{ restaurant.articlecomment_set.all|length }} 건의 리뷰</a>
+            </div>
+          </div>
+          <div class="detailbox col p-3">
+            <h5>상세 정보</h5>
+            <p class="card-text text-wrap my-2"><i class="fa-duotone fa-fork-knife"></i>{{ restaurant.food_type }}</p>
+            <p class="card-text text-wrap my-2"><i class="fa-regular fa-clock"></i>{{ restaurant.opening_hours }}</p>
+          </div> 
+          <div class="detailbox col p-3">
+            <h5>위치</h5>
+            <div id="map" class="border" style="height: 270px; width: 275px;"></div>
+            <p class="card-text text-wrap my-2"><i class="fa-solid fa-location-dot"></i> {{ restaurant.address }} {{ restaurant.address_detail }}</p>
+          </div>  
         </div>
       </div>
-    </div>
-    <!--게시글 아래 버튼 묶음-->
-    <div class="d-flex justify-content-between my-3">
-      <a href="{% url 'articles:board' %}" type="button" class="card-link btn btn-secondary">
-        <i class="fas fa-stream mx-1"></i>목록</a>
-      {% if request.user == restaurant.user %}
-        <div>
-          <a href="{% url 'articles:update' restaurant.pk %}" type="button" class="card-link btn btn-secondary">수정</a>
-          <button type="button" class="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            삭제
-          </button>
-        </div>
-      {% endif %}
-    </div>
-    <!-- 삭제 모달-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">정말 삭제하시겠습니까?</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"></span>
+      <!--게시글 아래 버튼 묶음-->
+      <div class="d-flex justify-content-between my-3">
+        <a href="{% url 'articles:board' %}" type="button" class="card-link btn btn-secondary">
+          <i class="fas fa-stream mx-1"></i>목록</a>
+        {% if request.user == restaurant.user %}
+          <div>
+            <a href="{% url 'articles:update' restaurant.pk %}" type="button" class="card-link btn btn-secondary">수정</a>
+            <button type="button" class="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              삭제
             </button>
           </div>
-          <div class="modal-footer">
-            <form action="{% url 'articles:delete' restaurant.pk %}" method="POST">
-              {% csrf_token %}
-              <input type="submit" class="btn btn-danger" value="삭제">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                취소
+        {% endif %}
+      </div>
+      <!-- 삭제 모달-->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">정말 삭제하시겠습니까?</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"></span>
               </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--댓글-->
-    <div class="card my-5">
-      <div class="card-header" id="comments-area">
-        <div id="comments-count">
-          <i class="fa-regular fa-comment-smile"></i>리뷰
-          {{ restaurant.articlecomment_set.all|length }}개
-        </div>
-
-      </div>
-      <!--test-->
-      <!-- <form id="comment-form" autocomplete="off"> {% csrf_token %} {% bootstrap_form comment_form %} <button class="btn btn-primary" type="submit" name="{{restaurant.pk}}"></button> </form> -->
-      <!-- 댓글 폼-->
-      <form id="comment-form" autocomplete="off" class="comment-form">
-        {% csrf_token %}
-        <div class="container-fluid my-2 py-2 text-dark">
-          <div class="row d-flex">
-            <div class="col-12">
-              <!-- alret -->
-              <div id="alert-box"></div>
-              <div class="d-flex flex-start mb-4">
-                <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65" height="65"/>
-                <div class="card w-100">
-                  <div class="card-body p-4">
-                    <div class="">
-                      <div class="d-flex align-items-center">
-                        <!-- title -->
-                        {% render_field comment_form.title class="form-control w-100" placeholder="제목"%}
-                        <!-- rating -->
-                        {% render_field comment_form.rating class="form-control w-100" placeholder="평가"%}
-                      </div>
-                      <p>
-                        <!-- content -->
-                        {% render_field comment_form.content class="form-control w-100" placeholder="내용"%}
-                      </p>
-                      <!-- image -->
-                      <label for="id_image">
-                        <!-- 이미지 첨부 아이콘 -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-image-fill" viewbox="0 0 16 16">
-                          <path d="M4 0h8a2 2 0 0 1 2 2v8.293l-2.73-2.73a1 1 0 0 0-1.52.127l-1.889 2.644-1.769-1.062a1 1 0 0 0-1.222.15L2 12.292V2a2 2 0 0 1 2-2zm4.002 5.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"/>
-                          <path d="M10.564 8.27 14 11.708V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-.293l3.578-3.577 2.56 1.536 2.426-3.395z"/>
-                        </svg>
-                      </label>
-                      {% render_field comment_form.image class="form-control w-100 d-none" placeholder="이미지"%}
-                      <div id="image-section"></div>
-                    </div>
-                  </div>
-                  <!-- submit -->
-                  <div class="card-footer">
-                    <button type="submit" class="btn btn-primary btn-sm" name="{{restaurant.pk}}">등록</button>
-                  </div>
-                </div>
-              </div>
+            </div>
+            <div class="modal-footer">
+              <form action="{% url 'articles:delete' restaurant.pk %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger" value="삭제">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  취소
+                </button>
+              </form>
             </div>
           </div>
         </div>
-      </form>
-      <!-- 댓글 리스트 -->
-      {% for comment in comments %}
-        <div class="container-fluid my-2 py-2 text-dark" id="comments-area">
-          <div class="row d-flex">
-            <div class="col-12">
-              <div class="d-flex flex-start mb-4">
-                <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65" height="65"/>
-                <div class="card w-100">
-                  <div class="card-body p-4">
-                    <div class="">
-                      <div class="d-flex justify-content-between align-items-center">
+      </div>
+      <!--댓글-->
+      <div class="card detailbg">
+        <div class="card-header" id="comments-area">
+          <div id="comments-count">
+            <i class="fa-regular fa-comment-smile"></i>리뷰
+            {{ restaurant.articlecomment_set.all|length }}개
+          </div>
+
+        </div>
+        <!--test-->
+        <!-- <form id="comment-form" autocomplete="off"> {% csrf_token %} {% bootstrap_form comment_form %} <button class="btn btn-primary" type="submit" name="{{restaurant.pk}}"></button> </form> -->
+        <!-- 댓글 폼-->
+        <form id="comment-form" autocomplete="off" class="comment-form">
+          {% csrf_token %}
+          <div class="container-fluid my-2 py-2 text-dark">
+            <div class="row d-flex">
+              <div class="col-12">
+                <!-- alret -->
+                <div id="alert-box"></div>
+                <div class="d-flex flex-start mb-4">
+                  <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65" height="65"/>
+                  <div class="card w-100">
+                    <div class="card-body p-4">
+                      <div class="">
                         <div class="d-flex align-items-center">
-                          <h5>{{ comment.title }}</h5>
+                          <!-- title -->
+                          {% render_field comment_form.title class="form-control w-100" placeholder="제목"%}
+                          <!-- rating -->
+                          {% render_field comment_form.rating class="form-control w-100" placeholder="평가"%}
                         </div>
-                        <div>
-                          <a href="#!" class="link-muted">
-                            <i class="fas fa-reply me-1"></i>
-                            수정</a>
-                          <a href="{% url 'articles:delete_comment' restaurant.pk comment.pk %}" class="link-muted" method="post">삭제</a>
-                        </div>
+                        <p>
+                          <!-- content -->
+                          {% render_field comment_form.content class="form-control w-100" placeholder="내용"%}
+                        </p>
+                        <!-- image -->
+                        <label for="id_image">
+                          <!-- 이미지 첨부 아이콘 -->
+                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-image-fill" viewbox="0 0 16 16">
+                            <path d="M4 0h8a2 2 0 0 1 2 2v8.293l-2.73-2.73a1 1 0 0 0-1.52.127l-1.889 2.644-1.769-1.062a1 1 0 0 0-1.222.15L2 12.292V2a2 2 0 0 1 2-2zm4.002 5.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"/>
+                            <path d="M10.564 8.27 14 11.708V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-.293l3.578-3.577 2.56 1.536 2.426-3.395z"/>
+                          </svg>
+                        </label>
+                        {% render_field comment_form.image class="form-control w-100 d-none" placeholder="이미지"%}
+                        <div id="image-section"></div>
                       </div>
-                      <p class="small mb-3">{{ comment.created_at }}</p>
-                      <p>
-                        {{ comment.content }}
-                      </p>
-                      <div>
-                        {% if comment.image %}
-                          <img src="{{ comment.image.url }}" alt="">
-                        {% else %}
-                        {% endif %}
-                      </div>
+                    </div>
+                    <!-- submit -->
+                    <div class="card-footer" name="review">
+                      <button type="submit" class="btn btn-primary btn-sm" name="{{restaurant.pk}}">등록</button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          {% endfor %}
+          </div>
+        </form>
+        <!-- 댓글 리스트 -->
+        {% for comment in comments %}
+          <div class="container-fluid my-2 py-2 text-dark" id="comments-area">
+            <div class="row d-flex">
+              <div class="col-12">
+                <div class="d-flex flex-start mb-4">
+                  <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65" height="65"/>
+                  <div class="card w-100">
+                    <div class="card-body p-4">
+                      <div class="">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="d-flex align-items-center">
+                            <h5>{{ comment.title }}</h5>
+                          </div>
+                          <div>
+                            <a href="#!" class="link-muted">
+                              <i class="fas fa-reply me-1"></i>
+                              수정</a>
+                            <a href="{% url 'articles:delete_comment' restaurant.pk comment.pk %}" class="link-muted" method="post">삭제</a>
+                          </div>
+                        </div>
+                        <p class="small mb-3">{{ comment.created_at }}</p>
+                        <p>
+                          {{ comment.content }}
+                        </p>
+                        <div>
+                          {% if comment.image %}
+                            <img src="{{ comment.image.url }}" alt="">
+                          {% else %}
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-
+    </section>
+  </main>
  {% block js %}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript">
