@@ -4,9 +4,7 @@
 {% load django_bootstrap5 %}
 {% load widget_tweaks %}
 
-{% block title %}
-  {{ restaurant.title }}
-{% endblock title %}
+{% block title %} | {{ restaurant.title }}{% endblock title %}
 
 {% block content %}
   <!-- Naver Map -->
