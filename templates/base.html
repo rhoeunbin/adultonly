@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/wineglass.ico' %}">
     <title>
-      청소년입장불가 |{% block title %}{% endblock title %}
+      청소년입장불가{% block title %}{% endblock title %}
     </title>
 
     {% bootstrap_css %}
@@ -46,7 +46,7 @@
             <li>
               <a href="{% url 'communities:board' %}">자유게시판</a>
             </li>
-            <li>about us</li>
+            <li><a href="{% url 'articles:aboutus' %}">about us</a></li>
           </ul>
         </div>
           {% if request.user.is_authenticated %}
@@ -55,9 +55,9 @@
                 <img src="{% static 'img/anonymous.png' %}" class="img_profile" alt="프로필사진">
             </a>
           </div>
-          <div class="nav-item dropdown">
+          <div class="nav-item dropdown" style="margin: 0 100px 0 0;">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa-solid fa-circle-caret-down"></i>왜안돼
+              <i class="fa-solid fa-circle-caret-down"></i>{{ user}} 님
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{% url 'accounts:profile' user.pk %}">My Page</a>

@@ -44,7 +44,7 @@ def board(request):
         page_obj = paginator.page(page)
 
     context = {
-        "restaurants" : page_obj,
+        "restaurants": page_obj,
     }
 
     return render(request, "articles/board.html", context)
@@ -187,3 +187,7 @@ def search_results(request):
             }
         )
     return JsonResponse({})
+
+
+def aboutus(request):
+    return render(request, "articles/aboutus.html")
