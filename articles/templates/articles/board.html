@@ -49,6 +49,7 @@
       <!-- 카드리스트 -->
       <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
         {% for restaurant in restaurants %}
+            
           <div class="col">
             <div class="page_card mb-3">
               {% if user.is_authenticated %}
@@ -64,10 +65,9 @@
                 <img src= "{{ restaurant.image }}" alt="{{ restaurant.image  }}" class="card-img d-block user-select-none" width="100%" height="200" viewbox="0 0 318 180">
 
                 <div class="card-body">
-                  <p class="card-text summary">{{ restaurant.food_type }}</p>
-                  <p class="card-text summary">{{ restaurant.opening_hours }}</p>
-                  <p class="card-text summary">평점:{{ restaurant.grade }}</p>
-                  <p class="card-text summary">좋아요:{{ restaurant.like_users.all|length}}</p>
+                  <small class="card-text summary my-1">{{ restaurant.phone_number }}</small>
+                  <p class="card-text summary" name="comment-rating">{{ restaurant.avg_rating}}</p>
+                  <div class="card-text summary">좋아요:{{ restaurant.like_users_ser.all|length}}</div>
                 </div>
               </div>
             </div>
@@ -113,4 +113,70 @@
         <!-- 페이징처리 끝 -->
       </section>
     </div>
-  {% endblock content %}
+    
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+      starRatings = document.getElementsByName('comment-rating')
+      
+      starRatings.forEach(starRating => {
+        var rate = starRating.innerHTML
+        console.log(starRatings)
+      if(rate == 1){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        `
+      }else if(rate == 2){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        `
+      }else if(rate == 3){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        `
+      }else if(rate == 4){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        `
+      }else if(rate == 5){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        `
+      }else if(rate == '0'){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        `
+      }
+      })
+    </script>
+    {% endblock content %}
