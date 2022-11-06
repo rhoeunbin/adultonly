@@ -2,17 +2,54 @@
 {% load django_bootstrap5 %}
 {% load static %}
 {% block content %}
-  <div class="container mb-5">
-    <h1 class="text-center my-5">회원가입</h1>
-    <form action="" method='POST'>
+<div class="main_back">
+  <div class="back_container container mb-5">
+    <div class="signup">
+    <h1 class="mt-5">회원가입</h1>
+    <h3 class="mb-5">가입을 통해 더 다양한 서비스를 만나보세요!</h3>
+    <form action="" method='POST' class="w-75">
       {% csrf_token %}
-      {% bootstrap_form form %}
-
-      <input name="job" required="required" type="checkbox" value="1" onclick="doOpenCheck(this);">일반인
-      <br/>
-      <input name="job" required="required" type="checkbox" value="2" onclick="doOpenCheck(this);">사장님
-      <br/>
-      <input class="btn btn-primary" type="submit" value="제출">
+      {% comment %} {% bootstrap_form form %} {% endcomment %}
+      <div required class="input_form" id="info__id">
+        <input id="check_id" type="text" name="username" placeholder="아이디 입력 (4~20자)"/>
+        <button id="id-check">중복 확인</button>
+        <p id="id-error"></p>
+      </div>
+      <div required class="password_form" id="info__pw">
+      <input class="mt-5" type="password" name="password1" placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8~20자)"/>
+      <input class="my-5" type="password" name="password2" placeholder="비밀번호 재입력"/>
+      <div class="error-msg"></div>
+    </div>
+    <div required class="email_form">
+      <input type="text" name="email_id" placeholder="이메일 주소"/>
+      <p>@</p>
+      <input class="text" name="email_address" id="domain-txt" type="text"/>
+      <select class="box" id="domain-list">
+        <option value="type">직접 입력</option>
+        <option value="naver.com">naver.com</option>
+        <option value="google.com">google.com</option>
+        <option value="hanmail.net">hanmail.net</option>
+        <option value="nate.com">nate.com</option>
+        <option value="kakao.com">kakao.com</option>
+      </select>
+    </div>
+    {% comment %} <div required class="year_form">
+      <input class="mt-5" type="text" placeholder="년도"/>
+      <input class="mt-5" type="text" placeholder="월"/>
+      <input class="mt-5" type="text" placeholder="일"/>
+    </div> {% endcomment %}
+    <div required class="job_form">
+    <input name="job" required="required" type="checkbox" value="1" autofocus onclick="doOpenCheck(this);" id="normal">
+    <label name="job_pos" id="normal" for="normal"><div class="job_btn">일반인</div></label>
+    <input name="job" required="required" type="checkbox" value="2" onclick="doOpenCheck(this);" id="owner">
+    <label name="job_pos" id="owner" for="owner"><div class="job_btn">사장님</div></label>
+    </div>
+    <div class="submitBtn">
+      <div id="result-fail"></div>
+      <input type="submit" id="submit" value="가입하기">
+    </div>
     </form>
   </div>
+  </div>
+</div>
 {% endblock content %}

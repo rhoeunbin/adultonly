@@ -15,16 +15,9 @@
               <input class="form-control btn btn-primary" type="submit" value="로그인">
             </form>
             {% load socialaccount %}
-            <div class="d-grid mt-3 mb-2">
-              <a href="{% provider_login_url 'naver' %}" class="btn btn-info">
-                <i class="fa fa-twitter mx-3"></i>네이버로 시작하기</a>
-            </div>
-
-            <div class="d-grid mb-3">
-              <a href="{% provider_login_url 'google' %}" class="btn btn-danger">
-                <i class="fa fa-google mx-3"></i>구글로 시작하기</a>
-            </div>
-
+            
+            <a href="{% url 'accounts:login' %}kakao" class="btn btn-warning">카카오톡으로 로그인</a>
+            <a href="{% url 'accounts:login' %}naver" class="btn btn-success">네이버로 로그인</a>
             <!--아이디저장, 찾기 묶음-->
             <div class="box d-flex flex-row justify-content-between mt-5">
               <span class="input-wrap">
@@ -50,6 +43,7 @@
   </section>
 {% endblock content %}
 {% block js %}
+
   <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
   <script type="text/javascript">
     $(function () {

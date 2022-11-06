@@ -11,7 +11,7 @@
         <div class="my-3">
           <a class="btn btn-danger me-3" href="{%  url 'accounts:logout' %}">로그아웃</a>
           <a class="btn btn-success me-3" href="{% url 'accounts:index' %}">회원 목록</a>
-          <a class="btn btn-secondary me-3" href="{% url 'accounts:profile' user.pk %}">프로필</a>
+          <a class="btn" href="{% url 'accounts:profile' user.pk %}" style="background-color: rgba(59, 63, 140, 1); color:#fff;">프로필</a>
         </div>
       {% else %}
         <div>

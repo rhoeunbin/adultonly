@@ -28,6 +28,7 @@ def home(request):
     }
     return render(request, "articles/home.html", context)
 
+
 def board(request):
     restaurants = Restaurant.objects.order_by("-pk")
     page = request.GET.get("page")
@@ -41,10 +42,19 @@ def board(request):
     except EmptyPage:
         page = paginator.num_pages
         page_obj = paginator.page(page)
-    print(page_obj)
+    
+    avg_list = []
+    for page in page_obj:
+        reviews = page.articlecomment_set.values()
+        try:
+            setattr(page, 'avg_rating', sum([ x['rating'] for x in reviews ]) // len(reviews))
+        except:
+            setattr(page, 'avg_rating', 0)
+
     context = {
         "restaurants": page_obj,
     }
+    
 
     return render(request, "articles/board.html", context)
 
@@ -83,6 +93,11 @@ def detail(request, pk):
             data["status"] = "ok"
             print(data)
             return JsonResponse(data)
+    reviews = restaurant.articlecomment_set.values()
+    avg_rating = 0
+    if reviews:
+        avg_rating = sum([ x['rating'] for x in reviews ]) // len(reviews)
+
     context = {
         "restaurant": restaurant,
         "comments": restaurant.articlecomment_set.all().order_by("-created_at"),
@@ -90,6 +105,7 @@ def detail(request, pk):
         "latitude": lat,
         "longitude": lon,
         "client_id": client_id,
+        "avg_rating" : avg_rating,
     }
 
     return render(request, "articles/detail.html", context)
@@ -162,7 +178,10 @@ def likes(request):
         else:
             restaurant.like_users.add(request.user)
             is_liked = True
-        context = {"is_liked": is_liked, "likeCount": restaurant.like_users.count()}
+        context = {
+            "is_liked": is_liked,
+            "likeCount": restaurant.like_users.count(),
+        }
         return JsonResponse(context)
 
 
