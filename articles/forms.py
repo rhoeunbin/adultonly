@@ -11,6 +11,7 @@ class RestaurantForm(forms.ModelForm):
             "image",
             "address",
             "address_detail",
+            "phone_number",
         ]
         labels = {
             "title": "가게명",

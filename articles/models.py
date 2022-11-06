@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
+from .utils import get_latitude_longitude
 
 
 # Create your models here.
@@ -13,15 +14,17 @@ class Restaurant(models.Model):
     phone_number = models.CharField(max_length=30, null=True)
     longitude = models.FloatField()
     latitude = models.FloatField()
-    cusine_code = models.IntegerField()
-    subcusine_code = models.IntegerField()
+    cusine_code = models.IntegerField(null=True)
+    subcusine_code = models.IntegerField(null=True)
     like_users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="like_restaurant"
     )
     # created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True) 
     # user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
-
+    def save(self, *args, **kwargs):
+        self.latitude, self.longitude = get_latitude_longitude(self.address)
+        super(Restaurant, self).save(*args, **kwargs)
 
 class ArticleComment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
