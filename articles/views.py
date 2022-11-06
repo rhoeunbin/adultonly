@@ -172,13 +172,14 @@ def search_results(request):
         restaurant = request.POST.get("restaurant")
         kw = Restaurant.objects.filter(title__icontains=restaurant)
         if len(kw) > 0 and len(restaurant) > 0:
-            data = []
+            data = []        
             for k in kw:
                 item = {
                     "pk": k.pk,
                     "title": k.title,
-                    "address": k.address,
-                    "image": str(k.image.url),
+                    "address" : k.address + ' ' + k.address_detail,
+                    "phone_number": k.phone_number,
+                    "image": str(k.image),
                 }
                 data.append(item)
             res = data
