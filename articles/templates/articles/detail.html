@@ -23,17 +23,18 @@
           <div>
             {% if user in restaurant.like_users.all %}
               <div id="like-area">
-                <button id="like-btn" name="{{ restaurant.pk }}" class="btn likebtn">
-                  <i class="fa-regular fa-heart fa-lg">좋아요 취소</i>
+                <button id="like-btn" name="{{ restaurant.pk }}" class="btn likecxlbtn">
+                  <i class="fa-solid fa-bookmark"></i>
                 </button>
               </div>
             {% else %}
               <div id="like-area">
-                <button id="like-btn" name="{{ restaurant.pk }}" class="btn likecxlbtn">
-                  <i class="fa-regular fa-heart fa-lg">좋아요</i>
+                <button id="like-btn" name="{{ restaurant.pk }}" class="btn likebtn">
+                  <i class="fa-regular fa-bookmark"></i>
                 </button>
               </div>
             {% endif %}
+
           </div>
         </div>
         <!--카드헤드끝-->
@@ -286,7 +287,7 @@
               content.value = ""
               image.value = ""
               reloadDivArea()
-            }, 2000)
+            }, 1000)
 
           },
           error: function (error) {
@@ -318,25 +319,17 @@
             console.log(response.is_liked)
             const likeArea = document.querySelector('#like-area')
             if (response.is_liked) {
-              likeBtn
-                .classList
-                .add('btn-danger')
-              likeBtn
-                .classList
-                .remove('btn-dark')
+              likeBtn.classList.remove("likebtn")
+              likeBtn.classList.add("likecxlbtn")
               likeBtn.innerHTML = `
-          <i class="fa-regular fa-heart fa-lg">좋아요</i>
+              <i class="fa-regular fa-bookmark"></i>
           `
             } else {
-              likeBtn
-                .classList
-                .add('btn-dark')
-              likeBtn
-                .classList
-                .remove('btn-danger')
+              likeBtn.classList.remove("likecxlbtn")
+              likeBtn.classList.add("likebtn")
               likeBtn.innerHTML = `
-          <i class="fa-regular fa-heart fa-lg">좋아요 취소</i>
-          `
+              <i class="fa-solid fa-bookmark"></i>
+          `;
             }
 
           }

@@ -42,7 +42,7 @@ def login(request):
 
             if form.is_valid():
                 auth_login(request, form.get_user())
-                return redirect("accounts:main")
+                return redirect(request.GET.get("next") or "accounts:main")
         else:
             form = AuthenticationForm()
 
@@ -119,8 +119,10 @@ def follow(request, pk):
         user.followings.add(request.user)
     return redirect("accounts:profile", pk)
 
+
 def naverlogin(request):
     return render(request, "accounts/naverlogin.html")
+
 
 import secrets
 
@@ -161,7 +163,7 @@ def kakao_callback(request):
         kakao_login_user.set_password(str(state_token))
         kakao_login_user.save()
         kakao_user = get_user_model().objects.get(kakao_id=kakao_id)
-    auth_login(request, kakao_user, backend='django.contrib.auth.backends.ModelBackend')
+    auth_login(request, kakao_user, backend="django.contrib.auth.backends.ModelBackend")
     return redirect(request.GET.get("next") or "accounts:index")
 
 
@@ -205,6 +207,6 @@ def naver_callback(request):
         naver_login_user.set_password(str(state_token))
         naver_login_user.save()
         naver_user = get_user_model().objects.get(naver_id=naver_id)
-    auth_login(request, naver_user, backend='django.contrib.auth.backends.ModelBackend')
+    auth_login(request, naver_user, backend="django.contrib.auth.backends.ModelBackend")
 
     return redirect(request.GET.get("next") or "accounts:index")

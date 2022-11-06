@@ -28,6 +28,7 @@ def home(request):
     }
     return render(request, "articles/home.html", context)
 
+
 def board(request):
     restaurants = Restaurant.objects.order_by("-pk")
     page = request.GET.get("page")
@@ -162,7 +163,10 @@ def likes(request):
         else:
             restaurant.like_users.add(request.user)
             is_liked = True
-        context = {"is_liked": is_liked, "likeCount": restaurant.like_users.count()}
+        context = {
+            "is_liked": is_liked,
+            "likeCount": restaurant.like_users.count(),
+        }
         return JsonResponse(context)
 
 
