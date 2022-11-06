@@ -118,3 +118,6 @@ def follow(request, pk):
     else:
         user.followings.add(request.user)
     return redirect("accounts:profile", pk)
+
+def naverlogin(request):
+    return render(request, "accounts/naverlogin.html")
