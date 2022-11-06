@@ -55,10 +55,12 @@
           </div>
           <div class="detailbox col p-3">
             <h5>상세 정보</h5>
-            <p class="card-text text-wrap my-2">
-              <i class="fa-duotone fa-fork-knife"></i>{{ restaurant.food_type }}</p>
-            <p class="card-text text-wrap my-2">
-              <i class="fa-regular fa-clock"></i>{{ restaurant.opening_hours }}</p>
+            <p class="card-text text-wrap my-2" name="comment-rating">
+              {{ avg_rating }}</p>
+              <p class="card-text text-wrap my-2">
+                <i class="fa-duotone fa-fork-knife"></i>{{ restaurant.address }}</p>
+                <p class="card-text text-wrap my-2">
+                  <i class="fa-duotone fa-fork-knife"></i>{{ restaurant.phone_number }}</p>
           </div>
           <div class="detailbox col p-3">
             <h5>위치</h5>
@@ -129,12 +131,23 @@
                   <div class="card w-100">
                     <div class="card-body p-4">
                       <div class="">
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center justify-content-between">
                           <!-- title -->
-                          {% render_field comment_form.title class="form-control w-100" placeholder="제목"%}
+                          {% render_field comment_form.title class="form-control w-50" placeholder="제목"%}
                           <!-- rating -->
-                          {% render_field comment_form.rating class="form-control w-100" placeholder="평가"%}
+                          {% render_field comment_form.rating class="form-control w-100 d-none" placeholder="평가"%}
+                          <label for="id_rating">
+                          <div id="star-rating">
+                             <span class="fa fa-star fa-3x-lg" id='first'></span>
+                             <span class="fa fa-star fa-3x-lg" id='second'></span>
+                             <span class="fa fa-star fa-3x-lg" id='third'></span>
+                             <span class="fa fa-star fa-3x-lg" id='fourth'></span>
+                             <span class="fa fa-star fa-3x-lg" id='fifth'></span>
+                           </div>
+                          </label>
                         </div>
+                        
+                        
                         <p>
                           <!-- content -->
                           {% render_field comment_form.content class="form-control w-100" placeholder="내용"%}
@@ -176,15 +189,17 @@
                             <h5>{{ comment.title }}</h5>
                           </div>
                           <div>
-                            <a href="#!" class="link-muted">
+                            <!-- <a href="#!" class="link-muted">
                               <i class="fas fa-reply me-1"></i>
-                              수정</a>
+                              수정</a> -->
                             <a href="{% url 'articles:delete_comment' restaurant.pk comment.pk %}" class="link-muted" method="post">삭제</a>
                           </div>
                         </div>
                         <p class="small mb-3">{{ comment.created_at }}</p>
-                        <p>
-                          {{ comment.content }}
+                        <p class="d-flex justify-content-between">
+                          <span>{{ comment.content }}</span>
+                          <span name="comment-rating">{{ comment.rating }}</span>
+                          
                         </p>
                         <div>
                           {% if comment.image %}
@@ -203,9 +218,133 @@
       </div>
     </section>
   </main>
+  {% endblock content %}
   {% block js %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
+      // rating
+      const one = document.getElementById('first')
+      const two = document.getElementById('second')
+      const three = document.getElementById('third')
+      const four = document.getElementById('fourth')
+      const five = document.getElementById('fifth')
+
+      const rating = document.getElementById('id_rating')
+
+
+      const handleSelect = (selection) => {
+        switch(selection){
+          case 'first' : {
+            one.classList.add('checked')
+            two.classList.remove('checked')
+            three.classList.remove('checked')
+            four.classList.remove('checked')
+            five.classList.remove('checked')
+            rating.value = 1
+            return
+          }
+          case 'second': {
+            one.classList.add('checked')
+            two.classList.add('checked')
+            three.classList.remove('checked')
+            four.classList.remove('checked')
+            five.classList.remove('checked')
+            rating.value = 2
+            return
+          }
+          case 'third': {
+            one.classList.add('checked')
+            two.classList.add('checked')
+            three.classList.add('checked')
+            four.classList.remove('checked')
+            five.classList.remove('checked')
+            rating.value = 3
+            return
+          }
+          case 'fourth': {
+            one.classList.add('checked')
+            two.classList.add('checked')
+            three.classList.add('checked')
+            four.classList.add('checked')
+            five.classList.remove('checked')
+            rating.value = 4
+            return
+          }
+          case 'fifth': {
+            one.classList.add('checked')
+            two.classList.add('checked')
+            three.classList.add('checked')
+            four.classList.add('checked')
+            five.classList.add('checked')
+            rating.value = 5
+            return
+          }
+        }
+      }
+
+      const arr = [one, two, three, four, five]
+
+      arr.forEach(item => item.addEventListener('mouseover', (event)=>{
+          console.log(event.target)
+          handleSelect(event.target.id)
+      }))
+
+      starRatings = document.getElementsByName('comment-rating')
+      starRatings.forEach(starRating => {
+        var rate = starRating.innerHTML
+        
+      if(rate == 1){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        `
+      }else if(rate == 2){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        `
+      }else if(rate == 3){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        `
+      }else if(rate == 4){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        `
+      }else if(rate == 5){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        `
+      }
+      })
+      
+
+
+      //map
+      
       var lon = {{longitude}}
       var lat = {{latitude}}
       var map = new naver
@@ -230,7 +369,7 @@
       const form = document.getElementById('comment-form')
 
       const title = document.getElementById('id_title')
-      const rating = document.getElementById('id_rating')
+      
       const content = document.getElementById('id_content')
       const image = document.getElementById('id_image')
 
@@ -305,7 +444,7 @@
       const likeBtn = document.querySelector('#like-btn')
 
       likeBtn.addEventListener('click', e => {
-        const restaurantPk = {{ restaurant.pk}}
+        const restaurantPk = {{restaurant.pk}}
         $.ajax({
           type: 'POST',
           url: "{% url 'articles:likes' %}",
@@ -344,8 +483,6 @@
         })
 
       })
-    </script>
-    <script>
       const searchUrl = window.location.href
       const searchForm = document.getElementById('search-form')
       const searchInput = document.getElementById('search-input')
@@ -368,11 +505,7 @@
             const data = res.restaurant
             if (Array.isArray(data)) {
               resultsBox.innerHTML = ""
-              let detailUrl = searchUrl.replace('/' + {
-                {
-                  restaurant.pk
-                }
-              }, '');
+              let detailUrl = searchUrl.replace('/' + {{restaurant.pk}}, '');
               data.forEach(restaurant => {
                 resultsBox.innerHTML += `
             <a href="${detailUrl}${restaurant.pk}">
@@ -423,4 +556,3 @@
     </script>
 
   {% endblock js %}
-{% endblock content %}
