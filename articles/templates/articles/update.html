@@ -7,17 +7,21 @@
 {% endblock title %}
 
 {% block content %}
-  <section class="container-lg">
+<section class="mainbg">
+  <div class="container-lg">
     <h1 class="my-5 text-center">
       맛집 정보 수정
     </h1>
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ restaurant_form.as_p }}
-      <div class="form-group my-3 d-flex justify-content-between">
-        <a href="{% url 'articles:detail' restaurant_pk %}" class="btn btn-primary">뒤로가기</a>
-        <button type="submit" class="btn btn-primary">등록</button>
-      </div>
-    </form>
-  </section>
+    <div class="boxbg">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ restaurant_form.as_p }}
+        <div class="form-group my-3 d-flex justify-content-between">
+          <a href="{% url 'articles:detail' restaurant_pk %}" class="btn btn-primary">뒤로가기</a>
+          <button type="submit" class="btn btn-primary">등록</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
 {% endblock content %}

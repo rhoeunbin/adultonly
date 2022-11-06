@@ -8,15 +8,19 @@
 {% endblock title %}
 
 {% block content %}
-  <section class="container-lg">
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {% bootstrap_form form %}
-      <div class="form-group my-3 d-flex justify-content-between">
-        <a href="{% url 'communities:detail' post_pk %}" class="btn btn-primary">뒤로가기</a>
-        <button type="submit" class="btn btn-primary">등록</button>
-      </div>
-    </form>
-  </section>
+<section class="mainbg">
+  <div class="container-lg">
+    <div class="boxbg">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <div class="form-group my-3 d-flex justify-content-between">
+          <a href="{% url 'communities:detail' post.pk %}" class="btn btn-primary">뒤로가기</a>
+          <button type="submit" class="btn btn-primary">등록</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
 {% endblock content %}
 {% block js %}{% endblock js %}
