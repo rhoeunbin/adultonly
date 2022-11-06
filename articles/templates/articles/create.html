@@ -3,38 +3,44 @@
 {% load django_bootstrap5 %}
 {% block title %} | 맛집 등록{% endblock title %}
 {% block content %}
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<section class="mainbg">
   <section class="container-lg">
     <h1 class="my-5 text-center">
       맛집 등록
     </h1>
-    <form action="" method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      {% bootstrap_form restaurant_form %}
-      <div class="form-group my-3">
-        <button type="submit" class="btn btn-primary">등록</button>
-        <a href="{% url 'articles:board' %}" class="btn btn-default mx-3">취소</a>
-      </div>
-    </form>
+    <div class="boxbg p-5">
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form restaurant_form %}
+        <div class="form-group my-3">
+          <button type="submit" class="btn likecxlbtn">등록</button>
+          <a href="{% url 'articles:board' %}" class="btn likebtn mx-3">취소</a>
+        </div>
+      </form>
+    </div>
   </section>
-  <script>
-    window.onload = function () {
-      document
-        .getElementById("address_kakao")
-        .addEventListener("click", function () {
-          new daum
-            .Postcode({
-              oncomplete: function (data) {
-                document
-                  .getElementById("address_kakao")
-                  .value = data.address;
-                document
-                  .querySelector("input[name=address_detail]")
-                  .focus();
-              }
-            })
-            .open();
-        });
-    }
-  </script>
+</section>
 {% endblock content %}
+{% block js %} 
+<script>
+  window.onload = function () {
+    document
+      .getElementById("address_kakao")
+      .addEventListener("click", function () {
+        new daum
+          .Postcode({
+            oncomplete: function (data) {
+              document
+                .getElementById("address_kakao")
+                .value = data.address;
+              document
+                .querySelector("input[name=address_detail]")
+                .focus();
+            }
+          })
+          .open();
+      });
+  }
+</script>
+{% endblock js %}

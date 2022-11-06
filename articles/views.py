@@ -42,19 +42,20 @@ def board(request):
     except EmptyPage:
         page = paginator.num_pages
         page_obj = paginator.page(page)
-    
+
     avg_list = []
     for page in page_obj:
         reviews = page.articlecomment_set.values()
         try:
-            setattr(page, 'avg_rating', sum([ x['rating'] for x in reviews ]) // len(reviews))
+            setattr(
+                page, "avg_rating", sum([x["rating"] for x in reviews]) // len(reviews)
+            )
         except:
-            setattr(page, 'avg_rating', 0)
+            setattr(page, "avg_rating", 0)
 
     context = {
         "restaurants": page_obj,
     }
-    
 
     return render(request, "articles/board.html", context)
 
@@ -75,6 +76,7 @@ def board(request):
 #     return render(request, "articles/detail.html", context)
 
 
+@login_required
 def detail(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     lat, lon = get_latitude_longitude(restaurant.address)
@@ -96,7 +98,7 @@ def detail(request, pk):
     reviews = restaurant.articlecomment_set.values()
     avg_rating = 0
     if reviews:
-        avg_rating = sum([ x['rating'] for x in reviews ]) // len(reviews)
+        avg_rating = sum([x["rating"] for x in reviews]) // len(reviews)
 
     context = {
         "restaurant": restaurant,
@@ -105,7 +107,7 @@ def detail(request, pk):
         "latitude": lat,
         "longitude": lon,
         "client_id": client_id,
-        "avg_rating" : avg_rating,
+        "avg_rating": avg_rating,
     }
 
     return render(request, "articles/detail.html", context)
@@ -191,12 +193,12 @@ def search_results(request):
         restaurant = request.POST.get("restaurant")
         kw = Restaurant.objects.filter(title__icontains=restaurant)
         if len(kw) > 0 and len(restaurant) > 0:
-            data = []        
+            data = []
             for k in kw:
                 item = {
                     "pk": k.pk,
                     "title": k.title,
-                    "address" : k.address + ' ' + k.address_detail,
+                    "address": k.address + " " + k.address_detail,
                     "phone_number": k.phone_number,
                     "image": str(k.image),
                 }

@@ -2,29 +2,33 @@
 {% load django_bootstrap5 %}
 {% load static %}
 {% block content %}
-<div class="container">
-  <h1>회원목록</h1>
-  <table class="table table-hover mt-3">
-    <thead>
-      <tr>
-        <th scope="col">번호</th>
-        <th scope="col">닉네임</th>
-        <th scope="col">이메일</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for user in users %}
-      <tr>
-        <th scope="row">{{ forloop.counter }}</th>
-        <td>
-          <a href="{% url 'accounts:profile' user.pk %}">{{ user.username }}</a>
-        </td>
-        <td>{{ user.email }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  <a class="btn btn-outline-success" href="{% url 'accounts:main' %}">메인으로</a>
-  <a class="btn btn-outline-success" href="{% url 'articles:board' %}">맛집리스트로</a>
-</div>
+<section class="mainbg">
+  <div class="container">
+    <h1 class="text-center">회원목록</h1>
+      <div class="boxbg">
+      <table class="table table-hover mt-3">
+        <thead>
+          <tr>
+            <th scope="col">번호</th>
+            <th scope="col">닉네임</th>
+            <th scope="col">이메일</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>
+              <a href="{% url 'accounts:profile' user.pk %}">{{ user.username }}</a>
+            </td>
+            <td>{{ user.email }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a class="btn btn-outline-success" href="{% url 'accounts:main' %}">메인으로</a>
+      <a class="btn btn-outline-success" href="{% url 'articles:board' %}">맛집리스트로</a>
+    </div>
+  </div>
+</section>
 {% endblock content %}
