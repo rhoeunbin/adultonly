@@ -128,13 +128,13 @@
                 <!-- alret -->
                 <div id="alert-box"></div>
                 <div class="d-flex flex-start mb-4">
-                  <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65" height="65"/>
+                  <img class="rounded-circle shadow-1-strong me-3" src="{{ user.profile_pic.url }}" alt="avatar" width="65" height="65"/>
                   <div class="card w-100">
                     <div class="card-body p-4">
                       <div class="">
                         <div class="d-flex align-items-center justify-content-between">
                           <!-- title -->
-                          {% render_field comment_form.title class="form-control w-50" placeholder="제목"%}
+                          {% render_field comment_form.title class="form-control w-50 mb-3" placeholder="제목"%}
                           <!-- rating -->
                           {% render_field comment_form.rating class="form-control w-100 d-none" placeholder="평가"%}
                           <label for="id_rating">
@@ -177,8 +177,10 @@
           <div class="container-fluid my-2 py-2 text-dark" id="comments-area">
             <div class="row d-flex">
               <div class="col-12">
-                <div class="d-flex flex-start mb-4">
-                  <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="65" height="65"/>
+                <div class="d-flex flex-start mb-4 ">
+                  <a href="{% url 'accounts:profile' user.pk %}">
+                    <img class="rounded-circle shadow-1-strong me-3" src="{{ comment.user.profile_pic.url }}" alt="avatar" width="65" height="65"/>
+                  </a>
                   <div class="card w-100">
                     <div class="card-body p-4">
                       <div class="">
@@ -197,7 +199,6 @@
                         <p class="d-flex justify-content-between">
                           <span>{{ comment.content }}</span>
                           <span name="comment-rating">{{ comment.rating }}</span>
-                          
                         </p>
                         <div>
                           {% if comment.image %}

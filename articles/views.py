@@ -28,6 +28,7 @@ def home(request):
     }
     return render(request, "articles/home.html", context)
 
+
 def board_filter(request, pk):
     restaurants = Restaurant.objects.filter(cusine_code=pk).order_by("-pk")
     page = request.GET.get("page")
@@ -45,6 +46,7 @@ def board_filter(request, pk):
         "restaurants": page_obj,
     }
     return render(request, "articles/board.html", context)
+
 
 def board(request):
 
@@ -89,7 +91,7 @@ def detail(request, pk):
             comment.restaurant = restaurant
             comment.user = request.user
             comment.save()
-        return redirect('articles:detail', restaurant.pk)
+        return redirect("articles:detail", restaurant.pk)
 
     reviews = restaurant.articlecomment_set.values()
     avg_rating = 0
@@ -98,7 +100,7 @@ def detail(request, pk):
 
     context = {
         "restaurant": restaurant,
-        "comments": restaurant.article.comment_set.all().order_by("-created_at"),
+        "comments": restaurant.articlecomment_set.all().order_by("-created_at"),
         "comment_form": form,
         "latitude": lat,
         "longitude": lon,
@@ -213,6 +215,7 @@ def search_results(request):
 def aboutus(request):
     return render(request, "articles/aboutus.html")
 
+
 @login_required
 def create_comment(request, pk):
     restaurant = Restaurant.objects.get(pk=pk)
@@ -222,4 +225,4 @@ def create_comment(request, pk):
         comment.restaurant = restaurant
         comment.user = request.user
         comment.save()
-    return redirect('articles:detail', restaurant.pk)
+    return redirect("articles:detail", restaurant.pk)
