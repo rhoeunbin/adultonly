@@ -14,7 +14,7 @@
         {% csrf_token %}
         {% bootstrap_form post_form %}
         <div class="form-group d-flex justify-content-center my-3">
-          <button type="submit" class="btn" style="background-color: rgba(59, 63, 140, 1); color:#fff; ">등록</button>
+          <button type="submit" class="btn btn-all">등록</button>
           <a href="{% url 'communities:board' %}" class="btn likebtn mx-3">취소</a>
         </div>
       </form>

@@ -9,36 +9,36 @@
       맛집 리스트
     </h1>
     <!--해쉬태그-->
-    <div class="select_tag">
-      <div class="tag_list" id="popular">
-        <img src="{% static 'images/board/fire1.gif' %}" style="weight:40px; height:40px;" alt="">
-        <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Hot</p>
-      </div>
-      <div class="tag_list" id="near">
-        <img src="{% static 'images/board/near1.gif' %}" style="weight:40px; height:40px;" alt="">
-        <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Near</p>
-      </div>
-      <div class="tag_list" id="like">
-        <img src="{% static 'images/board/like1.gif' %}" style="weight:40px; height:40px;" alt="">
-        <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Like</p>
-      </div>
-      <div class="tag_list">
-        <img src="{% static 'images/board/beer.png' %}" style="weight:40px; height:40px;" alt="">
-        <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Beer</p>
-      </div>
-      <div class="tag_list">
-        <img src="{% static 'images/board/wine1.gif' %}" style="weight:40px; height:40px;" alt="">
-        <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Wine</p>
-      </div>
-      <div class="tag_list">
-        <img src="{% static 'images/board/desserts.png' %}" style="weight:40px; height:40px;" alt="">
-        <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Desserts</p>
+      <div class="select_tag">
+        <button class="tag_list" value="1" id="kor">
+          <img src="{% static 'images/board/fire1.gif' %}" style="weight:40px; height:40px;" alt="">
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Hot</p>
+        </button>
+        <button class="tag_list" value="2" id="cha">
+          <img src="{% static 'images/board/near1.gif' %}" style="weight:40px; height:40px;" alt="">
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Near</p>
+        </button>
+        <button class="tag_list" value="3" id="jap">
+          <img src="{% static 'images/board/like1.gif' %}" style="weight:40px; height:40px;" alt="">
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Like</p>
+        </button>
+        <button class="tag_list" value="4" id="yang">
+          <img src="{% static 'images/board/beer.png' %}" style="weight:40px; height:40px;" alt="">
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Beer</p>
+        </button>
+        <button class="tag_list" value="5" id="caf">
+          <img src="{% static 'images/board/wine1.gif' %}" style="weight:40px; height:40px;" alt="">
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Wine</p>
+        </button>
+        <button class="tag_list" value="6" id="pub">
+          <img src="{% static 'images/board/desserts.png' %}" style="weight:40px; height:40px;" alt="">
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Desserts</p>
+        </button>
       </div>
     </div>
-  </div>
   <div class="container-lg" id="board_out">
     {% if user.is_authenticated %}
-      <a href="{% url 'articles:create' %}" type="button" class="btn mb-4"  style="background-color: rgba(59, 63, 140, 1); color:#fff; ">맛집 등록</a>
+      <a href="{% url 'articles:create' %}" type="button" class="btn btn-all mb-4">맛집 등록</a>
     {% endif %}
     <!-- 카드 리스트 -->
     <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">

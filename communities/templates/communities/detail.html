@@ -77,9 +77,9 @@
               <p>{{ comment.title }}</p>
               <p>{{ comment.rating }}</p>
               <p>{{ comment.content }}</p>
-              <div>
-                <a href="#" type="button" class="btn btn-primary btn-sm">수정</a>
-                <a href="{% url 'communities:delete_comment' post.pk comment.pk %}" method="post">삭제
+              <div class="py-2">
+                <a href="#" type="button" class="btn btn-purple btn-sm">수정</a>
+                <a href="{% url 'communities:delete_comment' post.pk comment.pk %}" type="button" class="btn btn-pink btn-sm" method="post">삭제
                 </a>
               </div>
             </li>
@@ -92,7 +92,7 @@
         <form action="{% url 'communities:create_comment' post.pk %}" method="post">
           {% csrf_token %}
           {% bootstrap_form comment_form %}
-          <button type="submit" class="btn btn-primary btn-sm">등록</button>
+          <button type="submit" class="btn btn-all btn-sm">등록</button>
         </form>
       </div>
     </div>

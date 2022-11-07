@@ -54,3 +54,8 @@ class CommentForm(forms.ModelForm):
             "content": "후기",
             "image": "사진",
         }
+
+# class TagForm(forms.ModelForm):
+#     class Meta:
+#         model= Tag
+#         fields=['name']

@@ -19,6 +19,7 @@ class Restaurant(models.Model):
     like_users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="like_restaurant"
     )
+    # tags=models.ManyToManyField('Tag', blank=True)
     # created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True) 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
@@ -38,3 +39,9 @@ class ArticleComment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # 유저, 추천 추가하기 이미지 여러개 모델 추가해서 fk 넣기
+
+# class Tag(models.Model):
+#     name=models.CharField(max_length=10)
+
+#     def __str__(self) : 
+#         return self.name #해시태그를 자신의 이름으로 보여준다
