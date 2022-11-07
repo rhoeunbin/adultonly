@@ -32,7 +32,11 @@
               </td>
               <td style="background-color: linear-gradient(rgba(125,125,125,0.9), rgba(125,125,125,0.9));">
                 <div class="thumb_profile">
+                  {% if user.profile_pic %}
+                  <img src="{{ user.profile_pic.url }}" class="img_profile" alt="프로필사진">
+                  {% else %}
                   <img src="{% static 'img/anonymous.png' %}" class="img_profile" alt="프로필사진">
+                  {% endif %}
                 </div>
                 {{ post.user }}
               </td>
