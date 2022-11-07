@@ -60,22 +60,6 @@ def board(request):
     return render(request, "articles/board.html", context)
 
 
-# def detail(request, pk):
-#     restaurant = Restaurant.objects.get(pk=pk)
-#     comment_form = CommentForm
-#     page = request.GET.get("page", "1")
-#     comments = restaurant.comment_set.all()
-#     paginator = Paginator(comments, 5)
-#     page_obj = paginator.get_page(page)
-#     context = {
-#         "restaurant": restaurant,
-#         "comment_form": comment_form,
-#         "comments": page_obj,
-#         "total_comments": restaurant.comment_set.count(),
-#     }
-#     return render(request, "articles/detail.html", context)
-
-
 @login_required
 def detail(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
@@ -83,18 +67,14 @@ def detail(request, pk):
     form = CommentForm(request.POST, request.FILES or None)
     client_id = os.environ["id"]
     data = {}
-    if request.is_ajax():
+    if request.method == "POST":
         if form.is_valid():
             comment = form.save(commit=False)
             comment.restaurant = restaurant
             comment.user = request.user
             comment.save()
-            data["title"] = comment.title
-            # comment 객체는 cleande_data 속성이 없음
-            # data['title'] = comment.cleaned_data.get['title']
-            data["status"] = "ok"
-            print(data)
-            return JsonResponse(data)
+        return redirect('articles:detail', restaurant.pk)
+
     reviews = restaurant.articlecomment_set.values()
     avg_rating = 0
     if reviews:
@@ -216,3 +196,14 @@ def search_results(request):
 
 def aboutus(request):
     return render(request, "articles/aboutus.html")
+
+@login_required
+def create_comment(request, pk):
+    restaurant = Restaurant.objects.get(pk=pk)
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.restaurant = restaurant
+        comment.user = request.user
+        comment.save()
+    return redirect('articles:detail', restaurant.pk)
