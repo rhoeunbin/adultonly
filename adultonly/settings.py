@@ -69,7 +69,9 @@ AUTHENTICATION_BACKENDS = (
 ## allauth
 SITE_ID = 1
 
-# ## aws s3
+
+
+## aws s3
 # DEFAULT_FILE_STORAGE = 'adultonly.storages.MediaStorage'
 # STATICFILES_STORAGE = 'adultonly.storages.StaticStorage'
 

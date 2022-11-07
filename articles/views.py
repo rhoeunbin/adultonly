@@ -22,9 +22,15 @@ def index(request):
 
 
 def home(request):
-    restaurants = Restaurant.objects.all()
+    restaurants_1 = Restaurant.objects.order_by("-like_users")[:3]
+    restaurants_2 = Restaurant.objects.order_by("-like_users")[3:6]
+    restaurants_3 = Restaurant.objects.order_by("-like_users")[6:9]
+    restaurants_4 = Restaurant.objects.order_by("-like_users")[9:12]
     context = {
-        "restaurants": restaurants,
+        "restaurants_1": restaurants_1,
+        "restaurants_2": restaurants_2,
+        "restaurants_3": restaurants_3,
+        "restaurants_4": restaurants_4,
     }
     return render(request, "articles/home.html", context)
 
