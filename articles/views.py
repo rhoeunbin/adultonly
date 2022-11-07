@@ -30,34 +30,33 @@ def home(request):
 
 
 def board(request):
-    restaurants = Restaurant.objects.order_by("-pk")
-    page = request.GET.get("page")
-    paginator = Paginator(restaurants, 6)
 
-    try:
-        page_obj = paginator.get_page(page)
-    except PageNotAnInteger:
-        page = 1
-        page_obj = paginator.page(page)
-    except EmptyPage:
-        page = paginator.num_pages
-        page_obj = paginator.page(page)
-
-    avg_list = []
-    for page in page_obj:
-        reviews = page.articlecomment_set.values()
+    if request.method == "POST":
+        print(request.POST)
+        print(request.POST.get("code"))
+        print("데이터가 왜 안와")
+        restaurants = Restaurant.objects.filter(cusine_code=request.POST.get("code")).order_by("-pk")
+        context = {
+            'restaurants': list(restaurants.values()),
+        }
+        return JsonResponse(context)
+    else:
+        restaurants = Restaurant.objects.order_by("-pk")
+        page = request.GET.get("page")
+        paginator = Paginator(restaurants, 6)
         try:
-            setattr(
-                page, "avg_rating", sum([x["rating"] for x in reviews]) // len(reviews)
-            )
-        except:
-            setattr(page, "avg_rating", 0)
-
-    context = {
-        "restaurants": page_obj,
-    }
-
-    return render(request, "articles/board.html", context)
+            page_obj = paginator.get_page(page)
+        except PageNotAnInteger:
+            page = 1
+            page_obj = paginator.page(page)
+        except EmptyPage:
+            page = paginator.num_pages
+            page_obj = paginator.page(page)
+        print(page_obj)
+        context = {
+            "restaurants": page_obj,
+        }
+        return render(request, "articles/board.html", context)
 
 
 # def detail(request, pk):
@@ -102,7 +101,7 @@ def detail(request, pk):
 
     context = {
         "restaurant": restaurant,
-        "comments": restaurant.articlecomment_set.all().order_by("-created_at"),
+        "comments": restaurant.article.comment_set.all().order_by("-created_at"),
         "comment_form": form,
         "latitude": lat,
         "longitude": lon,

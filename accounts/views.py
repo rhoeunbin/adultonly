@@ -1,4 +1,5 @@
 from multiprocessing import AuthenticationError
+from datetime import datetime
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
@@ -7,7 +8,9 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-import requests
+
+from django.http import JsonResponse
+
 
 # Create your views here.
 def main(request):
@@ -16,7 +19,15 @@ def main(request):
 
 def signup(request):
     if request.method == "POST":
-        form = CustomUserCreationForm(request.POST)
+        email_address = "@".join([request.POST.get("email_id"),request.POST.get("email_address")])
+        new_request = {
+            "username": request.POST.get("username"),
+            "password1": request.POST.get("password1"),
+            "password2": request.POST.get("password2"),
+            "email": email_address,
+            "last_login": datetime.now(),
+        }
+        form = CustomUserCreationForm(new_request)
         if form.is_valid():
             user_form = form.save(commit=False)
             if request.POST.get("job") == "2":
@@ -26,13 +37,23 @@ def signup(request):
             form.save()
             return redirect("accounts:main")
     else:
-        form = CustomUserCreationForm()
-
-    context = {
-        "form": form,
-    }
-
-    return render(request, "accounts/signup.html", context)
+        check_user = request.GET.get("userId")
+        if check_user:
+            check_in = get_user_model().objects.filter(username=check_user)
+            if check_in:
+                check = True
+            else:
+                check = False
+            context = {
+                'check' : check,
+            }
+            return JsonResponse(context)
+        else:    
+            form = CustomUserCreationForm()
+            context = {
+                "form": form,
+            }
+        return render(request, "accounts/signup.html", context)
 
 
 def login(request):
@@ -77,6 +98,7 @@ def update(request):
         if form.is_valid():
             form.save()
             return redirect("accounts:main")
+
     else:
         form = CustomUserChangeForm(instance=request.user)
     context = {
