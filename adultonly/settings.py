@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     "django_extensions",
     "star_ratings",
     'widget_tweaks',
+    'storages',
+    ''
     # default
     "django.contrib.admin",
     "django.contrib.auth",
@@ -65,6 +67,17 @@ AUTHENTICATION_BACKENDS = (
 )
 ## allauth
 SITE_ID = 1
+
+## aws s3
+DEFAULT_FILE_STORAGE = 'adultonly.storages.MediaStorage'
+STATICFILES_STORAGE = 'adultonly.storages.StaticStorage'
+
+MEDIAFILES_LOCATION = 'media'
+STATICFILES_LOCATION = 'static'
+
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
