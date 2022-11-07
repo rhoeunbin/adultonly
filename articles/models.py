@@ -22,7 +22,7 @@ class Restaurant(models.Model):
     # tags=models.ManyToManyField('Tag', blank=True)
     # created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True) 
-    # user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
     def save(self, *args, **kwargs):
         self.latitude, self.longitude = get_latitude_longitude(self.address)
         super(Restaurant, self).save(*args, **kwargs)
