@@ -1,16 +1,17 @@
 from PIL import Image
 import requests
-import io 
+import io
 import dotenv
 import os
 
 dotenv_file = dotenv.find_dotenv()
 dotenv.load_dotenv(dotenv_file)
 
+
 def get_latitude_longitude(address):
     client_id = os.environ["kakao_id"]
     client_secret = os.environ["key"]
-    
+
     endpoint = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode"
     url = f"{endpoint}?query={address}"
 
@@ -19,13 +20,13 @@ def get_latitude_longitude(address):
         "X-NCP-APIGW-API-KEY": client_secret,
     }
     res = requests.get(url, headers=headers)
-    x_coordinate = res.json()['addresses'][0]['x']
-    y_coordinate = res.json()['addresses'][0]['y']
-    
+    x_coordinate = res.json()["addresses"][0]["x"]
+    y_coordinate = res.json()["addresses"][0]["y"]
+
     lat, lon = str(x_coordinate), str(y_coordinate)
-    
-    
+
     return lon, lat
+
 
 def get_static_map(x, y):
     client_id = os.environ["id"]
@@ -63,4 +64,3 @@ def get_static_map(x, y):
 
     image_data = io.BytesIO(res.content)
     return image_data
-

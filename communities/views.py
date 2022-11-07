@@ -66,10 +66,10 @@ def update(request, pk):
             "post_form": post_form,
             "post_pk": post.pk,
         }
-        return render(request, "cummunities/update.html", context)
+        return render(request, "communities/update.html", context)
     else:
         messages.warning(request, "접근 권한이 없습니다.")
-        return redirect("cummunities:detail", post.pk)
+        return redirect("communities:detail", post.pk)
 
 
 @login_required
@@ -83,10 +83,10 @@ def delete(request, pk):
         context = {
             "post": post,
         }
-        return redirect("commu:detail", context)
+        return redirect("communities:detail", context)
     else:
         messages.warning(request, "접근 권한이 없습니다.")
-        return redirect("cummunities:detail", post.pk)
+        return redirect("communities:detail", post.pk)
 
 
 @login_required
@@ -102,6 +102,10 @@ def create_comment(request, pk):
     return redirect("communities:detail", post.pk)
 
 
+# @login_required
+# def update_comment(request, pk):
+
+
 @login_required
 def delete_comment(request, pk, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
@@ -111,4 +115,4 @@ def delete_comment(request, pk, comment_pk):
         return redirect("communities:detail", pk)
     else:
         messages.warning(request, "작성자만 삭제할 수 있습니다.")
-        return redirect("cummunities:detail", pk)
+        return redirect("communities:detail", pk)
