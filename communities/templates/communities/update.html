@@ -15,8 +15,8 @@
         {% csrf_token %}
         {% bootstrap_form form %}
         <div class="form-group my-3 d-flex justify-content-between">
-          <a href="{% url 'communities:detail' post.pk %}" class="btn btn-primary">뒤로가기</a>
-          <button type="submit" class="btn btn-primary">등록</button>
+          <a href="{% url 'communities:detail' post.pk %}" class="btn btn-purple">뒤로가기</a>
+          <button type="submit" class="btn btn-all">등록</button>
         </div>
       </form>
     </div>

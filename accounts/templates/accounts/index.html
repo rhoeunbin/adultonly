@@ -2,7 +2,7 @@
 {% load django_bootstrap5 %}
 {% load static %}
 {% block content %}
-<section class="mainbg">
+<section class="mainbg px-3">
   <div class="container">
     <h1 class="text-center">회원목록</h1>
       <div class="boxbg">
@@ -26,8 +26,8 @@
           {% endfor %}
         </tbody>
       </table>
-      <a class="btn btn-outline-success" href="{% url 'accounts:main' %}">메인으로</a>
-      <a class="btn btn-outline-success" href="{% url 'articles:board' %}">맛집리스트로</a>
+      <a class="btn btn-all my-3" href="{% url 'accounts:main' %}">메인으로</a>
+      <a class="btn btn-pink my-3" href="{% url 'articles:board' %}">맛집리스트로</a>
     </div>
   </div>
 </section>

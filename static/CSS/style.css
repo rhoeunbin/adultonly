@@ -447,3 +447,19 @@ ul[class="pagination"] > li[class="page-item"] > a {
     background-size: cover;
     margin-top: -2.25rem;
 }
+
+/* button */
+.btn-all {
+    background-color: rgba(59, 63, 140, 1); 
+    color:#fff; 
+}
+
+.btn-pink {
+    background-color: rgba(242, 141, 178, 1);  
+    color:#fff;
+}
+
+.btn-purple {
+    background-color: #8372F2;
+    color:#fff;
+}
