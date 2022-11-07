@@ -64,6 +64,7 @@
             <div class="card-body">
               <p class="card-text" name="comment-rating">{{ restaurant.avg_rating}}</p>
               <div class="card-text mt-2">좋아요 {{ restaurant.like_users.count}}</div>
+              <div class="card-text mt-2">댓글 {{ restaurant.articlecomment_set.all|length}}</div>
             </div>
           </div>
         </div>
