@@ -56,16 +56,6 @@ def board_filter(request, pk):
 
 def board(request):
 
-    # if request.method == "POST":
-    #     print(request.POST)
-    #     print(request.POST.get("code"))
-    #     print("데이터가 왜 안와")
-    #     restaurants = Restaurant.objects.filter(cusine_code=request.POST.get("code")).order_by("-pk")
-    #     context = {
-    #         'restaurants': list(restaurants.values()),
-    #     }
-    #     return JsonResponse(context)
-    # else:
     restaurants = Restaurant.objects.order_by("-pk")
     page = request.GET.get("page")
     paginator = Paginator(restaurants, 6)
@@ -77,7 +67,17 @@ def board(request):
     except EmptyPage:
         page = paginator.num_pages
         page_obj = paginator.page(page)
-    print(page_obj)
+    
+    avg_list = []
+    for page in page_obj:
+        reviews = page.articlecomment_set.values()
+        try:
+            setattr(
+                page, "avg_rating", sum([x["rating"] for x in reviews]) // len(reviews)
+            )
+        except:
+            setattr(page, "avg_rating", 0)
+
     context = {
         "restaurants": page_obj,
     }
