@@ -5,13 +5,13 @@
 <section class="mainbg">
   <div class="container mt-5 py-5">
     <div class="boxbg py-5 px-5">
-    <h1 class="text-center">프로필 업데이트</h1>
-      <form action="{% url 'accounts:update' %}" method="POST">
-          {% csrf_token %}
-          {% bootstrap_form form %}
-          <input class="btn btn-all my-2" type="submit" value="제출">
-          <a class="btn btn-pink my-2" href="{% url 'accounts:change_password' %}">비밀번호 변경</a>
-      </form>
+      <h1 class="text-center">프로필 업데이트</h1>
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input class="btn btn-all my-2" type="submit" value="저장">
+        <a class="btn btn-pink my-2" href="{% url 'accounts:change_password' %}">비밀번호 변경</a>
+     </form>
     </div>
   </div>
 </section>

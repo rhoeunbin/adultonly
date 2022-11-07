@@ -33,7 +33,6 @@
                 </button>
               </div>
             {% endif %}
-
           </div>
         </div>
         <!--카드헤드끝-->
@@ -121,7 +120,7 @@
           </div>
         </div>
         <!-- 댓글 폼-->
-        <form id="comment-form" autocomplete="off" class="comment-form">
+        <form method="POST" id="comment-form" autocomplete="off" class="comment-form" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="container-fluid my-2 py-2 text-dark">
             <div class="row d-flex">
@@ -401,52 +400,6 @@
         image_section.innerHTML += `<img src="${url}" width=500px>`
       })
 
-      form.addEventListener('submit', e => {
-        e.preventDefault()
-
-        var pk = $(this).attr('name')
-        const fd = new FormData()
-
-        fd.append('pk', pk)
-        fd.append('csrfmiddlewaretoken', csrf[0].value)
-        fd.append('title', title.value)
-        fd.append('rating', rating.value)
-        fd.append('content', content.value)
-
-        fd.append('image', image.files[0])
-
-        $.ajax({
-          type: 'POST',
-          url: url,
-          enctype: 'multipart.form-data',
-          data: fd,
-          success: function (response) {
-            console.log(response)
-            console.log(location.href)
-            const sText = `${response.title} 댓글 작성이 완료되었습니다.`
-            handleAlerts('success', sText)
-            setTimeout(() => {
-              alertBox.innerHTML = ""
-              image_section.innerHTML = ""
-              title.value = ""
-              rating.value = ""
-              content.value = ""
-              image.value = ""
-              reloadDivArea()
-            }, 1000)
-
-          },
-          error: function (error) {
-            console.log(error)
-            handleAlerts('danger', 'error')
-          },
-
-          cache: false,
-          contentType: false,
-          processData: false
-        })
-
-      })
 
       // like
       const likeBtn = document.querySelector('#like-btn')
@@ -477,7 +430,7 @@
               <i class="fa-solid fa-bookmark"></i>
           `;
             }
-
+            alert("stop : " + response.is_liked);
           }
 
         })

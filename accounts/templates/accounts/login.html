@@ -2,48 +2,40 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block content %}
-  <section class="loginbg">
-    <div class="container px-4 d-flex justify-content-center">
-      <div class="boxbg p-5 login">
-        <h1 class="text-center mb-3">로그인</h1>
-        <div class="row">
-          <div class="col">
-            <form action="{% url 'accounts:login' %}" method='POST' onsubmit="return frm_check();">
-              {% csrf_token %}
-              {% render_field form.username class="form-control w-70" placeholder="아이디를 입력하세요" type="text" name="id" id="logId" %}
-              {% render_field form.password class="form-control w-70 my-5" placeholder="비밀번호를 입력하세요" %}
-              <input class="form-control btn likecxlbtn" type="submit" value="로그인">
-              <p class="text-center mt-3">아직 회원이 아니신가요? 👉 <a href="{% url 'accounts:signup' %}">회원가입</a></p>
-            </form>
-            {% load socialaccount %}
-            <h5 class="text-center my-3">SNS계정으로 로그인하기</h5>
-            <div class="d-flex flex-row" style="justify-content: space-evenly; ">
-              <a href="{% url 'accounts:login' %}kakao"><img src="{% static 'images/login/kakaoo.png' %}" alt="kakaologin"></a>
-              <a href="{% url 'accounts:login' %}naver"><img class="socialbtn" src="{% static 'images/login/nnaver.png' %}" alt="naverlogin"></a>
-            </div>
-              <!--아이디저장, 찾기 묶음-->
-            <div class="box d-flex flex-row justify-content-between mt-5">
-              <span class="input-wrap">
-                <input type="checkbox" name="saveId" id="saveId">
-                <label for="saveId">
-                  <span></span></label>
-                아이디 저장
-              </span>
-              <ul class="find d-flex flex-row">
-                <li class="idSearch mx-3" id="idSearch" style="cursor: hand; cursor: pointer">아이디 찾기</li>
-                <li class="pwSearch" id="pwSearch" style="cursor: hand; cursor: pointer">비밀번호 찾기</li>
-              </ul>
-            </div>
-          </div>
-          {% comment %} <div class="col">
-            <a href="{% url 'accounts:signup' %}">
-              <img src="{% static 'images/login/signup.gif' %}" alt="회원가입" width="550">
-            </a>
-          </div> {% endcomment %}
-        </div>
+
+<section class="loginbg">
+  <div class="container d-flex justify-content-center">
+    <div class="boxbg boxbgwid p-5">
+      <h1 class="text-center mb-3">로그인</h1>
+      <form action="{% url 'accounts:login' %}" method='POST' onsubmit="return frm_check();">
+        {% csrf_token %}
+        {% render_field form.username class="form-control w-70" placeholder="아이디를 입력하세요" type="text" name="id" id="logId" %}
+        {% render_field form.password class="form-control w-70 my-5" placeholder="비밀번호를 입력하세요" %}
+        <input class="form-control btn likecxlbtn" type="submit" value="로그인">
+      </form>
+        <!--아이디저장, 찾기 묶음-->
+        <div class="box d-flex flex-row justify-content-between my-5">
+        <span class="input-wrap">
+          <input type="checkbox" name="saveId" id="saveId">
+          <label for="saveId">
+            <span></span></label>
+          아이디 저장
+        </span>
+        <ul class="find d-flex flex-row">
+          <li class="idSearch mx-3" id="idSearch" style="cursor: hand; cursor: pointer">아이디 찾기</li>
+          <li class="pwSearch" id="pwSearch" style="cursor: hand; cursor: pointer">비밀번호 찾기</li>
+        </ul>
       </div>
+      {% load socialaccount %}
+      <h5 class="text-center my-3">SNS계정으로 로그인하기</h5>
+      <div class="d-flex flex-row" style="justify-content: space-evenly; ">
+        <a href="{% url 'accounts:login' %}kakao"><img src="{% static 'images/login/kakaoo.png' %}" alt="kakaologin"></a>
+        <a href="{% url 'accounts:login' %}naver"><img class="socialbtn" src="{% static 'images/login/nnaver.png' %}" alt="naverlogin"></a>
+      </div>
+     
     </div>
-  </section>
+  </div>
+</section>
 {% endblock content %}
 {% block js %}
 

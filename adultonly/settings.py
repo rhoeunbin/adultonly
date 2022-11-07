@@ -26,9 +26,9 @@ load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG") == "True"
+DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".herokuapp.com"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     "django_extensions",
     "star_ratings",
     'widget_tweaks',
+    'storages',
+    ''
     # default
     "django.contrib.admin",
     "django.contrib.auth",
@@ -65,6 +67,17 @@ AUTHENTICATION_BACKENDS = (
 )
 ## allauth
 SITE_ID = 1
+
+## aws s3
+DEFAULT_FILE_STORAGE = 'adultonly.storages.MediaStorage'
+STATICFILES_STORAGE = 'adultonly.storages.StaticStorage'
+
+MEDIAFILES_LOCATION = 'media'
+STATICFILES_LOCATION = 'static'
+
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -137,7 +150,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "ko-kr"
 
-TIME_ZONE = "ASIA/SEOUL"
+TIME_ZONE = "Asia/Seoul"
 
 USE_I18N = True
 
@@ -151,7 +164,9 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = ((os.path.join(BASE_DIR, "static")),)
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 
 # Media files (Files uploaded by Users)

@@ -140,6 +140,19 @@ a {
     width: 32px;
 }
 
+.profilepic {
+    display: inline-block;
+    overflow: hidden;
+    line-height: 1;
+    vertical-align: middle;
+    flex-shrink: 0;
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+    margin-bottom: 30px;
+}
+
+
 html body {
     line-height: 1;
     height: 100%;
@@ -289,7 +302,6 @@ table {
 
 .mainbg {
     background: linear-gradient(#f28db280, #3b3f8c80);
-
     position: relative;
     height: 100%;
     width: 100%;
@@ -457,12 +469,14 @@ ul[class="pagination"]>li[class="page-item"]>a {
 /* 로그인 */
 .loginbg {
     background-color: #292759;
+    position: relative;
     height: 100%;
-    margin: 0;
-    padding: 10rem 4rem;
+    width: 100%;
+    padding-top: 6.25rem;
+    padding-bottom: 6.25rem;
 }
 
-.login {
+.boxbgwid {
     width: 40rem;
 }
 
