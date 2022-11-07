@@ -55,7 +55,6 @@ def board_filter(request, pk):
 
 
 def board(request):
-
     restaurants = Restaurant.objects.order_by("-pk")
     page = request.GET.get("page")
     paginator = Paginator(restaurants, 6)
@@ -67,7 +66,7 @@ def board(request):
     except EmptyPage:
         page = paginator.num_pages
         page_obj = paginator.page(page)
-    
+
     avg_list = []
     for page in page_obj:
         reviews = page.articlecomment_set.values()
