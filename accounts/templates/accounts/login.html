@@ -3,7 +3,7 @@
 {% load widget_tweaks %}
 {% block content %}
   <section class="loginbg">
-    <div class="container px-4">
+    <div class="container px-4 d-flex justify-content-center">
       <div class="boxbg p-5 login">
         <h1 class="text-center mb-3">로그인</h1>
         <div class="row">
@@ -13,6 +13,7 @@
               {% render_field form.username class="form-control w-70" placeholder="아이디를 입력하세요" type="text" name="id" id="logId" %}
               {% render_field form.password class="form-control w-70 my-5" placeholder="비밀번호를 입력하세요" %}
               <input class="form-control btn likecxlbtn" type="submit" value="로그인">
+              <p class="text-center mt-3">아직 회원이 아니신가요? 👉 <a href="{% url 'accounts:signup' %}">회원가입</a></p>
             </form>
             {% load socialaccount %}
             <h5 class="text-center my-3">SNS계정으로 로그인하기</h5>

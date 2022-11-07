@@ -15,32 +15,6 @@
       <div class="p-3 bg-body rounded shadow-sm d-none w-50" id="results-box"></div> 
     </div>
     <div class="container">      
-      {% comment %} <div id="carouselExampleIndicators" class="carousel slide" st="st" data-bs-ride="true">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner" style="border-radius: 2rem;">
-          <div class="carousel-item active">
-            <img src="{% static 'images/home/main_1.jpg' %}" class="d-block w-100" style="height: 500px; opacity: 70%;" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="{% static 'images/home/main_2.jpg' %}" class="d-block w-100" style="height: 500px; opacity: 70%;" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="{% static 'images/home/main_3.jpg' %}" class="d-block w-100" style="height: 500px; opacity: 70%;" alt="...">
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div> {% endcomment %}
       <div class="boxbg">
         <div class="container slidebox">
           <input type="radio" name="slide" id="slide01" checked="checked">
@@ -49,127 +23,131 @@
           <input type="radio" name="slide" id="slide04">
           <ul class="slidelist">
             <li class="slideitem">
+              <a href="{% url 'articles:board' %}" style="position:absolute; right:0; top: 1rem; font-size: 1.5rem;">맛집리스트👉👉</a>
               <div class="row row-cols-1 row-cols-md-4 g-4 d-flex justify-content-around">
+                {% for restaurant1 in restaurants_1 %}
                 <div class="col">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
+                  <div class="page_card mt-3 px-2 py-3">
+                  <a href="{% url 'articles:detail' restaurant1.pk %}" class="card-link text-decoration-none">
+                    <h5 class="card-header mb-2">{{ restaurant1.title }}</h5>
+                  </a>
+                  <div class="card-body d-flex flex-column justify-content-between" style="color:rgba(41, 39, 89, 1);">
+                    <h6 class="card-title text-muted"><i class="fa-solid fa-location-dot"></i>  {{ restaurant1.address }}</h6>
+                    {% if restaurant1.phone_number%}
+                    <small class="card-text mb-2"><i class="fa-solid fa-phone"></i> {{ restaurant1.phone_number }}</small>
+                    {% else %}
+                    <small><i class="fa-solid fa-phone"></i></small>
+                    {% endif %}
+                  </div>
+                  {% if restaurant1.pk > 889  %}
+                  <img src= "{{ restaurant1.image.url }}" alt="{{ restaurant1.image  }}" class="card-img d-block user-select-none my-2" width="100%" height="200" viewbox="0 0 318 180">
+                  {% else %}
+                  <img src= "{{ restaurant1.image }}" alt="{{ restaurant1.image  }}" class="card-img d-block user-select-none my-2" width="100%" height="200" viewbox="0 0 318 180">
+                  {% endif %}
+                  <div class="card-body">
+                    <p class="card-text" name="comment-rating">{{ restaurant1.avg_rating}}</p>
+                    <div class="card-text mt-2">좋아요 {{ restaurant1.like_users.count}}</div>
+                    <div class="card-text mt-2">댓글 {{ restaurant1.articlecomment_set.all|length}}</div>
+                  </div>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                  </div>
-                </div>
+                  {% endfor %}
               </div>
             </li>
             <li class="slideitem">
+              <a href="{% url 'articles:board' %}" style="position:absolute; right:0; top: 1rem; font-size: 1.5rem;">맛집리스트👉👉</a>
               <div class="row row-cols-1 row-cols-md-4 g-4 d-flex justify-content-around">
+                {% for restaurant2 in restaurants_2 %}
                 <div class="col">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
+                  <div class="page_card mt-3 px-2 py-3">
+                  <a href="{% url 'articles:detail' restaurant2.pk %}" class="card-link text-decoration-none">
+                    <h5 class="card-header mb-2">{{ restaurant2.title }}</h5>
+                  </a>
+                  <div class="card-body d-flex flex-column justify-content-between" style="color:rgba(41, 39, 89, 1);">
+                    <h6 class="card-title text-muted"><i class="fa-solid fa-location-dot"></i>  {{ restaurant2.address }}</h6>
+                    {% if restaurant2.phone_number%}
+                    <small class="card-text mb-2"><i class="fa-solid fa-phone"></i> {{ restaurant2.phone_number }}</small>
+                    {% else %}
+                    <small><i class="fa-solid fa-phone"></i></small>
+                    {% endif %}
+                  </div>
+                  {% if restaurant2.pk > 889  %}
+                  <img src= "{{ restaurant2.image.url }}" alt="{{ restaurant2.image  }}" class="card-img d-block user-select-none my-2" width="100%" height="200" viewbox="0 0 318 180">
+                  {% else %}
+                  <img src= "{{ restaurant2.image }}" alt="{{ restaurant2.image  }}" class="card-img d-block user-select-none my-2" width="100%" height="200" viewbox="0 0 318 180">
+                  {% endif %}
+                  <div class="card-body">
+                    <p class="card-text" name="comment-rating">{{ restaurant2.avg_rating}}</p>
+                    <div class="card-text mt-2">좋아요 {{ restaurant2.like_users.count}}</div>
+                    <div class="card-text mt-2">댓글 {{ restaurant2.articlecomment_set.all|length}}</div>
+                  </div>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                  </div>
-                </div>
+                  {% endfor %}
               </div>
             </li>
             <li class="slideitem">
+              <a href="{% url 'articles:board' %}" style="position:absolute; right:0; top: 1rem; font-size: 1.5rem;">맛집리스트👉👉</a>
               <div class="row row-cols-1 row-cols-md-4 g-4 d-flex justify-content-around">
+                {% for restaurant3 in restaurants_3 %}
                 <div class="col">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
+                  <div class="page_card mt-3 px-2 py-3">
+                  <a href="{% url 'articles:detail' restaurant3.pk %}" class="card-link text-decoration-none">
+                    <h5 class="card-header mb-2">{{ restaurant3.title }}</h5>
+                  </a>
+                  <div class="card-body d-flex flex-column justify-content-between" style="color:rgba(41, 39, 89, 1);">
+                    <h6 class="card-title text-muted"><i class="fa-solid fa-location-dot"></i>  {{ restaurant3.address }}</h6>
+                    {% if restaurant3.phone_number%}
+                    <small class="card-text mb-2"><i class="fa-solid fa-phone"></i> {{ restaurant3.phone_number }}</small>
+                    {% else %}
+                    <small><i class="fa-solid fa-phone"></i></small>
+                    {% endif %}
+                  </div>
+                  {% if restaurant3.pk > 889  %}
+                  <img src= "{{ restaurant3.image.url }}" alt="{{ restaurant3.image  }}" class="card-img d-block user-select-none my-2" width="100%" height="200" viewbox="0 0 318 180">
+                  {% else %}
+                  <img src= "{{ restaurant3.image }}" alt="{{ restaurant3.image  }}" class="card-img d-block user-select-none my-2" width="100%" height="200" viewbox="0 0 318 180">
+                  {% endif %}
+                  <div class="card-body">
+                    <p class="card-text" name="comment-rating">{{ restaurant3.avg_rating}}</p>
+                    <div class="card-text mt-2">좋아요 {{ restaurant3.like_users.count}}</div>
+                    <div class="card-text mt-2">댓글 {{ restaurant3.articlecomment_set.all|length}}</div>
+                  </div>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                  </div>
-                </div>
+                  {% endfor %}
               </div>
             </li>
             <li class="slideitem">
+              <a href="{% url 'articles:board' %}" style="position:absolute; right:0; top: 1rem; font-size: 1.5rem;">맛집리스트👉👉</a>
               <div class="row row-cols-1 row-cols-md-4 g-4 d-flex justify-content-around">
+                {% for restaurant4 in restaurants_4 %}
                 <div class="col">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
+                  <div class="page_card mt-3 px-2 py-3">
+                  <a href="{% url 'articles:detail' restaurant4.pk %}" class="card-link text-decoration-none">
+                    <h5 class="card-header mb-2">{{ restaurant4.title }}</h5>
+                  </a>
+                  <div class="card-body d-flex flex-column justify-content-between" style="color:rgba(41, 39, 89, 1);">
+                    <h6 class="card-title text-muted"><i class="fa-solid fa-location-dot"></i>  {{ restaurant4.address }}</h6>
+                    {% if restaurant4.phone_number%}
+                    <small class="card-text mb-2"><i class="fa-solid fa-phone"></i> {{ restaurant4.phone_number }}</small>
+                    {% else %}
+                    <small><i class="fa-solid fa-phone"></i></small>
+                    {% endif %}
+                  </div>
+                  {% if restaurant4.pk > 889  %}
+                  <img src= "{{ restaurant4.image.url }}" alt="{{ restaurant4.image  }}" class="card-img d-block user-select-none my-2" width="100%" height="200" viewbox="0 0 318 180">
+                  {% else %}
+                  <img src= "{{ restaurant4.image }}" alt="{{ restaurant4.image  }}" class="card-img d-block user-select-none my-2" width="100%" height="200" viewbox="0 0 318 180">
+                  {% endif %}
+                  <div class="card-body">
+                    <p class="card-text" name="comment-rating">{{ restaurant4.avg_rating}}</p>
+                    <div class="card-text mt-2">좋아요 {{ restaurant4.like_users.count}}</div>
+                    <div class="card-text mt-2">댓글 {{ restaurant4.articlecomment_set.all|length}}</div>
+                  </div>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text" id="home_card" style="white-space: normal;">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                  </div>
-                </div>
+                  {% endfor %}
               </div>
             </li>
           </ul>
@@ -191,11 +169,10 @@
               <label for="slide01" class="next"></label>
             </div>
           </div>
+
         </div>
       </div>
     </div>
-
-  </ㄴ>
 {% endblock content %}
 {% block js %}
 

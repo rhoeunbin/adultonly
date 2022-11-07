@@ -7,7 +7,7 @@
     <div class="signup boxbg">
     <h1 class="mt-5">회원가입</h1>
     <h3 class="mb-5">가입을 통해 더 다양한 서비스를 만나보세요!</h3>
-    <form action="" method='POST' class="w-75">
+    <form action="" method='POST' id="form_check" class="w-75">
       {% csrf_token %}
       {% comment %} {% bootstrap_form form %} {% endcomment %}
       <div required class="input_form" id="info__id">
@@ -16,8 +16,10 @@
         <p id="id-error"></p>
       </div>
       <div required class="password_form" id="info__pw">
-      <input class="mt-5" type="password" name="password1" placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8~20자)"/>
-      <input class="my-5" type="password" name="password2" placeholder="비밀번호 재입력"/>
+      <input class="mt-5" type="password" id="password1" name="password1" placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8~20자)"/>
+      <p id="pass_1"></p>
+      <input class="my-5" type="password" id="password2" name="password2" placeholder="비밀번호 재입력"/>
+      <p id="pass_2"></p>
       <div class="error-msg"></div>
     </div>
     <div required class="email_form">
@@ -39,15 +41,16 @@
       <input class="mt-5" type="text" placeholder="일"/>
     </div> {% endcomment %}
     <div required class="job_form">
-    <input name="job" required="required" type="checkbox" value="1" autofocus onclick="doOpenCheck(this);" id="normal">
+    <input name="job" type="checkbox" value="1" autofocus onclick="doOpenCheck(this);" id="normal">
     <label name="job_pos" id="normal" for="normal"><div class="job_btn">일반인</div></label>
-    <input name="job" required="required" type="checkbox" value="2" onclick="doOpenCheck(this);" id="owner">
+    <input name="job" type="checkbox" value="2" onclick="doOpenCheck(this);" id="owner">
     <label name="job_pos" id="owner" for="owner"><div class="job_btn">사장님</div></label>
     </div>
     <div class="submitBtn">
-      <div id="result-fail"></div>
-      <input type="submit" id="submit" value="가입하기">
+      <div id="result-check"></div>
+      <input type="submit" id="submitbtn" value="가입하기">
     </div>
+    <p class="text-center my-5">이미 회원이신가요? 👉 <a href="{% url 'accounts:login' %}">로그인</a></p>
     </form>
   </div>
   </div>
