@@ -12,6 +12,7 @@
         {% render_field form.username class="form-control w-70" placeholder="아이디를 입력하세요" type="text" name="id" id="logId" %}
         {% render_field form.password class="form-control w-70 my-5" placeholder="비밀번호를 입력하세요" %}
         <input class="form-control btn likecxlbtn" type="submit" value="로그인">
+        <p class="text-center my-5">회원이 아니신가요? 👉 <a href="{% url 'accounts:signup' %}">회원가입</a></p>
       </form>
         <!--아이디저장, 찾기 묶음-->
         <div class="box d-flex flex-row justify-content-between my-5">

@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @require_safe
 def board(request):
+    print(request.GET.get("user"))
     page = request.GET.get("page", "1")
     posts = Post.objects.order_by("-pk")
     paginator = Paginator(posts, 10)
