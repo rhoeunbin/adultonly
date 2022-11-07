@@ -12,10 +12,9 @@
 {% block content %}
   <!-- Naver Map -->
   <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId={{client_id}}"></script>
-  <main class="main_back">
-    <section class="container-lg py-5">
-      <!--게시글 내용카드-->
-
+  <section class="mainbg">
+    <div class="container-lg">
+      <!--게시글 카드-->
       <div class="card detailbg">
         <div class="card-header d-flex flex-row justify-content-between">
           <h3 class="card-title">{{ restaurant.title }}</h3>
@@ -23,17 +22,18 @@
           <div>
             {% if user in restaurant.like_users.all %}
               <div id="like-area">
-                <button id="like-btn" name="{{ restaurant.pk }}" class="btn likebtn">
-                  <i class="fa-regular fa-heart fa-lg">좋아요 취소</i>
+                <button id="like-btn" name="{{ restaurant.pk }}" class="btn likecxlbtn">
+                  <i class="fa-solid fa-bookmark"></i>
                 </button>
               </div>
             {% else %}
               <div id="like-area">
-                <button id="like-btn" name="{{ restaurant.pk }}" class="btn likecxlbtn">
-                  <i class="fa-regular fa-heart fa-lg">좋아요</i>
+                <button id="like-btn" name="{{ restaurant.pk }}" class="btn likebtn">
+                  <i class="fa-regular fa-bookmark"></i>
                 </button>
               </div>
             {% endif %}
+
           </div>
         </div>
         <!--카드헤드끝-->
@@ -41,27 +41,30 @@
           <p class="card-subtitle text-muted">{{ restaurant.created_at }}</p>
         </div>
         <img src="{{ restaurant.image }}" alt="{{ restaurant.title }}" class="card-img resimg d-block user-select-none" viewbox="0 0 318 180">
-        <!--사진 아래 맛집 디테일-->
+        <!--사진 아래 상세내용-->
         <div class="card-body row" style="min-height: 250px">
           <div class="detailbox col p-3">
-            <h5>평가 및 리뷰</h5>
-            <p class="card-text text-wrap my-2 fw-bold">{{ restaurant.grade }}</p>
+            <h5 class="mb-4">평점 및 리뷰</h5>
+            <p class="card-text text-wrap my-2 fw-bold" name="comment-rating">
+              {{ avg_rating }}</p>
             <div id="comments-count">
               <a href="#comments-area">
-                <i class="fa-regular fa-comment-smile"></i>
+                <i class="fa-solid fa-pen"></i>
                 {{ restaurant.articlecomment_set.all|length }}
                 건의 리뷰</a>
             </div>
           </div>
           <div class="detailbox col p-3">
-            <h5>상세 정보</h5>
-            <p class="card-text text-wrap my-2">
-              <i class="fa-duotone fa-fork-knife"></i>{{ restaurant.food_type }}</p>
-            <p class="card-text text-wrap my-2">
-              <i class="fa-regular fa-clock"></i>{{ restaurant.opening_hours }}</p>
+            <h5 class="mb-4">상세 정보</h5>
+              <p class="card-text text-wrap my-2">
+                <i class="fa-solid fa-utensils"></i> 여기해쉬태그{{ restaurant.cuisin_code }}
+              </p>
+              <p class="card-text text-wrap my-2">
+                <i class="fa-solid fa-phone"></i> {{ restaurant.phone_number }}
+              </p>
           </div>
           <div class="detailbox col p-3">
-            <h5>위치</h5>
+            <h5 class="mb-4">위치</h5>
             <div id="map" class="border" style="height: 270px; width: 275px;"></div>
             <p class="card-text text-wrap my-2">
               <i class="fa-solid fa-location-dot"></i>
@@ -70,17 +73,17 @@
           </div>
         </div>
       </div>
-      <!--게시글 아래 버튼 묶음-->
+      <!--게시글 카드 끝 아래 버튼 묶음-->
       <div class="d-flex justify-content-between my-3">
         <a href="{% url 'articles:board' %}" type="button" class="card-link btn btn-secondary">
           <i class="fas fa-stream mx-1"></i>목록</a>
         {% if request.user == restaurant.user %}
-          <div>
-            <a href="{% url 'articles:update' restaurant.pk %}" type="button" class="card-link btn btn-secondary">수정</a>
-            <button type="button" class="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              삭제
-            </button>
-          </div>
+        <div>
+          <a href="{% url 'articles:update' restaurant.pk %}" type="button" class="card-link btn btn-secondary">수정</a>
+          <button type="button" class="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            삭제
+          </button>
+        </div>
         {% endif %}
       </div>
       <!-- 삭제 모달-->
@@ -109,13 +112,10 @@
       <div class="card detailbg">
         <div class="card-header">
           <div id="comments-count">
-            <i class="fa-regular fa-comment-smile"></i>리뷰
+            <i class="fa-solid fa-pen"></i> 리뷰
             {{ restaurant.articlecomment_set.all|length }}개
           </div>
-
         </div>
-        <!--test-->
-        <!-- <form id="comment-form" autocomplete="off"> {% csrf_token %} {% bootstrap_form comment_form %} <button class="btn btn-primary" type="submit" name="{{restaurant.pk}}"></button> </form> -->
         <!-- 댓글 폼-->
         <form id="comment-form" autocomplete="off" class="comment-form">
           {% csrf_token %}
@@ -129,31 +129,39 @@
                   <div class="card w-100">
                     <div class="card-body p-4">
                       <div class="">
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center justify-content-between">
                           <!-- title -->
-                          {% render_field comment_form.title class="form-control w-100" placeholder="제목"%}
+                          {% render_field comment_form.title class="form-control w-50" placeholder="제목"%}
                           <!-- rating -->
-                          {% render_field comment_form.rating class="form-control w-100" placeholder="평가"%}
+                          {% render_field comment_form.rating class="form-control w-100 d-none" placeholder="평가"%}
+                          <label for="id_rating">
+                            <div id="star-rating">
+                              <span class="fa fa-star fa-3x-lg" id='first'></span>
+                              <span class="fa fa-star fa-3x-lg" id='second'></span>
+                              <span class="fa fa-star fa-3x-lg" id='third'></span>
+                              <span class="fa fa-star fa-3x-lg" id='fourth'></span>
+                              <span class="fa fa-star fa-3x-lg" id='fifth'></span>
+                            </div>
+                          </label>
                         </div>
                         <p>
                           <!-- content -->
                           {% render_field comment_form.content class="form-control w-100" placeholder="내용"%}
                         </p>
-                        <!-- image -->
-                        <label for="id_image">
-                          <!-- 이미지 첨부 아이콘 -->
-                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-image-fill" viewbox="0 0 16 16">
-                            <path d="M4 0h8a2 2 0 0 1 2 2v8.293l-2.73-2.73a1 1 0 0 0-1.52.127l-1.889 2.644-1.769-1.062a1 1 0 0 0-1.222.15L2 12.292V2a2 2 0 0 1 2-2zm4.002 5.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"/>
-                            <path d="M10.564 8.27 14 11.708V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-.293l3.578-3.577 2.56 1.536 2.426-3.395z"/>
-                          </svg>
-                        </label>
-                        {% render_field comment_form.image class="form-control w-100 d-none" placeholder="이미지"%}
-                        <div id="image-section"></div>
+                        <!-- image & submit-->
+                        <div class="d-flex justify-content-between">
+                          <label for="id_image">
+                            <!-- 이미지 첨부 아이콘 -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-image-fill mt-2" viewbox="0 0 16 16">
+                              <path d="M4 0h8a2 2 0 0 1 2 2v8.293l-2.73-2.73a1 1 0 0 0-1.52.127l-1.889 2.644-1.769-1.062a1 1 0 0 0-1.222.15L2 12.292V2a2 2 0 0 1 2-2zm4.002 5.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"/>
+                              <path d="M10.564 8.27 14 11.708V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-.293l3.578-3.577 2.56 1.536 2.426-3.395z"/>
+                            </svg>
+                          </label>
+                          {% render_field comment_form.image class="form-control w-100 d-none" placeholder="이미지"%}
+                          <div id="image-section"></div>
+                          <button type="submit" class="btn likecxlbtn btn-sm mt-2" name="{{restaurant.pk}}">등록</button>
+                        </div>
                       </div>
-                    </div>
-                    <!-- submit -->
-                    <div class="card-footer" name="review">
-                      <button type="submit" class="btn btn-primary btn-sm" name="{{restaurant.pk}}">등록</button>
                     </div>
                   </div>
                 </div>
@@ -176,15 +184,17 @@
                             <h5>{{ comment.title }}</h5>
                           </div>
                           <div>
-                            <a href="#!" class="link-muted">
+                            <!-- <a href="#!" class="link-muted">
                               <i class="fas fa-reply me-1"></i>
-                              수정</a>
+                              수정</a> -->
                             <a href="{% url 'articles:delete_comment' restaurant.pk comment.pk %}" class="link-muted" method="post">삭제</a>
                           </div>
                         </div>
                         <p class="small mb-3">{{ comment.created_at }}</p>
-                        <p>
-                          {{ comment.content }}
+                        <p class="d-flex justify-content-between">
+                          <span>{{ comment.content }}</span>
+                          <span name="comment-rating">{{ comment.rating }}</span>
+                          
                         </p>
                         <div>
                           {% if comment.image %}
@@ -201,11 +211,135 @@
           </div>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+  {% endblock content %}
   {% block js %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
+      // rating
+      const one = document.getElementById('first')
+      const two = document.getElementById('second')
+      const three = document.getElementById('third')
+      const four = document.getElementById('fourth')
+      const five = document.getElementById('fifth')
+
+      const rating = document.getElementById('id_rating')
+
+
+      const handleSelect = (selection) => {
+        switch(selection){
+          case 'first' : {
+            one.classList.add('checked')
+            two.classList.remove('checked')
+            three.classList.remove('checked')
+            four.classList.remove('checked')
+            five.classList.remove('checked')
+            rating.value = 1
+            return
+          }
+          case 'second': {
+            one.classList.add('checked')
+            two.classList.add('checked')
+            three.classList.remove('checked')
+            four.classList.remove('checked')
+            five.classList.remove('checked')
+            rating.value = 2
+            return
+          }
+          case 'third': {
+            one.classList.add('checked')
+            two.classList.add('checked')
+            three.classList.add('checked')
+            four.classList.remove('checked')
+            five.classList.remove('checked')
+            rating.value = 3
+            return
+          }
+          case 'fourth': {
+            one.classList.add('checked')
+            two.classList.add('checked')
+            three.classList.add('checked')
+            four.classList.add('checked')
+            five.classList.remove('checked')
+            rating.value = 4
+            return
+          }
+          case 'fifth': {
+            one.classList.add('checked')
+            two.classList.add('checked')
+            three.classList.add('checked')
+            four.classList.add('checked')
+            five.classList.add('checked')
+            rating.value = 5
+            return
+          }
+        }
+      }
+
+      const arr = [one, two, three, four, five]
+
+      arr.forEach(item => item.addEventListener('mouseover', (event)=>{
+          console.log(event.target)
+          handleSelect(event.target.id)
+      }))
+
+      starRatings = document.getElementsByName('comment-rating')
+      starRatings.forEach(starRating => {
+        var rate = starRating.innerHTML
+        
+      if(rate == 1){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        `
+      }else if(rate == 2){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        `
+      }else if(rate == 3){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        `
+      }else if(rate == 4){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg"></span>
+        `
+      }else if(rate == 5){
+        starRating.innerHTML = 
+        `
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        <span class="fa fa-star fa-3x-lg checked"></span>
+        `
+      }
+      })
+      
+
+
+      //map
+      
       var lon = {{longitude}}
       var lat = {{latitude}}
       var map = new naver
@@ -230,7 +364,7 @@
       const form = document.getElementById('comment-form')
 
       const title = document.getElementById('id_title')
-      const rating = document.getElementById('id_rating')
+      
       const content = document.getElementById('id_content')
       const image = document.getElementById('id_image')
 
@@ -286,7 +420,7 @@
               content.value = ""
               image.value = ""
               reloadDivArea()
-            }, 2000)
+            }, 1000)
 
           },
           error: function (error) {
@@ -305,7 +439,7 @@
       const likeBtn = document.querySelector('#like-btn')
 
       likeBtn.addEventListener('click', e => {
-        const restaurantPk = {{ restaurant.pk}}
+        const restaurantPk = {{restaurant.pk}}
         $.ajax({
           type: 'POST',
           url: "{% url 'articles:likes' %}",
@@ -318,25 +452,17 @@
             console.log(response.is_liked)
             const likeArea = document.querySelector('#like-area')
             if (response.is_liked) {
-              likeBtn
-                .classList
-                .add('btn-danger')
-              likeBtn
-                .classList
-                .remove('btn-dark')
+              likeBtn.classList.remove("likebtn")
+              likeBtn.classList.add("likecxlbtn")
               likeBtn.innerHTML = `
-          <i class="fa-regular fa-heart fa-lg">좋아요</i>
+              <i class="fa-regular fa-bookmark"></i>
           `
             } else {
-              likeBtn
-                .classList
-                .add('btn-dark')
-              likeBtn
-                .classList
-                .remove('btn-danger')
+              likeBtn.classList.remove("likecxlbtn")
+              likeBtn.classList.add("likebtn")
               likeBtn.innerHTML = `
-          <i class="fa-regular fa-heart fa-lg">좋아요 취소</i>
-          `
+              <i class="fa-solid fa-bookmark"></i>
+          `;
             }
 
           }
@@ -344,8 +470,6 @@
         })
 
       })
-    </script>
-    <script>
       const searchUrl = window.location.href
       const searchForm = document.getElementById('search-form')
       const searchInput = document.getElementById('search-input')
@@ -368,11 +492,7 @@
             const data = res.restaurant
             if (Array.isArray(data)) {
               resultsBox.innerHTML = ""
-              let detailUrl = searchUrl.replace('/' + {
-                {
-                  restaurant.pk
-                }
-              }, '');
+              let detailUrl = searchUrl.replace('/' + {{restaurant.pk}}, '');
               data.forEach(restaurant => {
                 resultsBox.innerHTML += `
             <a href="${detailUrl}${restaurant.pk}">
@@ -423,4 +543,3 @@
     </script>
 
   {% endblock js %}
-{% endblock content %}

@@ -11,18 +11,33 @@ class RestaurantForm(forms.ModelForm):
             "image",
             "address",
             "address_detail",
+            "phone_number",
         ]
         labels = {
             "title": "가게명",
             "content": "가게 정보",
             "image": "사진",
-            "address" : "주소",
-            "address_detail" : "상세 주소",
+            "address": "주소",
+            "address_detail": "상세 주소",
+            "phone_number": "전화번호",
         }
         widgets = {
-            'address' : forms.TextInput(attrs={"class": "form-control", "id": "address_kakao", "placeholder": "주소"} ),
-            'address_detail' : forms.TextInput(attrs={"class": "form-control", "name" :"address_detail", "placeholder": "상세 주소" })           
+            "address": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "id": "address_kakao",
+                    "placeholder": "주소",
+                }
+            ),
+            "address_detail": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "name": "address_detail",
+                    "placeholder": "상세 주소",
+                }
+            ),
         }
+
 
 class CommentForm(forms.ModelForm):
     class Meta:

@@ -1,40 +1,46 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load django_bootstrap5 %}
-{% block title %} | 오늘 뭐 먹지?
+{% block title %}
+  | 오늘 뭐 먹지?
 {% endblock title %}
 
 {% block content %}
-  <div class="main_back py-3">
-    <div class="container">
-      <div>
-        <div id="carouselExampleIndicators" class="carousel slide" st="st" data-bs-ride="true">
-          <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          </div>
-          <div class="carousel-inner" style="border-radius: 2rem;">
-            <div class="carousel-item active">
-              <img src="{% static 'images/home/main_1.jpg' %}" class="d-block w-100" style="height: 500px; opacity: 70%;" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="{% static 'images/home/main_2.jpg' %}" class="d-block w-100" style="height: 500px; opacity: 70%;" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="{% static 'images/home/main_3.jpg' %}" class="d-block w-100" style="height: 500px; opacity: 70%;" alt="...">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+  <section class="mainbg py-3">
+    <div class="mainsearch d-flex justify-content-center align-items-center">
+      <form class="d-flex w-50 mb-3" id="search-form" autocomplete="off">
+        {% csrf_token %}
+        <input type="search" id="search-input" class="form-control form-control-dark text-bg-light" placeholder="Search..." aria-label="Search">
+      </form>
+      <div class="p-3 bg-body rounded shadow-sm d-none w-50" id="results-box"></div> 
+    </div>
+    <div class="container">      
+      {% comment %} <div id="carouselExampleIndicators" class="carousel slide" st="st" data-bs-ride="true">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
-      </div>
+        <div class="carousel-inner" style="border-radius: 2rem;">
+          <div class="carousel-item active">
+            <img src="{% static 'images/home/main_1.jpg' %}" class="d-block w-100" style="height: 500px; opacity: 70%;" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'images/home/main_2.jpg' %}" class="d-block w-100" style="height: 500px; opacity: 70%;" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'images/home/main_3.jpg' %}" class="d-block w-100" style="height: 500px; opacity: 70%;" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div> {% endcomment %}
       <div class="boxbg">
         <div class="container slidebox">
           <input type="radio" name="slide" id="slide01" checked="checked">
@@ -188,9 +194,9 @@
         </div>
       </div>
     </div>
-    
-  </div>
-  {% endblock content %}
+
+  </ㄴ>
+{% endblock content %}
 {% block js %}
 
   <script>
@@ -225,13 +231,13 @@
               resultsBox.innerHTML += `
             <a href="${detailUrl}${restaurant.pk}">
             <div class="d-flex text-muted pt-3">
-            <img src="${restaurant.image}" alt="" class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-              <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+              <img src="${restaurant.image}" alt="" class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
+                <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
                 <div class="d-flex justify-content-between">
             <strong class="text-gray-dark">${restaurant.title}</strong>
             <div>
               <small class="d-block"> ${restaurant.address} </small>
-              <small> ${restaurant.grade} </small>
+              <small> ${restaurant.phone_number} </small>
             </div>
             
             <a href="#">Follow</a>
@@ -270,4 +276,4 @@
     })
   </script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  {% endblock js %}
+{% endblock js %}

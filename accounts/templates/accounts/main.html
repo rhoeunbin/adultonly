@@ -2,31 +2,31 @@
 {% load static %}
 {% load django_bootstrap5 %}
 {% block content %}
-
-  <div class="main row text-center mt-5 py-5">
-    <div class="acmain py-5">
+<section class="mainbg">
+  <div class="container text-center mt-5 py-5">
+    <div class="boxbg py-5">
       <h1 class="mb-5">환영합니다!</h1>
       {% if user.is_authenticated %}
         <h1>{{ user }}님</h1>
-        <div class="my-3">
-          <a class="btn btn-danger me-3" href="{%  url 'accounts:logout' %}">로그아웃</a>
-          <a class="btn btn-success me-3" href="{% url 'accounts:index' %}">회원 목록</a>
-          <a class="btn" href="{% url 'accounts:profile' user.pk %}" style="background-color: rgba(59, 63, 140, 1); color:#fff;">프로필</a>
+        <div class="my-3 d-flex flex-row justify-content-center">
+          <a class="btn" href="{% url 'accounts:index' %}" style="background-color: #8372F2; color:#fff;">회원 목록</a>
+          <a class="btn mx-4" href="{% url 'accounts:profile' user.pk %}" style="background-color: rgba(59, 63, 140, 1); color:#fff;">프로필</a>
+          <a class="btn likebtn" href="{%  url 'accounts:logout' %}">로그아웃</a>
         </div>
       {% else %}
         <div>
           <p class="my-3">회원이면</p>
-          <a class="btn me-3 text-white" style="background-color: rgba(242, 207, 141, 1);" href="{%  url 'accounts:login' %}">로그인</a>
+          <a class="btn likecxlbtn" href="{%  url 'accounts:login' %}">로그인</a>
         </div>
         <div>
           <p class="mt-5">비회원이면</p>
           <div class="form d-flex justify-content-center my-3">
-            <a class="btn me-3 text-white" style="background-color: rgba(70, 74, 166, 1);" href="{%  url 'accounts:signup' %}">회원가입</a>
-            <a class="btn btn-outline-primary" href="{%  url 'articles:board' %}">비회원으로 계속</a>
+            <a class="btn likebtn me-4" href="{%  url 'accounts:signup' %}">회원가입</a>
+            <a class="btn btn-purple" href="{%  url 'articles:board' %}">비회원으로 계속</a>
           </div>
         </div>
       {% endif %}
     </div>
   </div>
-
+</section>
 {% endblock content %}

@@ -4,28 +4,23 @@
 {% block content %}
   <section class="loginbg">
     <div class="container">
-      <div class="glassmorphism-card">
-        <h1 class="text-center">로그인</h1>
+      <div class="boxbg p-5 login">
+        <h1 class="text-center mb-3">로그인</h1>
         <div class="row">
           <div class="col">
             <form action="{% url 'accounts:login' %}" method='POST' onsubmit="return frm_check();">
               {% csrf_token %}
               {% render_field form.username class="form-control w-70" placeholder="아이디를 입력하세요" type="text" name="id" id="logId" %}
               {% render_field form.password class="form-control w-70 my-5" placeholder="비밀번호를 입력하세요" %}
-              <input class="form-control btn btn-primary" type="submit" value="로그인">
+              <input class="form-control btn likecxlbtn" type="submit" value="로그인">
             </form>
             {% load socialaccount %}
-            <div class="d-grid mt-3 mb-2">
-              <a href="{% provider_login_url 'naver' %}" class="btn btn-info">
-                <i class="fa fa-twitter mx-3"></i>네이버로 시작하기</a>
+            <h5 class="text-center my-3">SNS계정으로 로그인하기</h5>
+            <div class="d-flex flex-row justify-content-between">
+              <a href="{% url 'accounts:login' %}kakao" class="btn socialbtn"><img src="{% static 'images/login/kakao.png' %}" alt="kakaologin"></a>
+              <a href="{% url 'accounts:login' %}naver" class="btn socialbtn"><img src="{% static 'images/login/naver.png' %}" alt="naverlogin"></a>
             </div>
-
-            <div class="d-grid mb-3">
-              <a href="{% provider_login_url 'google' %}" class="btn btn-danger">
-                <i class="fa fa-google mx-3"></i>구글로 시작하기</a>
-            </div>
-
-            <!--아이디저장, 찾기 묶음-->
+              <!--아이디저장, 찾기 묶음-->
             <div class="box d-flex flex-row justify-content-between mt-5">
               <span class="input-wrap">
                 <input type="checkbox" name="saveId" id="saveId">
@@ -50,6 +45,7 @@
   </section>
 {% endblock content %}
 {% block js %}
+
   <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
   <script type="text/javascript">
     $(function () {

@@ -1,49 +1,10 @@
 /* Color Theme Swatches in Hex */
-.Perhapy-|-UX,
-UI-Design-application-mobile-1-hex {
-    color: #D9ADCD;
-}
 
-.Perhapy-|-UX,
-UI-Design-application-mobile-2-hex {
-    color: #9E95BF;
-}
-
-.Perhapy-|-UX,
-UI-Design-application-mobile-3-hex {
-    color: #34268C;
-}
-
-.Perhapy-|-UX,
-UI-Design-application-mobile-4-hex {
-    color: #8372F2;
-}
-
-.Perhapy-|-UX,
-UI-Design-application-mobile-5-hex {
-    color: #8477D9;
-}
-
-/* Color Theme Swatches in Hex */
-.Archive-Your-Dream-1-hex {
-    color: #292759;
-}
-
-.Archive-Your-Dream-2-hex {
-    color: #464AA6;
-}
-
-.Archive-Your-Dream-3-hex {
-    color: #3B3F8C;
-}
-
-.Archive-Your-Dream-4-hex {
-    color: #1F2440;
-}
-
-.Archive-Your-Dream-5-hex {
-    color: #F2CF8D;
-}
+.Perhapy-1 { color: #D9ADCD; }
+.Perhapy-2 { color: #9E95BF; }
+.Perhapy-3 { color: #34268C; }
+.Perhapy-4 { color: #8372F2; }
+.Perhapy-5 { color: #8477D9; }
 
 @font-face {
     font-family: 'Pretendard-Regular';
@@ -53,89 +14,28 @@ UI-Design-application-mobile-5-hex {
 }
 
 * {
-    font-family: 'Pretendard-Regular';
+    font-family:'Pretendard-Regular'; 
 }
 
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-p,
-blockquote,
-pre,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+html, body, div, span, applet, object, iframe,
+p, blockquote, pre, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+
 }
 
 a {
@@ -164,14 +64,20 @@ a {
     width: 32px;
 }
 
-body {
-    line-height: 1;
+html body {
+	line-height: 1;
+    height: 100%;
+    width: 100%;
 }
 
-ol,
-ul,
-li {
-    list-style: none;
+/* IE Hack */
+html #container {
+	height: 100%;
+    width: 100%;
+}
+
+ol, ul, li {
+	list-style: none;
 }
 
 blockquote,
@@ -190,6 +96,15 @@ q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+.glassnav {
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    background-color: rgba(255, 255, 255, 0.55);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+    margin-top: .9375rem;
 }
 
 .boxbg {
@@ -293,10 +208,15 @@ table {
     display: block;
 }
 
-.main_back {
-    background: linear-gradient(#f28db280, #3b3f8c80);
-    position: relative;
 
+.mainbg {
+    background:linear-gradient(#f28db280,#3b3f8c80);
+
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding-top: 6.25rem;
+    padding-bottom: 6.25rem;
 }
 
 .select_tag {
@@ -458,13 +378,23 @@ ul[class="pagination"]>li[class="page-item"]>a {
     padding: 10rem 4rem;
 }
 
-.glassmorphism-card {
-    backdrop-filter: blur(25px) saturate(200%);
-    -webkit-backdrop-filter: blur(25px) saturate(200%);
-    background-color: rgba(255, 255, 255, 0.53);
+.login {
+    width: 40rem;
+}
+
+.socialbtn {
+    height:40px;
+    width: 70px;
+    object-fit: fill;
+}
+
+.glass {
+    padding: 2rem;
+    backdrop-filter: blur(13px) saturate(200%);
+    -webkit-backdrop-filter: blur(13px) saturate(200%);
+    background-color: rgba(255, 255, 255, 0.24);
     border-radius: 12px;
     border: 1px solid rgba(209, 213, 219, 0.3);
-    padding: 2rem;
 }
 
 .pagination {
@@ -539,6 +469,7 @@ ul[class="pagination"]>li[class="page-item"]>a {
 .likecxlbtn {
     background-color: #292759;
     color: white;
+    
 }
 
 .likebtn {
@@ -552,4 +483,39 @@ ul[class="pagination"]>li[class="page-item"]>a {
     background-color: rgba(255, 255, 255, 0.55);
     border-radius: 12px;
     border: 1px solid rgba(209, 213, 219, 0.3);
+}
+
+.naver {
+    width: 100%;
+    height: 10px;
+}
+
+.checked{
+    color: #8372F2;
+}
+
+/* articles/main */
+.mainsearch {
+    width: 100%;
+    height: 31.25rem;
+    background-image: url("https://popmenucloud.com/cdn-cgi/image/width%3D1200%2Cheight%3D1200%2Cfit%3Dscale-down%2Cformat%3Dauto%2Cquality%3D60/jvdgulik/85726d7b-2468-4e08-829b-cae855be0f1a.jpg");
+    background-position: center;
+    background-size: cover;
+    margin-top: -2.25rem;
+}
+
+/* button */
+.btn-all {
+    background-color: rgba(59, 63, 140, 1); 
+    color:#fff; 
+}
+
+.btn-pink {
+    background-color: rgba(242, 141, 178, 1);  
+    color:#fff;
+}
+
+.btn-purple {
+    background-color: #8372F2;
+    color:#fff;
 }
