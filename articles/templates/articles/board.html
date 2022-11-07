@@ -10,29 +10,45 @@
     </h1>
     <!--해쉬태그-->
       <div class="select_tag">
+        <button class="tag_list" id="all">
+          <img src="{% static 'images/board/all.png' %}" style="weight:40px; height:40px;" alt="">
+          {% comment %} <a href="https://www.flaticon.com/free-icons/korea" title="korea icons">Korea icons created by Freepik - Flaticon</a> {% endcomment %}
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">All</p>
+        </button>
         <button class="tag_list" value="1" id="kor">
-          <img src="{% static 'images/board/fire1.gif' %}" style="weight:40px; height:40px;" alt="">
-          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Hot</p>
+          <img src="{% static 'images/board/korea.png' %}" style="weight:40px; height:40px;" alt="">
+          {% comment %} <a href="https://www.flaticon.com/free-icons/korea" title="korea icons">Korea icons created by Freepik - Flaticon</a> {% endcomment %}
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">한식</p>
         </button>
         <button class="tag_list" value="2" id="cha">
-          <img src="{% static 'images/board/near1.gif' %}" style="weight:40px; height:40px;" alt="">
-          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Near</p>
+          <img src="{% static 'images/board/china.png' %}" style="weight:40px; height:40px;" alt="">
+          {% comment %} <a href="https://www.flaticon.com/free-icons/china" title="china icons">China icons created by Freepik - Flaticon</a> {% endcomment %}
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">중식</p>
         </button>
         <button class="tag_list" value="3" id="jap">
-          <img src="{% static 'images/board/like1.gif' %}" style="weight:40px; height:40px;" alt="">
-          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Like</p>
+          <img src="{% static 'images/board/japan.png' %}" style="weight:40px; height:40px;" alt="">
+          {% comment %} <a href="https://www.flaticon.com/free-icons/japan" title="japan icons">Japan icons created by Freepik - Flaticon</a> {% endcomment %}
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">일식</p>
         </button>
         <button class="tag_list" value="4" id="yang">
-          <img src="{% static 'images/board/beer.png' %}" style="weight:40px; height:40px;" alt="">
-          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Beer</p>
+          <img src="{% static 'images/board/italy.png' %}" style="weight:40px; height:40px;" alt="">
+          {% comment %} <a href="https://www.flaticon.com/free-icons/italy" title="italy icons">Italy icons created by Freepik - Flaticon</a> {% endcomment %}
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">양식</p>
         </button>
-        <button class="tag_list" value="5" id="caf">
-          <img src="{% static 'images/board/wine1.gif' %}" style="weight:40px; height:40px;" alt="">
-          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Wine</p>
+        <button class="tag_list" value="5" id="world">
+          <img src="{% static 'images/board/world.png' %}" style="weight:40px; height:40px;" alt="">
+          {% comment %} <a href="https://www.flaticon.com/free-icons/world" title="world icons">World icons created by srip - Flaticon</a> {% endcomment %}
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">세계 음식</p>
         </button>
-        <button class="tag_list" value="6" id="pub">
-          <img src="{% static 'images/board/desserts.png' %}" style="weight:40px; height:40px;" alt="">
-          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">Desserts</p>
+        <button class="tag_list" value="7" id="caf">
+          <img src="{% static 'images/board/coffee.png' %}" style="weight:40px; height:40px;" alt="">
+          {% comment %} <a href="https://www.flaticon.com/free-icons/cafe" title="cafe icons">Cafe icons created by Freepik - Flaticon</a> {% endcomment %}
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">카페</p>
+        </button>
+        <button class="tag_list" value="8" id="pub">
+          <img src="{% static 'images/board/toast.png' %}" style="weight:40px; height:40px;" alt="">
+          {% comment %} <a href="https://www.flaticon.com/free-icons/beer" title="beer icons">Beer icons created by Freepik - Flaticon</a> {% endcomment %}
+          <p style="font-size: 12px; margin-top: 5px; font-weight: bold;">펍</p>
         </button>
       </div>
     </div>
@@ -41,7 +57,7 @@
       <a href="{% url 'articles:create' %}" type="button" class="btn btn-all mb-4">맛집 등록</a>
     {% endif %}
     <!-- 카드 리스트 -->
-    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5" id="masterdiv">
       {% for restaurant in restaurants %}
         <div class="col">
           <div class="page_card mt-3 px-2 py-3">

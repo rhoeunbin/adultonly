@@ -28,35 +28,52 @@ def home(request):
     }
     return render(request, "articles/home.html", context)
 
+def board_filter(request, pk):
+    restaurants = Restaurant.objects.filter(cusine_code=pk).order_by("-pk")
+    page = request.GET.get("page")
+    paginator = Paginator(restaurants, 6)
+    try:
+        page_obj = paginator.get_page(page)
+    except PageNotAnInteger:
+        page = 1
+        page_obj = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        page_obj = paginator.page(page)
+    print(page_obj)
+    context = {
+        "restaurants": page_obj,
+    }
+    return render(request, "articles/board.html", context)
 
 def board(request):
 
-    if request.method == "POST":
-        print(request.POST)
-        print(request.POST.get("code"))
-        print("데이터가 왜 안와")
-        restaurants = Restaurant.objects.filter(cusine_code=request.POST.get("code")).order_by("-pk")
-        context = {
-            'restaurants': list(restaurants.values()),
-        }
-        return JsonResponse(context)
-    else:
-        restaurants = Restaurant.objects.order_by("-pk")
-        page = request.GET.get("page")
-        paginator = Paginator(restaurants, 6)
-        try:
-            page_obj = paginator.get_page(page)
-        except PageNotAnInteger:
-            page = 1
-            page_obj = paginator.page(page)
-        except EmptyPage:
-            page = paginator.num_pages
-            page_obj = paginator.page(page)
-        print(page_obj)
-        context = {
-            "restaurants": page_obj,
-        }
-        return render(request, "articles/board.html", context)
+    # if request.method == "POST":
+    #     print(request.POST)
+    #     print(request.POST.get("code"))
+    #     print("데이터가 왜 안와")
+    #     restaurants = Restaurant.objects.filter(cusine_code=request.POST.get("code")).order_by("-pk")
+    #     context = {
+    #         'restaurants': list(restaurants.values()),
+    #     }
+    #     return JsonResponse(context)
+    # else:
+    restaurants = Restaurant.objects.order_by("-pk")
+    page = request.GET.get("page")
+    paginator = Paginator(restaurants, 6)
+    try:
+        page_obj = paginator.get_page(page)
+    except PageNotAnInteger:
+        page = 1
+        page_obj = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        page_obj = paginator.page(page)
+    print(page_obj)
+    context = {
+        "restaurants": page_obj,
+    }
+    return render(request, "articles/board.html", context)
 
 
 # def detail(request, pk):
