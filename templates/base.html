@@ -52,7 +52,7 @@
         {% if request.user.is_authenticated %}
         <div class="nav-item">
           <a href="{% url 'accounts:profile' user.pk %}" class="nav-link title_profile">
-              <img src="{% static 'img/anonymous.png' %}" class="img_profile" alt="프로필사진">
+              <img src="{{ user.profile_pic.url }}" class="img_profile" alt="프로필사진">
           </a>
         </div>
         <div class="nav-item dropdown" style="margin: 0 100px 0 0;">

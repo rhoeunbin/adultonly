@@ -5,12 +5,13 @@
 <section class="mainbg">
   <div class="container text-center mt-5 py-5">
     <div class="boxbg py-5">
-      <img src="" alt="">
+      <div class="profilepic">
       {% if user.profile_pic %}
-        <img src="{{ user.profile_pic.url }}" alt="프사" class="profilepic">
+        <img src="{{ user.profile_pic.url }}" alt="프사" class="pf_img">
         {% else %}
-        <img src="{% static 'images/profile/default.png' %}" alt="프사" class="profilepic">
+        <img src="{% static 'images/profile/default.png' %}" alt="프사" class="pf_img">
         {% endif %}
+      </div>
       <h1 class="my-2 ">{{ user.username }}님의 프로필</h1>
       <p class="my-2">{{ user.email }}</p>
       <p class="my-2">{{ user.full_name }}</p>

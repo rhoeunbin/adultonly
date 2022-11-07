@@ -97,7 +97,7 @@ def detail(request, pk):
             comment.restaurant = restaurant
             comment.user = request.user
             comment.save()
-        return redirect('articles:detail', restaurant.pk)
+        return redirect("articles:detail", restaurant.pk)
 
     reviews = restaurant.articlecomment_set.values()
     avg_rating = 0
@@ -221,6 +221,7 @@ def search_results(request):
 def aboutus(request):
     return render(request, "articles/aboutus.html")
 
+
 @login_required
 def create_comment(request, pk):
     restaurant = Restaurant.objects.get(pk=pk)
@@ -230,4 +231,4 @@ def create_comment(request, pk):
         comment.restaurant = restaurant
         comment.user = request.user
         comment.save()
-    return redirect('articles:detail', restaurant.pk)
+    return redirect("articles:detail", restaurant.pk)

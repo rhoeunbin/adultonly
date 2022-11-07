@@ -18,3 +18,6 @@ class CustomUserChangeForm(UserChangeForm):
             "email",
             "profile_pic",
         )
+        labels = {
+            "profile_pic": "프로필 사진",
+        }

@@ -15,7 +15,11 @@ class User(AbstractUser):
     )
     kakao_id = models.BigIntegerField(null=True, unique=True)
     naver_id = models.CharField(null=True, unique=True, max_length=100)
-    profile_pic = models.ImageField(upload_to="profile/%Y%m%d/", null=True)
+    profile_pic = models.ImageField(
+        upload_to="profile/%Y%m%d/",
+        default="../static/images/profile/default.png",
+        null=True,
+    )
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     @property
