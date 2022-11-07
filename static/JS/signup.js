@@ -4,7 +4,6 @@ function doOpenCheck(chk) {
     for (var i = 0; i < obj.length; i++) {
         if (obj[i] != chk) {
             obj[i].checked = false;
-            obj[i].required = "";
             obj_pos[i].style.backgroundColor = "";
             obj_pos[i].style.color = "gray";
         }
@@ -36,7 +35,9 @@ domainListEl.addEventListener('change', (event) => {
 const idValidation = document.querySelector("#id-check");
 // const idVal = document.querySelector("#info__id");
 const p = document.querySelector("#id-error");
-idValidation.addEventListener('click', function () {
+const resultCheck = document.querySelector("#result-check");
+idValidation.addEventListener('click', function (event) {
+    event.preventDefault()
     const checkId = document.querySelector("#check_id");
     const regExp = /^[a-z0-9]{4,20}$/;
     if (!regExp.test(checkId.value)) {
@@ -52,17 +53,75 @@ idValidation.addEventListener('click', function () {
             }
         })
             .then((response) => {
-                console.log(response.data.check)
+                console.log(response)
                 if (response.data.check) {
                     p.innerText = "이미 등록된 아이디 입니다.";
+                    p.style.color = "red";
+                    checkId.value = ""
+                    resultCheck.value = 2;
                 }
                 else {
                     p.innerText = "사용 가능한 아이디 입니다.";
                     p.style.color = 'green';
+                    resultCheck.value = 1;
                 }
             })
             .catch((response) => {
                 console.log('경고')
             })
+    }
+})
+
+const submitBtn = document.querySelector("#submitbtn");
+const checkForm = document.querySelector("#form_check");
+var checkJob = document.getElementsByName("job_pos");
+submitBtn.addEventListener("click", function (event) {
+    event.preventDefault()
+    console.log(resultCheck.value)
+    const checkId = document.querySelector("#check_id");
+    const p = document.querySelector("#id-error");
+    const p1 = document.querySelector("#pass_1");
+    const p2 = document.querySelector("#pass_2");
+    if (checkForm.check_id.value === "" || checkForm.password1.value === "" || checkForm.password2.value === "") {
+        if (checkForm.check_id.value === "") {
+            p.innerText = "아이디를 입력해 주세요.";
+            p.style.color = "red";
+            return checkId.focus();
+        }
+        else {
+            p.innerText = ""
+        }
+        if (checkForm.password1.value === "") {
+            p1.innerText = "비밀번호를 입력하세요."
+            p1.style.color = "red";
+            p1.style.margin = "1rem 0 0 0";
+            return checkForm.password1.focus();
+        }
+        else {
+            p1.innerText = ""
+        }
+    }
+    else {
+        if (checkForm.password1.value !== checkForm.password2.value) {
+            alert("비밀번호를 다시 확인해 주세요.")
+        }
+        else {
+            if (resultCheck.value === undefined) {
+                alert("아이디 중복 검사를 진행하세요.")
+                idValidation.focus();
+            }
+            else if (resultCheck.value === 2) {
+                alert("아이디를 다시 확인해 주세요.")
+            }
+            else {
+                console.log(checkJob[0], checkJob[1]);
+                if (checkJob[0] && checkJob[1]) {
+                    alert("직업을 선택해 주세요.")
+                }
+                else {
+                    checkForm.submit();
+                }
+            }
+        }
     }
 })

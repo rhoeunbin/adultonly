@@ -19,7 +19,9 @@ def main(request):
 
 def signup(request):
     if request.method == "POST":
-        email_address = "@".join([request.POST.get("email_id"),request.POST.get("email_address")])
+        email_address = "@".join(
+            [request.POST.get("email_id"), request.POST.get("email_address")]
+        )
         new_request = {
             "username": request.POST.get("username"),
             "password1": request.POST.get("password1"),
@@ -45,15 +47,15 @@ def signup(request):
             else:
                 check = False
             context = {
-                'check' : check,
+                "check": check,
             }
             return JsonResponse(context)
-        else:    
+        else:
             form = CustomUserCreationForm()
             context = {
                 "form": form,
             }
-        return render(request, "accounts/signup.html", context)
+            return render(request, "accounts/signup.html", context)
 
 
 def login(request):

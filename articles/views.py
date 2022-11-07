@@ -22,11 +22,18 @@ def index(request):
 
 
 def home(request):
-    restaurants = Restaurant.objects.all()
+    restaurants_1 = Restaurant.objects.order_by("-like_users")[:3]
+    restaurants_2 = Restaurant.objects.order_by("-like_users")[3:6]
+    restaurants_3 = Restaurant.objects.order_by("-like_users")[6:9]
+    restaurants_4 = Restaurant.objects.order_by("-like_users")[9:12]
     context = {
-        "restaurants": restaurants,
+        "restaurants_1": restaurants_1,
+        "restaurants_2": restaurants_2,
+        "restaurants_3": restaurants_3,
+        "restaurants_4": restaurants_4,
     }
     return render(request, "articles/home.html", context)
+
 
 def board_filter(request, pk):
     restaurants = Restaurant.objects.filter(cusine_code=pk).order_by("-pk")
@@ -45,6 +52,7 @@ def board_filter(request, pk):
         "restaurants": page_obj,
     }
     return render(request, "articles/board.html", context)
+
 
 def board(request):
 
@@ -98,7 +106,7 @@ def detail(request, pk):
 
     context = {
         "restaurant": restaurant,
-        "comments": restaurant.article.comment_set.all().order_by("-created_at"),
+        "comments": restaurant.articlecomment_set.all().order_by("-created_at"),
         "comment_form": form,
         "latitude": lat,
         "longitude": lon,
