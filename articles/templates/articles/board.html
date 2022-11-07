@@ -53,7 +53,7 @@
       </div>
     </div>
   <div class="container-lg" id="board_out">
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and user.is_staff == 1 %}
       <a href="{% url 'articles:create' %}" type="button" class="btn btn-all mb-4">맛집 등록</a>
     {% endif %}
     <!-- 카드 리스트 -->
