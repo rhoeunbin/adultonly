@@ -26,7 +26,7 @@
               <a href="{% url 'articles:board' %}" style="position:absolute; right:0; top: 1rem; font-size: 1.5rem;">맛집리스트👉👉</a>
               <div class="row row-cols-1 row-cols-md-4 g-4 d-flex justify-content-around">
                 {% for restaurant1 in restaurants_1 %}
-                <div class="col">
+                <div class="col px-0">
                   <div class="page_card mt-3 px-2 py-3">
                   <a href="{% url 'articles:detail' restaurant1.pk %}" class="card-link text-decoration-none">
                     <h5 class="card-header mb-2">{{ restaurant1.title }}</h5>
@@ -58,7 +58,7 @@
               <a href="{% url 'articles:board' %}" style="position:absolute; right:0; top: 1rem; font-size: 1.5rem;">맛집리스트👉👉</a>
               <div class="row row-cols-1 row-cols-md-4 g-4 d-flex justify-content-around">
                 {% for restaurant2 in restaurants_2 %}
-                <div class="col">
+                <div class="col px-0">
                   <div class="page_card mt-3 px-2 py-3">
                   <a href="{% url 'articles:detail' restaurant2.pk %}" class="card-link text-decoration-none">
                     <h5 class="card-header mb-2">{{ restaurant2.title }}</h5>
@@ -90,7 +90,7 @@
               <a href="{% url 'articles:board' %}" style="position:absolute; right:0; top: 1rem; font-size: 1.5rem;">맛집리스트👉👉</a>
               <div class="row row-cols-1 row-cols-md-4 g-4 d-flex justify-content-around">
                 {% for restaurant3 in restaurants_3 %}
-                <div class="col">
+                <div class="col px-0">
                   <div class="page_card mt-3 px-2 py-3">
                   <a href="{% url 'articles:detail' restaurant3.pk %}" class="card-link text-decoration-none">
                     <h5 class="card-header mb-2">{{ restaurant3.title }}</h5>
@@ -122,7 +122,7 @@
               <a href="{% url 'articles:board' %}" style="position:absolute; right:0; top: 1rem; font-size: 1.5rem;">맛집리스트👉👉</a>
               <div class="row row-cols-1 row-cols-md-4 g-4 d-flex justify-content-around">
                 {% for restaurant4 in restaurants_4 %}
-                <div class="col">
+                <div class="col px-0">
                   <div class="page_card mt-3 px-2 py-3">
                   <a href="{% url 'articles:detail' restaurant4.pk %}" class="card-link text-decoration-none">
                     <h5 class="card-header mb-2">{{ restaurant4.title }}</h5>

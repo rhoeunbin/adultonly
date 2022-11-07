@@ -23,9 +23,9 @@
             {{ total_comments }}</p>
         </div>
         {% if post.image %}
-          <img src="{{ post.image.url }}" alt="{{ post.img_path }}" class="card-img d-block user-select-none" width="auto" height="200" viewbox="0 0 318 180">
+          <img src="{{ post.image.url }}" alt="{{ post.img_path }}" style="height: 31.25rem; width: auto; object-fit: contain;" class="card-img d-block user-select-none" width="auto" height="200" viewbox="0 0 318 180">
         {% else %}
-          <img src="{% static 'img/anonymous.png' %}" alt="No_images" class="card-img d-block user-select-none" width="auto" height="200" viewbox="0 0 318 180">
+          <img src="{% static 'img/anonymous.png' %}" alt="No_images" style="height: 31.25rem; width: auto; object-fit: contain;" class="card-img d-block user-select-none" width="auto" height="200" viewbox="0 0 318 180">
         {% endif %}
         <div class="card-body" style="min-height: 250px">
           <p class="card-text text-wrap">{{ post.content|striptags }}</p>
