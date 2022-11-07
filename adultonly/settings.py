@@ -22,13 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 from dotenv import load_dotenv
 import os
+
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv("DEBUG") == "True"
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".herokuapp.com"]
 
 
 # Application definition
@@ -42,9 +43,9 @@ INSTALLED_APPS = [
     "django_bootstrap5",
     "django_extensions",
     "star_ratings",
-    'widget_tweaks',
-    'storages',
-    ''
+    "widget_tweaks",
+    "storages",
+    ""
     # default
     "django.contrib.admin",
     "django.contrib.auth",
@@ -53,31 +54,31 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # allauth
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account', # 가입한 계정 관리
-    'allauth.socialaccount', # 소셜 계정으로 가입한 계정 관리
-    'allauth.socialaccount.providers.naver',
-    'allauth.socialaccount.providers.google',
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",  # 가입한 계정 관리
+    "allauth.socialaccount",  # 소셜 계정으로 가입한 계정 관리
+    "allauth.socialaccount.providers.naver",
+    "allauth.socialaccount.providers.google",
 ]
 ## allauth
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 ## allauth
 SITE_ID = 1
 
 ## aws s3
-DEFAULT_FILE_STORAGE = 'adultonly.storages.MediaStorage'
-STATICFILES_STORAGE = 'adultonly.storages.StaticStorage'
+# DEFAULT_FILE_STORAGE = 'adultonly.storages.MediaStorage'
+# STATICFILES_STORAGE = 'adultonly.storages.StaticStorage'
 
-MEDIAFILES_LOCATION = 'media'
-STATICFILES_LOCATION = 'static'
+# MEDIAFILES_LOCATION = 'media'
+# STATICFILES_LOCATION = 'static'
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+# AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+# AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -164,9 +165,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+STATICFILES_DIRS = ((os.path.join(BASE_DIR, "static")),)
 
 
 # Media files (Files uploaded by Users)
