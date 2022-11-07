@@ -9,7 +9,7 @@ urlpatterns = [
     path("create/", views.create, name="create"),
     path("<int:pk>/update/", views.update, name="update"),
     path("<int:pk>/delete/", views.delete, name="delete"),
-    path("comments/<int:pk>", views.create_comment, name="create_comment"),
+    path("comments/<int:pk>/", views.create_comment, name="create_comment"),
     path(
         "<int:pk>/comments/<int:comment_pk>/delete/",
         views.delete_comment,

@@ -4,14 +4,14 @@
 {% block content %}
 <section class="mainbg">
   <div class="container mt-5 py-5">
-    <div class="boxbg p-5">
-    <h1 class="text-center">프로필 업데이트</h1>
+    <div class="boxbg py-5 px-5">
+      <h1 class="text-center">프로필 업데이트</h1>
       <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <input class="btn my-2" type="submit" style="background-color: rgba(59, 63, 140, 1); color:#fff; " value="저장">
-        <a class="btn my-2" href="{% url 'accounts:change_password' %}" style="background-color: rgba(242, 141, 178, 1);  color:#fff;">비밀번호 변경</a>
-      </form>
+        <input class="btn btn-all my-2" type="submit" value="저장">
+        <a class="btn btn-pink my-2" href="{% url 'accounts:change_password' %}">비밀번호 변경</a>
+     </form>
     </div>
   </div>
 </section>

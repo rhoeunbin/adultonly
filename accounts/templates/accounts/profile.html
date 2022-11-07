@@ -17,9 +17,9 @@
       {% if request.user != user %}
         <a href="{% url 'accounts:follow' user.pk %}">
           {% if request.user in user.followers.all %}
-            <input type="submit" value='팔로우 취소'>
-          {% else %}
-            <input type="submit" value='팔로우'>
+            <input class="btn btn-pink my-2" type="submit" value='팔로우 취소'>
+          {% else %} 
+            <input class="btn btn-all my-2" type="submit" value='팔로우'>
           {% endif %}
         </a>
       {% endif %}
@@ -55,7 +55,7 @@
         {% if user.is_authenticated %}
           <a class="btn likecxlbtn" href="{% url 'accounts:logout' %}">로그아웃</a>
           {% if request.user == user %}
-          <a class="btn" href="{% url 'accounts:update' %}" style="background-color: #8372F2; color:#fff;">프로필 수정</a>
+          <a class="btn btn-purple" href="{% url 'accounts:update' %}">프로필 수정</a>
           <a class="btn likebtn" href="{% url 'accounts:delete' %}">회원탈퇴</a>  
           {% endif %}
         {% else %}

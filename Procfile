@@ -1,0 +1,1 @@
+web: gunicorn adultonly.wsgi --log-file -
