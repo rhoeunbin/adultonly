@@ -3,7 +3,7 @@
 {% load widget_tweaks %}
 {% block content %}
   <section class="loginbg">
-    <div class="container">
+    <div class="container px-4">
       <div class="boxbg p-5 login">
         <h1 class="text-center mb-3">로그인</h1>
         <div class="row">
@@ -16,9 +16,9 @@
             </form>
             {% load socialaccount %}
             <h5 class="text-center my-3">SNS계정으로 로그인하기</h5>
-            <div class="d-flex flex-row justify-content-between">
-              <a href="{% url 'accounts:login' %}kakao" class="btn socialbtn"><img src="{% static 'images/login/kakao.png' %}" alt="kakaologin"></a>
-              <a href="{% url 'accounts:login' %}naver" class="btn socialbtn"><img src="{% static 'images/login/naver.png' %}" alt="naverlogin"></a>
+            <div class="d-flex flex-row" style="justify-content: space-evenly; ">
+              <a href="{% url 'accounts:login' %}kakao"><img src="{% static 'images/login/kakaoo.png' %}" alt="kakaologin"></a>
+              <a href="{% url 'accounts:login' %}naver"><img class="socialbtn" src="{% static 'images/login/nnaver.png' %}" alt="naverlogin"></a>
             </div>
               <!--아이디저장, 찾기 묶음-->
             <div class="box d-flex flex-row justify-content-between mt-5">
