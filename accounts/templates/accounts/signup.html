@@ -3,6 +3,11 @@
 {% load static %}
 {% block content %}
 <section class="mainbg">
+  {% if val %}
+  <script>
+  alert('유효성 검사 실패!')
+  </script>
+{% endif %}
   <div class="back_container container mb-5">
     <div class="signup boxbg">
     <h1 class="mt-5">회원가입</h1>
@@ -16,9 +21,9 @@
         <p id="id-error"></p>
       </div>
       <div required class="password_form" id="info__pw">
-      <input class="mt-5" type="password" id="password1" name="password1" placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8~20자)"/>
+      <input class="mt-5" type="password" autoComplete="off" id="password1" name="password1" placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8~20자)"/>
       <p id="pass_1"></p>
-      <input class="my-5" type="password" id="password2" name="password2" placeholder="비밀번호 재입력"/>
+      <input class="my-5" type="password" autoComplete="off" id="password2" name="password2" placeholder="비밀번호 재입력"/>
       <p id="pass_2"></p>
       <div class="error-msg"></div>
     </div>
@@ -42,13 +47,13 @@
     </div> {% endcomment %}
     <div required class="job_form">
     <input name="job" type="checkbox" value="1" autofocus onclick="doOpenCheck(this);" id="normal">
-    <label name="job_pos" id="normal" for="normal"><div class="job_btn">일반인</div></label>
+    <label name="job_pos" id="normal" style="color: gray;" for="normal"><div class="job_btn">일반인</div></label>
     <input name="job" type="checkbox" value="2" onclick="doOpenCheck(this);" id="owner">
-    <label name="job_pos" id="owner" for="owner"><div class="job_btn">사장님</div></label>
+    <label name="job_pos" id="owner" style="color: gray;" for="owner"><div class="job_btn">사장님</div></label>
     </div>
     <div class="submitBtn">
       <div id="result-check"></div>
-      <input type="submit" id="submitbtn" value="가입하기">
+      <input type="button" id="submitbtn" value="가입하기">
     </div>
     <p class="text-center my-5">이미 회원이신가요? 👉 <a href="{% url 'accounts:login' %}">로그인</a></p>
     </form>

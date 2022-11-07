@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 import requests
 from django.http import JsonResponse
+from django.contrib import messages
 
 
 # Create your views here.
@@ -19,18 +20,22 @@ def main(request):
 
 def signup(request):
     if request.method == "POST":
-        email_address = "@".join(
-            [request.POST.get("email_id"), request.POST.get("email_address")]
-        )
+        if request.POST.get("email_id") and request.POST.get("email_address"):
+            email_address = "@".join(
+                [request.POST.get("email_id"), request.POST.get("email_address")]
+            )
+        else:
+            email_address = "@".join([request.POST.get("username"), "aa.com"])
         new_request = {
             "username": request.POST.get("username"),
             "password1": request.POST.get("password1"),
             "password2": request.POST.get("password2"),
             "email": email_address,
-            "last_login": datetime.now(),
+            "csrfmiddlewaretoken": request.POST.get("csrfmiddlewaretoken"),
         }
         form = CustomUserCreationForm(new_request)
         if form.is_valid():
+
             user_form = form.save(commit=False)
             if request.POST.get("job") == "2":
                 user_form.is_staff = True
@@ -38,6 +43,14 @@ def signup(request):
                 user_form.is_user = True
             form.save()
             return redirect("accounts:main")
+        else:
+            form = CustomUserCreationForm()
+            val = 1
+            context = {
+                "form": form,
+                "val": val,
+            }
+            return render(request, "accounts/signup.html", context)
     else:
         check_user = request.GET.get("userId")
         if check_user:
