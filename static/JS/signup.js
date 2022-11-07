@@ -114,11 +114,11 @@ submitBtn.addEventListener("click", function (event) {
                 alert("아이디를 다시 확인해 주세요.")
             }
             else {
-                console.log(checkJob[0], checkJob[1]);
-                if (checkJob[0] && checkJob[1]) {
+                if (checkJob[0].style.color === "gray" && checkJob[1].style.color === "gray") {
                     alert("직업을 선택해 주세요.")
                 }
                 else {
+                    resultCheck.disable = true;
                     checkForm.submit();
                 }
             }

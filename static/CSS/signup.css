@@ -218,7 +218,6 @@ option {
     align-items: center;
     display: flex;
     cursor: pointer;
-    color: gray;
 }
 
 .job_form input {
