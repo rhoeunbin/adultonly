@@ -19,4 +19,5 @@ urlpatterns = [
     ),
     path("search/", views.search_results, name="search"),
     path("aboutus/", views.aboutus, name="aboutus"),
+    path("board/<int:pk>/", views.board_filter, name="board_filter"),
 ]
