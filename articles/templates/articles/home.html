@@ -8,10 +8,10 @@
 {% block content %}
   <section class="mainbg py-3">
     <div class="mainsearch d-flex justify-content-center align-items-center">
-      <form class="d-flex w-50 mb-3" id="search-form" autocomplete="off">
+      {% comment %} <form class="d-flex w-50 mb-3" id="search-form" autocomplete="off">
         {% csrf_token %}
         <input type="search" id="search-input" class="form-control form-control-dark text-bg-light" placeholder="Search..." aria-label="Search">
-      </form>
+      </form> {% endcomment %}
       <div class="p-3 bg-body rounded shadow-sm d-none w-50" id="results-box"></div> 
     </div>
     <div class="container">      

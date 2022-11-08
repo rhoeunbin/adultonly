@@ -9,7 +9,7 @@ dotenv.load_dotenv(dotenv_file)
 
 
 def get_latitude_longitude(address):
-    client_id = os.environ["kakao_id"]
+    client_id = os.environ["naver_id"]
     client_secret = os.environ["key"]
 
     endpoint = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode"

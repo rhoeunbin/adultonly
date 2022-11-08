@@ -15,7 +15,7 @@
     <div class="boxbg">
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ restaurant_form.as_p }}
+        {% bootstrap_form restaurant_form %}
         <div class="form-group my-3 d-flex justify-content-between">
           <a href="{% url 'articles:detail' restaurant_pk %}" class="btn btn-primary">뒤로가기</a>
           <button type="submit" class="btn btn-primary">등록</button>

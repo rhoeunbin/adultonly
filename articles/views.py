@@ -88,7 +88,7 @@ def detail(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     lat, lon = get_latitude_longitude(restaurant.address)
     form = CommentForm(request.POST, request.FILES or None)
-    client_id = os.environ["kakao_id"]
+    client_id = os.environ["naver_id"]
     data = {}
     if request.method == "POST":
         if form.is_valid():
