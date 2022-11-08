@@ -59,9 +59,9 @@
           </div>
           <div class="detailbox col p-3">
             <h5 class="mb-4">상세 정보</h5>
-              <p class="card-text text-wrap my-2">
-                <i class="fa-solid fa-utensils"></i> 여기해쉬태그{{ restaurant.cuisin_code }}
-              </p>
+              {% comment %} <p class="card-text text-wrap my-2">
+                <i class="fa-solid fa-utensils"></i> 여기해쉬태그{{ restaurant.cusine_code }}
+              </p> {% endcomment %}
               <p class="card-text text-wrap my-2">
                 <i class="fa-solid fa-phone"></i> {{ restaurant.phone_number }}
               </p>
@@ -178,7 +178,7 @@
             <div class="row d-flex">
               <div class="col-12">
                 <div class="d-flex flex-start mb-4 ">
-                  <a href="{% url 'accounts:profile' user.pk %}">
+                  <a href="{% url 'accounts:profile' comment.user.pk %}">
                     <img class="rounded-circle shadow-1-strong me-3" src="{{ comment.user.profile_pic.url }}" alt="avatar" width="65" height="65"/>
                   </a>
                   <div class="card w-100">
@@ -192,7 +192,9 @@
                             <!-- <a href="#!" class="link-muted">
                               <i class="fas fa-reply me-1"></i>
                               수정</a> -->
+                            {% if request.user == comment.pk %}
                             <a href="{% url 'articles:delete_comment' restaurant.pk comment.pk %}" class="link-muted" method="post">삭제</a>
+                            {% endif %}
                           </div>
                         </div>
                         <p class="small mb-3">{{ comment.created_at }}</p>
@@ -202,7 +204,7 @@
                         </p>
                         <div>
                           {% if comment.image %}
-                            <img src="{{ comment.image.url }}" alt="">
+                            <img src="{{ comment.image.url }}" style="height: 20rem; width: 30rem; object-fit: contain;" alt="">
                           {% else %}
                           {% endif %}
                         </div>
@@ -431,7 +433,6 @@
               <i class="fa-solid fa-bookmark"></i>
           `;
             }
-            alert("stop : " + response.is_liked);
           }
 
         })

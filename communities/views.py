@@ -98,7 +98,10 @@ def create_comment(request, pk):
         comment.post = post
         comment.user = request.user
         comment.save()
-        context = {"content": comment.content, "username": comment.user.username}
+        context = {
+            "content": comment.content,
+            "username": comment.user.username,
+        }
     return redirect("communities:detail", post.pk)
 
 

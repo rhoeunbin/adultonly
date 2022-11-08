@@ -39,13 +39,11 @@
       <a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
       </p>
     {% endfor %}
-
-
         <h3 class="my-2">작성 댓글</h3>
         <p class="text-muted my-3">{{ user.comment_set.count }}개 작성 완료</p>
-        {% for comment in user.comment_set.all%}
+        {% for comment in user.articlecomment_set.all%}
         <p>{{ forloop.counter }}
-        <a href="{ url 'articles:detail' comment.article_id }">{{ comment.content }}</a>
+        <a href="{% url 'articles:detail' comment.restaurant_id %}">{{ comment.content }}</a>
         </p>
         {% endfor %}
 
